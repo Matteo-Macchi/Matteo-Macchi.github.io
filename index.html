@@ -11,20 +11,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #06080d;
-      --bg-surface: #0b1018;
-      --bg-card: #101722;
-      --gold: #7ea6ff;
-      --gold-light: #a9c2ff;
-      --gold-dim: rgba(126, 166, 255, 0.14);
-      --gold-border: rgba(126, 166, 255, 0.20);
-      --text-primary: #f2f5fb;
-      --text-secondary: #9aa6ba;
-      --text-muted: #5f6b7d;
-      --border: rgba(255, 255, 255, 0.06);
-      --serif: 'Cormorant Garamond', Georgia, serif;
-      --sans: 'Jost', sans-serif;
-    }
+  --bg: #05070b;
+  --bg-surface: #0a0f17;
+  --bg-card: #0f1621;
+  --gold: #6f8fcb;
+  --gold-light: #92addd;
+  --gold-dim: rgba(111, 143, 203, 0.14);
+  --gold-border: rgba(111, 143, 203, 0.18);
+  --text-primary: #f3f6fb;
+  --text-secondary: #9ca7b8;
+  --text-muted: #5d6878;
+  --border: rgba(255, 255, 255, 0.055);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Jost', sans-serif;
+}
 
     html { scroll-behavior: smooth; }
 
@@ -90,15 +90,15 @@
       overflow: hidden;
     }
 
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 58% 50% at 72% 38%, rgba(126, 166, 255, 0.09) 0%, transparent 72%),
-        radial-gradient(ellipse 42% 58% at 18% 72%, rgba(72, 113, 212, 0.08) 0%, transparent 64%),
-        radial-gradient(ellipse 34% 30% at 50% 20%, rgba(169, 194, 255, 0.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 58% 50% at 72% 38%, rgba(111, 143, 203, 0.08) 0%, transparent 72%),
+    radial-gradient(ellipse 42% 58% at 18% 72%, rgba(54, 84, 138, 0.08) 0%, transparent 64%),
+    radial-gradient(ellipse 34% 30% at 50% 20%, rgba(146, 173, 221, 0.035) 0%, transparent 70%);
+  pointer-events: none;
+}
 
     .hero-line {
       position: absolute;
