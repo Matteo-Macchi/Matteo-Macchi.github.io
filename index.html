@@ -123,26 +123,26 @@
       margin-bottom: 2rem;
     }
 
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      white-space: nowrap;
-    }
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+  line-height: 1;
+}
 
-    .hero-tag::before {
+.hero-tag::before {
   content: '';
-  display: inline-block;
+  display: block;
   width: 30px;
   min-width: 30px;
-  height: 1px;
-  background: var(--gold);
+  height: 0;
+  border-top: 1px solid var(--gold);
   flex: 0 0 30px;
-  transform: translateY(-1px);
 }
 
     h1 {
