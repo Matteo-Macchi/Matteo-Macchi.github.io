@@ -126,7 +126,7 @@
     .hero-tag {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.7rem;
       font-size: 0.68rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -135,13 +135,15 @@
     }
 
     .hero-tag::before {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 1px;
-      background: var(--gold);
-      flex-shrink: 0;
-    }
+  content: '';
+  display: inline-block;
+  width: 30px;
+  min-width: 30px;
+  height: 1px;
+  background: var(--gold);
+  flex: 0 0 30px;
+  transform: translateY(-1px);
+}
 
     h1 {
       font-family: var(--serif);
