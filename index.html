@@ -115,16 +115,19 @@
     }
 
     .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 2rem;
-    }
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
 
+.hero-tags {
+  margin-bottom: 2rem;
+}
     .hero-tag::before {
       content: '';
       display: block;
@@ -651,7 +654,10 @@
     <div class="hero-bg"></div>
     <div class="hero-line"></div>
     <div class="hero-content">
-      <div class="hero-tag">Banking &amp; Finance · London</div>
+      <div class="hero-tags">
+  <div class="hero-tag">Banking &amp; Finance · London</div>
+  <div class="hero-tag">Economics &amp; Management · Milan</div>
+</div>
       <h1>Matteo<br /><em>Macchi</em></h1>
       <p class="hero-sub">
         MSc Banking &amp; Finance candidate at Queen Mary University of London, on track for Distinction.
