@@ -11,20 +11,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-  --bg: #05070b;
-  --bg-surface: #0a0f17;
-  --bg-card: #0f1621;
---gold: #8fa6c9;
---gold-light: #c2d1ea;
-  --gold-dim: rgba(111, 143, 203, 0.14);
-  --gold-border: rgba(111, 143, 203, 0.18);
-  --text-primary: #f3f6fb;
-  --text-secondary: #9ca7b8;
-  --text-muted: #5d6878;
-  --border: rgba(255, 255, 255, 0.055);
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --sans: 'Jost', sans-serif;
-}
+      --bg: #05070b;
+      --bg-surface: #0a0f17;
+      --bg-card: #0f1621;
+      --gold: #8fa6c9;
+      --gold-light: #c2d1ea;
+      --gold-dim: rgba(111, 143, 203, 0.14);
+      --gold-border: rgba(111, 143, 203, 0.18);
+      --text-primary: #f3f6fb;
+      --text-secondary: #9ca7b8;
+      --text-muted: #5d6878;
+      --border: rgba(255, 255, 255, 0.055);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', sans-serif;
+    }
 
     html { scroll-behavior: smooth; }
 
@@ -90,15 +90,15 @@
       overflow: hidden;
     }
 
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 58% 50% at 72% 38%, rgba(111, 143, 203, 0.08) 0%, transparent 72%),
-    radial-gradient(ellipse 42% 58% at 18% 72%, rgba(54, 84, 138, 0.08) 0%, transparent 64%),
-    radial-gradient(ellipse 34% 30% at 50% 20%, rgba(146, 173, 221, 0.035) 0%, transparent 70%);
-  pointer-events: none;
-}
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 58% 50% at 72% 38%, rgba(111, 143, 203, 0.08) 0%, transparent 72%),
+        radial-gradient(ellipse 42% 58% at 18% 72%, rgba(54, 84, 138, 0.08) 0%, transparent 64%),
+        radial-gradient(ellipse 34% 30% at 50% 20%, rgba(146, 173, 221, 0.035) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
     .hero-line {
       position: absolute;
@@ -108,35 +108,39 @@
     }
 
     .hero-content {
-      max-width: 900px;
+      max-width: 760px;
+      width: 100%;
       opacity: 0;
       transform: translateY(30px);
       animation: fadeUp 1s ease 0.2s forwards;
     }
 
-    .hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 0.5rem;
-}
+    .hero-tags {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.45rem;
+      margin-bottom: 2rem;
+    }
 
-.hero-tags {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 2rem;
-}
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
     .hero-tag::before {
       content: '';
       display: block;
       width: 28px;
       height: 1px;
       background: var(--gold);
+      flex-shrink: 0;
     }
 
     h1 {
@@ -658,9 +662,9 @@
     <div class="hero-line"></div>
     <div class="hero-content">
       <div class="hero-tags">
-  <div class="hero-tag">Banking &amp; Finance · London</div>
-  <div class="hero-tag">Economics &amp; Management · Milan</div>
-</div>
+        <div class="hero-tag">Banking &amp; Finance · London</div>
+        <div class="hero-tag">Economics &amp; Management · Milan</div>
+      </div>
       <h1>Matteo<br /><em>Macchi</em></h1>
       <p class="hero-sub">
         MSc Banking &amp; Finance candidate at Queen Mary University of London, on track for Distinction.
@@ -670,7 +674,9 @@
       <div class="hero-ctas">
         <a href="https://www.linkedin.com/in/matteo-macchi02" target="_blank" class="btn-primary">
           LinkedIn Profile
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </a>
         <a href="#portfolio" class="btn-secondary">View Portfolio</a>
         <a href="mailto:macchi.matteo2@gmail.com" class="btn-secondary">Get in Touch</a>
@@ -940,11 +946,15 @@
     <div class="contact-links">
       <a href="mailto:macchi.matteo2@gmail.com" class="btn-primary">
         macchi.matteo2@gmail.com
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
       <a href="https://www.linkedin.com/in/matteo-macchi02" target="_blank" class="btn-secondary">
         LinkedIn
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
     </div>
   </section>
