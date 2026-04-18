@@ -11,20 +11,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-  --bg: #09090d;
-  --bg-surface: #0f0f15;
-  --bg-card: #13131a;
-  --gold: #b88a44;
-  --gold-light: #d6a65a;
-  --gold-dim: rgba(184, 138, 68, 0.18);
-  --gold-border: rgba(184, 138, 68, 0.22);
-  --text-primary: #f0ece3;
-  --text-secondary: #9490a0;
-  --text-muted: #5a5768;
-  --border: rgba(255, 255, 255, 0.06);
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --sans: 'Jost', sans-serif;
-}
+      --bg: #06080d;
+      --bg-surface: #0b1018;
+      --bg-card: #101722;
+      --gold: #7ea6ff;
+      --gold-light: #a9c2ff;
+      --gold-dim: rgba(126, 166, 255, 0.14);
+      --gold-border: rgba(126, 166, 255, 0.20);
+      --text-primary: #f2f5fb;
+      --text-secondary: #9aa6ba;
+      --text-muted: #5f6b7d;
+      --border: rgba(255, 255, 255, 0.06);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', sans-serif;
+    }
 
     html { scroll-behavior: smooth; }
 
@@ -47,7 +47,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(9, 9, 13, 0.85);
+      background: rgba(6, 8, 13, 0.84);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       transition: padding 0.3s ease;
@@ -94,8 +94,9 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(201, 169, 110, 0.055) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 20% 70%, rgba(100, 80, 180, 0.04) 0%, transparent 60%);
+        radial-gradient(ellipse 58% 50% at 72% 38%, rgba(126, 166, 255, 0.09) 0%, transparent 72%),
+        radial-gradient(ellipse 42% 58% at 18% 72%, rgba(72, 113, 212, 0.08) 0%, transparent 64%),
+        radial-gradient(ellipse 34% 30% at 50% 20%, rgba(169, 194, 255, 0.04) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -168,7 +169,7 @@
       gap: 0.5rem;
       padding: 0.85rem 2rem;
       background: var(--gold);
-      color: #0a0a0d;
+      color: #07101d;
       font-family: var(--sans);
       font-size: 0.72rem;
       font-weight: 600;
