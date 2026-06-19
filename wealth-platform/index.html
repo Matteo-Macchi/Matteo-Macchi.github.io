@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Virtual Wealth Portfolio Platform</title>
+  <meta name="description" content="A read-only wealth management case-study platform presenting fictional client portfolios across financial assets, real assets, tax, wealth structuring and succession." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Mobile drawer scrim -->
+    <div class="scrim" aria-hidden="true"></div>
+
+    <!-- Sidebar navigation -->
+    <aside class="sidebar" aria-label="Primary">
+      <div class="brand">
+        <div class="mark">Virtual <b>Wealth</b></div>
+        <div class="tag">Portfolio Platform</div>
+      </div>
+
+      <nav class="nav" aria-label="Sections">
+        <a href="#/home"        data-route="home"><span class="ico">◆</span> Overview</a>
+        <a href="#/clients"     data-route="clients"><span class="ico">❖</span> Clients</a>
+        <div class="group-label">Balance Sheet</div>
+        <a href="#/financial"   data-route="financial"><span class="ico">▤</span> Financial Assets</a>
+        <a href="#/real"        data-route="real"><span class="ico">▦</span> Real Assets</a>
+        <div class="group-label">Advisory</div>
+        <a href="#/tax"         data-route="tax"><span class="ico">§</span> Tax Planning</a>
+        <a href="#/wealth"      data-route="wealth"><span class="ico">✶</span> Wealth Planning</a>
+        <a href="#/succession"  data-route="succession"><span class="ico">⇲</span> Succession Planning</a>
+        <div class="group-label">Reference</div>
+        <a href="#/methodology" data-route="methodology"><span class="ico">⊙</span> Methodology</a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <span class="lock">🔒 Read-only</span>
+        <p>All clients &amp; figures are fictional, for educational portfolio demonstration only.</p>
+      </div>
+    </aside>
+
+    <!-- Main column -->
+    <div class="main">
+      <header class="topbar">
+        <div class="mark">Virtual <b>Wealth</b></div>
+        <button class="menu-btn" aria-label="Open navigation">☰</button>
+      </header>
+      <main id="view" class="view" role="main"><!-- views render here --></main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
