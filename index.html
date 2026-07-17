@@ -241,22 +241,24 @@
     .cred-item:last-child { border-right: none; }
     .cred-item:hover { background: var(--bg-surface); }
 
-    .cred-number {
-      font-family: var(--serif);
-      font-size: 2.8rem;
-      font-weight: 300;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
+.cred-number {
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 2.4vw, 2.35rem);
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.55rem;
+  white-space: nowrap;
+}
 
     .cred-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 0.3rem;
-    }
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+  white-space: nowrap;
+}
 
     .cred-desc {
       font-size: 0.82rem;
