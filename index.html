@@ -480,6 +480,20 @@
     .portfolio-card.active {
       cursor: pointer;
     }
+    .portfolio-card.featured {
+  border-color: rgba(143, 166, 201, 0.42);
+  background:
+    linear-gradient(135deg, rgba(143, 166, 201, 0.07), transparent 55%),
+    var(--bg-card);
+}
+
+.portfolio-card.featured::before {
+  opacity: 1;
+}
+
+.portfolio-card.featured .card-area {
+  color: var(--gold-light);
+}
 
     .portfolio-card:hover {
       border-color: var(--gold-border);
@@ -899,86 +913,92 @@
   </div>
 </section>
 
-  <!-- PORTFOLIO -->
-  <section class="portfolio" id="portfolio">
-    <div class="section-tag">Portfolio</div>
-    <h2>Portfolio<br /><em>projects, research & case studies</em></h2>
-    <div class="portfolio-grid">
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="section-tag">Portfolio</div>
+  <h2>Portfolio<br /><em>projects, research &amp; case studies</em></h2>
+  <div class="portfolio-grid">
 
-      <a href="Matteo_Macchi_Capgemini_Valuation_Dissertation.pdf" target="_blank" class="portfolio-card active">
-        <div class="card-area">Equity Valuation</div>
-        <div class="card-title">Capgemini SE Valuation Dissertation</div>
-        <div class="card-desc">
-          MSc dissertation applying DCF, relative valuation and sensitivity analysis to estimate Capgemini SE’s intrinsic value and support an investment recommendation.
-        </div>
-        <div class="card-status status-available">
-          <span class="status-dot"></span>
-          Available
-        </div>
-      </a>
-
-      <a href="Matteo_Macchi_Cerillion_Equity_Research.pdf" target="_blank" class="portfolio-card active">
-        <div class="card-area">Equity Research</div>
-        <div class="card-title">Cerillion PLC — Investment Thesis</div>
-        <div class="card-desc">
-          Investment thesis on Cerillion PLC, developed as part of QUMMIF live fund analysis, covering fundamental research, DCF valuation, scenario modelling, catalyst identification and key risk assessment.
-        </div>
-        <div class="card-status status-available">
-          <span class="status-dot"></span>
-          Available
-        </div>
-      </a>
-
-      <div class="portfolio-card">
-        <div class="card-area">Cross-Border Planning</div>
-        <div class="card-title">Italian Resident in London — Tax &amp; Wealth Memo</div>
-        <div class="card-desc">
-          Advisory memo on cross-border wealth management for an Italian UHNW individual relocating to the UK — covering remittance basis, CRS, trust structures, and estate planning.
-        </div>
-        <div class="card-status status-soon">
-          <span class="status-dot"></span>
-          In preparation
-        </div>
+    <a href="https://matteo-macchi.github.io/wealth-platform/?v=99#/home"
+       target="_blank"
+       class="portfolio-card active featured">
+      <div class="card-area">Private Wealth Platform</div>
+      <div class="card-title">Virtual Wealth</div>
+      <div class="card-desc">
+        Interactive private-client wealth management platform combining portfolio construction, alternative investments, cross-border planning and intergenerational wealth strategy across hypothetical client cases.
       </div>
-
-      <div class="portfolio-card">
-        <div class="card-area">Client Portfolio Ideas</div>
-        <div class="card-title">Virtual Wealth Portfolio Platform</div>
-        <div class="card-desc">
-          In preparation: a virtual wealth management platform presenting hypothetical client portfolios across financial assets, real assets, tax planning, wealth structuring and intergenerational succession strategy.
-        </div>
-        <div class="card-status status-soon">
-          <span class="status-dot"></span>
-          In preparation
-        </div>
+      <div class="card-status status-available">
+        <span class="status-dot"></span>
+        Live
       </div>
+    </a>
 
-      <div class="portfolio-card">
-        <div class="card-area">Investment Banking</div>
-        <div class="card-title">Financial Model — DCF &amp; LBO</div>
-        <div class="card-desc">
-          Integrated Excel model covering discounted cash flow analysis and leveraged buyout structure for a target company. Includes sensitivity tables and returns analysis.
-        </div>
-        <div class="card-status status-soon">
-          <span class="status-dot"></span>
-          In preparation
-        </div>
+    <a href="Matteo_Macchi_Capgemini_Valuation_Dissertation.pdf"
+       target="_blank"
+       class="portfolio-card active">
+      <div class="card-area">Equity Valuation</div>
+      <div class="card-title">Capgemini SE Valuation Dissertation</div>
+      <div class="card-desc">
+        MSc dissertation applying DCF, relative valuation and sensitivity analysis to estimate Capgemini SE’s intrinsic value and support an investment recommendation.
       </div>
-
-      <div class="portfolio-card">
-        <div class="card-area">Wealth Structuring</div>
-        <div class="card-title">Intergenerational Wealth Planning</div>
-        <div class="card-desc">
-          Comprehensive memo on succession planning, family governance structures, and cross-border estate considerations for a multi-generational UHNW family.
-        </div>
-        <div class="card-status status-soon">
-          <span class="status-dot"></span>
-          In preparation
-        </div>
+      <div class="card-status status-available">
+        <span class="status-dot"></span>
+        Available
       </div>
+    </a>
 
+    <a href="Matteo_Macchi_Cerillion_Equity_Research.pdf"
+       target="_blank"
+       class="portfolio-card active">
+      <div class="card-area">Equity Research</div>
+      <div class="card-title">Cerillion PLC — Investment Thesis</div>
+      <div class="card-desc">
+        Investment thesis on Cerillion PLC, developed as part of QUMMIF live fund analysis, covering fundamental research, DCF valuation, scenario modelling, catalyst identification and key risk assessment.
+      </div>
+      <div class="card-status status-available">
+        <span class="status-dot"></span>
+        Available
+      </div>
+    </a>
+
+    <div class="portfolio-card">
+      <div class="card-area">Cross-Border Planning</div>
+      <div class="card-title">Italian Resident in London — Tax &amp; Wealth Memo</div>
+      <div class="card-desc">
+        Advisory memo on cross-border wealth management for an Italian UHNW individual relocating to the UK — covering remittance basis, CRS, trust structures, and estate planning.
+      </div>
+      <div class="card-status status-soon">
+        <span class="status-dot"></span>
+        In preparation
+      </div>
     </div>
-  </section>
+
+    <div class="portfolio-card">
+      <div class="card-area">Investment Banking</div>
+      <div class="card-title">Financial Model — DCF &amp; LBO</div>
+      <div class="card-desc">
+        Integrated Excel model covering discounted cash flow analysis and leveraged buyout structure for a target company. Includes sensitivity tables and returns analysis.
+      </div>
+      <div class="card-status status-soon">
+        <span class="status-dot"></span>
+        In preparation
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="card-area">Wealth Structuring</div>
+      <div class="card-title">Intergenerational Wealth Planning</div>
+      <div class="card-desc">
+        Comprehensive memo on succession planning, family governance structures, and cross-border estate considerations for a multi-generational UHNW family.
+      </div>
+      <div class="card-status status-soon">
+        <span class="status-dot"></span>
+        In preparation
+      </div>
+    </div>
+
+  </div>
+</section>
 
   <!-- CONTACT -->
   <section class="contact" id="contact">
