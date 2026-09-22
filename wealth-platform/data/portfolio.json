@@ -1,0 +1,114 @@
+{
+  "clients": [
+    {
+      "id": "demo-client",
+      "name": "Demo Client",
+      "type": "Replaceable client profile",
+      "jurisdiction": "Italy · United Kingdom",
+      "currency": "EUR",
+      "risk_profile": "Balanced",
+      "net_worth": 10000000,
+      "portfolio_return_12m": null,
+      "horizon": "10+ years",
+      "liquidity": "Replace with the client's liquidity requirement.",
+      "objectives": "Preserve capital|Fund future spending|Maintain diversification",
+      "priorities": "Confirm the mandate|Set liquidity reserves|Review the allocation",
+      "summary": "Placeholder profile. Replace every field without changing the engine.",
+      "investable_assets": 2502.5299999999997,
+      "cash_value": 1502.5299999999997,
+      "cash_weight": 60.04043907565543,
+      "asOf": "2026-09-22"
+    }
+  ],
+  "positions": [
+    {
+      "clientId": "demo-client",
+      "asset": "Xtrackers II EUR Overnight Rate Swap UCITS ETF 1C",
+      "ticker": "XEON",
+      "assetClass": "Cash",
+      "quantity": 10,
+      "price": 150.253,
+      "priceCurrency": "EUR",
+      "fxRateToBase": 1,
+      "marketValue": 1502.5299999999997,
+      "targetWeight": 40,
+      "currency": "EUR",
+      "geography": "Euro area",
+      "sector": "Money market",
+      "thesis": "Test reale del collegamento automatico ai prezzi di mercato.",
+      "priceTimestamp": "2026-09-22T14:40:00.000Z",
+      "priceSource": "eodhd",
+      "stale": false,
+      "actualWeight": 60.04043907565543
+    }
+  ],
+  "alternatives": [
+    {
+      "clientId": "demo-client",
+      "name": "Illustrative private-market holding",
+      "category": "Private equity",
+      "marketValue": 1000,
+      "valuation": 1000,
+      "currency": "EUR",
+      "fxRateToBase": 1,
+      "geography": "Europe",
+      "sector": "Private equity",
+      "liquidity": "Illiquid; valuation updated manually",
+      "thesis": "Manual valuation example.",
+      "status": "Illustrative holding",
+      "valuationTimestamp": null,
+      "stale": false,
+      "actualWeight": 39.959560924344565
+    }
+  ],
+  "allocations": [
+    {
+      "clientId": "demo-client",
+      "assetClass": "Equities",
+      "targetWeight": 40
+    },
+    {
+      "clientId": "demo-client",
+      "assetClass": "Fixed income",
+      "targetWeight": 10
+    },
+    {
+      "clientId": "demo-client",
+      "assetClass": "Cash",
+      "targetWeight": 40
+    },
+    {
+      "clientId": "demo-client",
+      "assetClass": "Private equity",
+      "targetWeight": 10
+    }
+  ],
+  "planning": [
+    {
+      "clientId": "demo-client",
+      "category": "Portfolio governance",
+      "issue": "The mandate is still illustrative.",
+      "objective": "Define the investment rules before implementation.",
+      "solution": "Replace this placeholder with the case-specific planning analysis.",
+      "professional": "Appropriately qualified advisers",
+      "status": "Placeholder"
+    }
+  ],
+  "research": [
+    {
+      "clientId": "demo-client",
+      "date": "2026-09-22",
+      "type": "System test",
+      "title": "Pricing engine connected",
+      "summary": "The fixture proves price, FX and portfolio calculations.",
+      "rationale": "Client content can change without changing the data pipeline.",
+      "status": "Tested"
+    }
+  ],
+  "_meta": {
+    "generatedAt": "2026-09-22T14:55:52.963Z",
+    "priceMode": "eodhd",
+    "provider": "eodhd",
+    "warnings": []
+  }
+}
