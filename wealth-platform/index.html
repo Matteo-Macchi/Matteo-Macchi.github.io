@@ -764,6 +764,165 @@ tfoot th,tfoot td {
 .chart-grid .bar-row+.bar-row {
   margin-top:19px
 }
+.liquidity-panel {
+  margin-bottom:26px
+}
+.liquidity-summary {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border-block:1px solid var(--line);
+  margin-bottom:25px
+}
+.liquidity-summary>div {
+  padding:18px 20px;
+  border-right:1px solid var(--line)
+}
+.liquidity-summary>div:first-child {
+  padding-left:0
+}
+.liquidity-summary>div:last-child {
+  border-right:0
+}
+.liquidity-summary span,.tier-card>p {
+  display:block;
+  color:#9fafbd;
+  font-size:.75rem
+}
+.liquidity-summary strong {
+  display:block;
+  font-family:var(--serif);
+  font-size:1.85rem;
+  font-weight:400;
+  line-height:1.25;
+  margin-top:5px
+}
+.tier-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px
+}
+.tier-card {
+  border:1px solid var(--line);
+  background:#111c25;
+  padding:20px;
+  min-width:0
+}
+.tier-heading {
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:start
+}
+.tier-heading h3 {
+  font-family:var(--sans);
+  font-size:.9rem;
+  font-weight:600;
+  line-height:1.4
+}
+.tier-heading strong {
+  font-size:.875rem;
+  font-weight:500;
+  white-space:nowrap
+}
+.tier-card>p {
+  line-height:1.65;
+  margin:8px 0 16px
+}
+.tier-list {
+  list-style:none;
+  padding:0;
+  margin:0
+}
+.tier-list li {
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:12px;
+  padding:10px 0;
+  border-top:1px solid #2b3b48;
+  font-size:.75rem
+}
+.tier-list span {
+  color:#c4d0d9;
+  min-width:0
+}
+.tier-list span small {
+  display:block;
+  color:#8399aa;
+  margin-top:2px
+}
+.tier-list strong {
+  font-weight:500;
+  white-space:nowrap
+}
+.chart-heading {
+  display:flex;
+  align-items:start;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:24px
+}
+.chart-heading .section-heading {
+  margin-bottom:0
+}
+.chart-toggle {
+  display:flex;
+  flex-shrink:0;
+  border:1px solid #415363
+}
+.chart-toggle button {
+  border:0;
+  background:transparent;
+  color:#94a8b8;
+  padding:6px 10px;
+  font-size:.7rem
+}
+.chart-toggle button+button {
+  border-left:1px solid #415363
+}
+.chart-toggle button[aria-pressed="true"] {
+  color:var(--ink);
+  background:#21313e
+}
+.chart-grid .allocation-display {
+  padding-top:0
+}
+.position-group th {
+  background:#111c25;
+  color:var(--accent);
+  letter-spacing:.12em;
+  font-size:.68rem;
+  padding-top:12px;
+  padding-bottom:12px
+}
+.position-group .group-total {
+  text-align:right;
+  letter-spacing:0;
+  white-space:nowrap
+}
+.performance {
+  font-weight:500
+}
+.performance.positive {
+  color:#8fc6a4
+}
+.performance.negative {
+  color:#d69a9a
+}
+.position-detail {
+  margin-top:8px
+}
+.position-detail summary {
+  color:#8fa7b9;
+  cursor:pointer;
+  font-size:.7rem
+}
+.position-detail p {
+  color:#aebdca;
+  font-size:.75rem;
+  line-height:1.6;
+  margin-top:8px;
+  max-width:360px
+}
 .method-note {
   font-size:.8125rem;
   line-height:1.9;
@@ -1246,6 +1405,24 @@ dl>div+div {
     grid-template-columns:1fr;
     gap:20px
   }
+  .liquidity-summary {
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+  .liquidity-summary>div:nth-child(2) {
+    border-right:0
+  }
+  .liquidity-summary>div:nth-child(-n+2) {
+    border-bottom:1px solid var(--line)
+  }
+  .liquidity-summary>div:nth-child(3) {
+    padding-left:0
+  }
+  .tier-grid {
+    grid-template-columns:1fr
+  }
+  .chart-heading {
+    flex-wrap:wrap
+  }
   .panel {
     padding:22px 20px
   }
@@ -1515,6 +1692,9 @@ const badge = value => `<span class="badge">${escapeHTML(value)}</span>`;
 const empty = label => `<div class="empty"><span aria-hidden="true">—</span><p>${escapeHTML(label)}</p></div>`;
 const sectionTitle = (eyebrow, title, aside = '') => `<div class="section-heading"><div><p class="eyebrow">${escapeHTML(eyebrow)}</p><h2>${escapeHTML(title)}</h2></div>${aside ? `<span class="section-aside">${escapeHTML(aside)}</span>` : ''}</div>`;
 const palette = ['#adc5d9','#7d98b1','#56758e','#c5c8bb','#8b8c9e','#486175','#93a5a7','#657683'];
+const fixedColours = { EUR:'#adc5d9', GBP:'#c5c8bb', USD:'#7d98b1', CHF:'#8b8c9e', JPY:'#56758e' };
+const chartModes = Object.create(null);
+const colourFor = label => fixedColours[label] || palette[[...String(label || '')].reduce((sum,ch)=>sum+ch.charCodeAt(0),0) % palette.length];
 
 function caseCard(client, index) {
   const c = client;
@@ -1523,20 +1703,71 @@ function caseCard(client, index) {
 
 function bars(items, { suffix = '%', total = 100 } = {}) {
   if (!items.length) return empty('No allocation data available.');
-  return `<div class="bars">${items.map((item, i) => `<div class="bar-row"><div><span><i style="background:${palette[i % palette.length]}"></i>${escapeHTML(item.label)}</span><strong>${suffix === '%' ? percent(item.value) : escapeHTML(item.value)}</strong></div><div class="bar-track"><span style="width:${Math.max(0,Math.min(100, item.value / total * 100))}%;background:${palette[i % palette.length]}"></span></div></div>`).join('')}</div>`;
+  return `<div class="bars">${items.map(item => `<div class="bar-row"><div><span><i style="background:${colourFor(item.label)}"></i>${escapeHTML(item.label)}</span><strong>${suffix === '%' ? percent(item.value) : escapeHTML(item.value)}</strong></div><div class="bar-track"><span style="width:${Math.max(0,Math.min(100, item.value / total * 100))}%;background:${colourFor(item.label)}"></span></div></div>`).join('')}</div>`;
 }
 
 function donut(items, center, sublabel) {
   if (!items.length) return empty('No allocation data available.');
   let running = 0;
-  const slices = items.map((item, i) => { const start = running; running += item.value; return `${palette[i % palette.length]} ${start}% ${running}%`; });
+  const slices = items.map(item => { const start = running; running += item.value; return `${colourFor(item.label)} ${start}% ${running}%`; });
   return `<div class="allocation-display"><div class="donut" role="img" aria-label="${escapeHTML(items.map(i => `${i.label}: ${percent(i.value)}`).join('; '))}" style="background:conic-gradient(${slices.join(',')})"><div><strong>${escapeHTML(center)}</strong><span>${escapeHTML(sublabel)}</span></div></div>${bars(items)}</div>`;
+}
+
+function chartPanel(clientId, key, title, items) {
+  const stateKey = `${clientId}:${key}`;
+  const mode = chartModes[stateKey] || 'bars';
+  const controls = `<div class="chart-toggle" aria-label="${e(title)} chart style"><button type="button" data-chart-key="${e(stateKey)}" data-chart-mode="bars" aria-pressed="${mode === 'bars'}">Bars</button><button type="button" data-chart-key="${e(stateKey)}" data-chart-mode="donut" aria-pressed="${mode === 'donut'}">Donut</button></div>`;
+  const visual = mode === 'donut' ? donut(items,'100%','EXPOSURE') : bars(items);
+  return `<section class="panel"><div class="chart-heading">${sectionTitle('CURRENT FINANCIAL PORTFOLIO',title)}${controls}</div>${visual}</section>`;
 }
 
 function exposure(rows, field, total) {
   const result = new Map();
   rows.forEach(row => result.set(row[field] || 'Unclassified', (result.get(row[field] || 'Unclassified') || 0) + row.marketValue));
   return [...result].map(([label, value]) => ({ label, value: value / total * 100 })).sort((a,b) => b.value - a.value);
+}
+
+const optionalNumber = value => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
+const performance = value => {
+  const number = optionalNumber(value);
+  if (number === null) return '<span class="performance">—</span>';
+  return `<span class="performance ${number > 0 ? 'positive' : number < 0 ? 'negative' : ''}">${number > 0 ? '+' : ''}${percent(number)}</span>`;
+};
+
+function liquidityTier(row) {
+  const explicit = String(row.liquidityTier || row.liquidity_tier || '').match(/[123]/)?.[0];
+  if (explicit) return Number(explicit);
+  const assetClass = String(row.assetClass || '').toLowerCase();
+  const sector = String(row.sector || '').toLowerCase();
+  if (sector.includes('money market') || sector.includes('overnight')) return 2;
+  if (assetClass === 'cash' || assetClass.includes('deposit')) return 1;
+  return null;
+}
+
+function liquidityPanel(c, rows) {
+  const tiers = [1,2,3].map(number => ({ number, rows:rows.filter(row=>liquidityTier(row)===number) }));
+  const tierTotal = tier => tier.rows.reduce((sum,row)=>sum+row.marketValue,0);
+  const total = tiers.reduce((sum,tier)=>sum+tierTotal(tier),0);
+  const annualNeed = optionalNumber(c.annual_spending ?? c.annualLiquidityNeed ?? c.annual_liquidity_need);
+  const targetMonths = optionalNumber(c.liquidity_target_months ?? c.liquidityTargetMonths) || 36;
+  const minimum = annualNeed === null ? null : annualNeed * targetMonths / 12;
+  const months = annualNeed && total ? total / annualNeed * 12 : null;
+  const surplus = minimum === null ? null : total - minimum;
+  const tierMeta = {
+    1:['Operational cash','Current accounts and immediately accessible deposits.'],
+    2:['Immediate liquidity','Money-market funds, overnight ETFs and cash equivalents.'],
+    3:['Strategic liquidity','Short-duration government securities and reserve instruments.']
+  };
+  const summaryValue = (value, suffix='') => value === null ? '—' : `${suffix}${money(value,c.currency,true)}`;
+  return `<section class="panel liquidity-panel">${sectionTitle('LIQUIDITY FRAMEWORK','Cash & liquidity reserve',total ? `${money(total,c.currency,true)} across three liquidity tiers` : 'Structure ready for client data')}<p class="panel-note before-table">Liquidity is classified by purpose and accessibility. Tier classifications are analytical labels; each holding is counted only once in portfolio totals.</p><div class="liquidity-summary"><div><span>Total liquidity reserve</span><strong>${summaryValue(total)}</strong></div><div><span>Annual liquidity need</span><strong>${summaryValue(annualNeed)}</strong></div><div><span>Minimum reserve</span><strong>${minimum === null ? '—' : money(minimum,c.currency,true)}</strong><span>${targetMonths}-month requirement</span></div><div><span>Liquidity coverage</span><strong>${months === null ? '—' : `${months.toFixed(0)} months`}</strong><span>${surplus === null ? 'Requirement not yet set' : `${surplus >= 0 ? '+' : '−'}${money(Math.abs(surplus),c.currency,true)} vs minimum`}</span></div></div><div class="tier-grid">${tiers.map(tier=>{const [title,description]=tierMeta[tier.number];const tierValue=tierTotal(tier);return `<article class="tier-card"><div class="tier-heading"><h3>Tier ${tier.number} · ${e(title)}</h3><strong>${tier.rows.length ? money(tierValue,c.currency,true) : '—'}</strong></div><p>${e(description)}</p>${tier.rows.length ? `<ul class="tier-list">${tier.rows.map(row=>`<li><span>${e(row.asset)}<small>${e(row.ticker || row.currency)}</small></span><strong>${money(row.marketValue,c.currency)}</strong></li>`).join('')}</ul>` : '<div class="empty"><span aria-hidden="true">—</span><p>Not yet configured.</p></div>'}</article>`;}).join('')}</div></section>`;
+}
+
+function positionGroup(row) {
+  const value = String(row.assetClass || 'Other');
+  if (/cash|liquid|money market/i.test(value)) return 'Liquidity';
+  if (/equit|stock/i.test(value)) return 'Equities';
+  if (/fixed|bond|credit/i.test(value)) return 'Fixed Income';
+  return value;
 }
 
 const e = escapeHTML;
@@ -1573,10 +1804,22 @@ function overview(c, related) {
 
 function investments(c, related) {
   const rows = related.positions;
-  const all = [...rows,...related.alternatives];
   const publicTotal = rows.reduce((sum,r)=>sum+r.marketValue,0);
-  const allocation = exposure(all.map(r=>({...r,assetClass:r.assetClass || r.category})), 'assetClass', c.investableAssets);
-  return `<section class="panel">${sectionTitle('PUBLIC MARKETS','Investment portfolio',`${money(publicTotal,c.currency,true)} · ${percent(publicTotal/c.investableAssets*100)} of investable assets`)}<p class="panel-note before-table">Market values are expressed in ${e(c.currency)}, the case’s base currency. Weights and targets use total investable assets as the denominator. Currency identifies the holding’s denomination.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Public market positions" tabindex="0"><table><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Asset class</th><th scope="col" class="numeric">Market value (${e(c.currency)})</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">Target</th><th scope="col">Currency</th><th scope="col">Investment thesis</th></tr></thead><tbody>${rows.map(r=>`<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker)}</small></td><td>${e(r.assetClass)}</td><td class="numeric">${money(r.marketValue,c.currency)}</td><td class="numeric">${percent(r.marketValue/c.investableAssets*100)}</td><td class="numeric">${percent(r.targetWeight)}</td><td>${e(r.currency)}</td><td class="thesis">${e(r.thesis)}</td></tr>`).join('')}</tbody><tfoot><tr><th scope="row" colspan="2">Public-market total</th><td class="numeric">${money(publicTotal,c.currency)}</td><td class="numeric">${percent(publicTotal/c.investableAssets*100)}</td><td class="numeric">${percent(rows.reduce((sum,r)=>sum+r.targetWeight,0))}</td><td colspan="2"></td></tr></tfoot></table></div>` : empty('No public-market positions published.')}</section><div class="chart-grid"><section class="panel">${sectionTitle('CURRENT PORTFOLIO','Asset allocation')}${bars(allocation)}</section><section class="panel">${sectionTitle('CURRENT PORTFOLIO','Geographic allocation')}${bars(exposure(all,'geography',c.investableAssets))}</section><section class="panel">${sectionTitle('CURRENT PORTFOLIO','Currency exposure')}${bars(exposure(all,'currency',c.investableAssets))}</section><section class="panel">${sectionTitle('CURRENT PORTFOLIO','Sector exposure')}${bars(exposure(all,'sector',c.investableAssets))}</section></div><p class="method-note">Exposure charts cover all investable assets. Geographic and sector labels classify each holding at vehicle level; global and multi-sector funds are not decomposed. Currency exposure reflects denomination, not underlying economic FX exposure or hedging. These are illustrative snapshots.</p>`;
+  const denominator = publicTotal || 1;
+  const allocation = exposure(rows.map(r=>({...r,assetClass:positionGroup(r)})), 'assetClass', denominator);
+  const groupOrder = ['Liquidity','Equities','Fixed Income'];
+  const groups = [...new Set(rows.map(positionGroup))].sort((a,b)=>{
+    const ai = groupOrder.indexOf(a), bi = groupOrder.indexOf(b);
+    return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi) || a.localeCompare(b);
+  });
+  const tableRows = groups.map(group=>{
+    const members = rows.filter(row=>positionGroup(row)===group);
+    const subtotal = members.reduce((sum,row)=>sum+row.marketValue,0);
+    return `<tr class="position-group"><th colspan="6" scope="rowgroup">${e(group)}</th><th class="group-total" colspan="4">${money(subtotal,c.currency)} · ${percent(subtotal/denominator*100)}</th></tr>${members.map(r=>{const quantity=optionalNumber(r.quantity);const price=optionalNumber(r.price);const oneMonth=r.performance1M ?? r.performance_1m ?? r.return_1m;const ytd=r.performanceYTD ?? r.performance_ytd ?? r.return_ytd;const since=r.performanceSincePurchase ?? r.performance_since_purchase ?? r.total_return;return `<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker)}</small>${r.thesis ? `<details class="position-detail"><summary>Investment rationale</summary><p>${e(r.thesis)}</p></details>` : ''}</td><td>${e(r.assetClass)}</td><td class="numeric">${quantity === null ? '—' : new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}</td><td class="numeric">${price === null ? '—' : money(price,r.priceCurrency || r.currency)}</td><td class="numeric">${money(r.marketValue,c.currency)}</td><td>${e(r.currency)}</td><td class="numeric">${percent(r.marketValue/denominator*100)}</td><td class="numeric">${performance(oneMonth)}</td><td class="numeric">${performance(ytd)}</td><td class="numeric">${performance(since)}</td></tr>`;}).join('')}`;
+  }).join('');
+  const analytics = `<div class="chart-grid">${chartPanel(c.id,'asset','Asset allocation',allocation)}${chartPanel(c.id,'geography','Geographic allocation',exposure(rows,'geography',denominator))}${chartPanel(c.id,'currency','Currency exposure',exposure(rows,'currency',denominator))}${chartPanel(c.id,'sector','Sector exposure',exposure(rows,'sector',denominator))}</div>`;
+  const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`${money(publicTotal,c.currency,true)} financial portfolio`)}<p class="panel-note before-table">Market values are translated into ${e(c.currency)}, the client’s base currency. Position weights use the financial portfolio shown below as the denominator. Performance fields remain blank until verified market history or acquisition data is available.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Financial portfolio positions" tabindex="0"><table><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Asset class</th><th scope="col" class="numeric">Quantity</th><th scope="col" class="numeric">Price</th><th scope="col" class="numeric">Market value (${e(c.currency)})</th><th scope="col">Currency</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since purchase</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><th scope="row" colspan="4">Financial portfolio total</th><td class="numeric">${money(publicTotal,c.currency)}</td><td></td><td class="numeric">100%</td><td colspan="3"></td></tr></tfoot></table></div>` : empty('No financial-market positions published.')}</section>`;
+  return `${liquidityPanel(c,rows)}${analytics}<p class="method-note">Analytics cover the financial portfolio only; private-market and real assets are excluded. Vehicle geography and sector are not look-through exposures. Currency shows instrument denomination rather than underlying economic FX risk or hedging.</p>${portfolio}`;
 }
 
 function alternatives(c, related) {
@@ -1633,6 +1876,12 @@ async function init() {
     document.querySelector('#retry').addEventListener('click',init);
   }
 }
+main.addEventListener('click',event=>{
+  const button = event.target.closest('[data-chart-key][data-chart-mode]');
+  if (!button) return;
+  chartModes[button.dataset.chartKey] = button.dataset.chartMode;
+  render(false);
+});
 window.addEventListener('hashchange',()=>render(true));
 init();
 
