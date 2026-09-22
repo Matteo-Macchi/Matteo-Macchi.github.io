@@ -1,60 +1,1642 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Virtual Wealth Portfolio Platform</title>
-  <meta name="description" content="A read-only wealth management case-study platform presenting fictional client portfolios across financial assets, real assets, tax, wealth structuring and succession." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101922">
+  <meta name="description" content="Virtual Wealth — hypothetical private-client portfolios, investment research and cross-border wealth planning.">
+  <title>Virtual Wealth | Private Client Portfolio & Planning</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMxMDE5MjIiLz48cGF0aCBkPSJNMTUgMTdoN2wxMCAyOCAxMC0yOGg3TDM1IDUxaC02WiIgZmlsbD0iI2FkYmRjYyIvPjwvc3ZnPgo=" type="image/svg+xml">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Libre+Caslon+Display&display=swap');
+:root {
+  color-scheme:dark;
+  --bg:#101922;
+  --surface:#15212c;
+  --surface-hover:#1a2936;
+  --line:#2c3a46;
+  --ink:#eff0eb;
+  --muted:#b0bdc8;
+  --accent:#adc5d9;
+  --serif:'Libre Caslon Display',Georgia,'Times New Roman',serif;
+  --sans:'DM Sans',Arial,sans-serif
+}
+* {
+  box-sizing:border-box
+}
+html {
+  scroll-behavior:smooth
+}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased
+}
+a {
+  color:inherit;
+  text-decoration:none
+}
+button {
+  font:inherit
+}
+a,button {
+  -webkit-tap-highlight-color:transparent
+}
+a:focus-visible,button:focus-visible,[tabindex="0"]:focus-visible {
+  outline:2px solid var(--accent);
+  outline-offset:6px
+}
+main:focus {
+  outline:none
+}
+h1,h2,h3,h4,p {
+  margin:0
+}
+h1,h2,h3 {
+  font-weight:400
+}
+h1,h2,h3,.footer-brand {
+  font-family:var(--serif)
+}
+h1 {
+  font-size:clamp(2.7rem,5.2vw,5rem);
+  line-height:1.08;
+  letter-spacing:-.025em
+}
+h2 {
+  font-size:clamp(1.8rem,2.7vw,2.65rem);
+  line-height:1.2
+}
+h3 {
+  font-size:2rem;
+  line-height:1.2
+}
+small {
+  font-size:.8125rem
+}
+button,.button {
+  cursor:pointer
+}
+.site-header,main,.site-footer {
+  width:min(1320px,calc(100% - 112px));
+  margin-inline:auto
+}
+.site-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  padding:29px 0;
+  border-bottom:1px solid var(--line)
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:17px;
+  font-size:.875rem;
+  letter-spacing:.18em;
+  line-height:1.4;
+  font-weight:500
+}
+.brand small {
+  display:block;
+  font-size:.75rem;
+  letter-spacing:.16em;
+  color:var(--muted);
+  margin-top:6px
+}
+.monogram {
+  position:relative;
+  display:block;
+  font-family:Georgia,serif;
+  font-size:2.8rem;
+  font-weight:400;
+  line-height:1;
+  color:var(--accent);
+  letter-spacing:-.22em;
+  width:50px
+}
+.monogram span {
+  font-size:1.8rem;
+  position:relative;
+  left:-4px;
+  top:4px
+}
+.site-header nav {
+  display:flex;
+  gap:36px;
+  font-size:.875rem
+}
+.site-header nav a {
+  color:var(--muted);
+  padding:10px 0;
+  border-bottom:1px solid transparent
+}
+.site-header nav a:hover,.site-header nav a[aria-current] {
+  color:var(--ink);
+  border-color:var(--accent)
+}
+.site-header nav a span {
+  margin-left:8px
+}
+.header-note {
+  font-size:.8125rem;
+  line-height:1.5;
+  color:var(--muted);
+  text-align:right
+}
+.eyebrow {
+  color:var(--accent);
+  font-size:.75rem;
+  font-weight:500;
+  letter-spacing:.16em;
+  line-height:1.5
+}
+.hero {
+  padding-top:47px
+}
+.hero-top {
+  display:flex;
+  justify-content:space-between;
+  gap:20px
+}
+.edition {
+  font-size:.75rem;
+  letter-spacing:.15em;
+  color:#93a3b1
+}
+.hero-body {
+  display:grid;
+  grid-template-columns:1.25fr 1fr;
+  gap:80px;
+  align-items:end;
+  padding:48px 0 58px
+}
+.hero h1 {
+  font-size:clamp(5rem,8.5vw,8.5rem);
+  line-height:.89;
+  letter-spacing:-.035em
+}
+.hero h1 em {
+  font-weight:400;
+  font-style:normal;
+  color:var(--accent)
+}
+.hero-subtitle {
+  margin-top:28px;
+  color:#c9d2db;
+  font-size:1rem;
+  letter-spacing:.005em
+}
+.hero-description {
+  padding-bottom:5px;
+  max-width:430px;
+  justify-self:end
+}
+.fine-line {
+  display:block;
+  background:var(--accent);
+  height:1px;
+  width:47px;
+  margin-bottom:24px
+}
+.hero-description p {
+  font-size:1.08rem;
+  line-height:1.85;
+  color:var(--muted)
+}
+.text-link {
+  display:inline-flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  border-bottom:1px solid #6c8192;
+  padding:20px 0 9px;
+  font-size:.875rem;
+  color:var(--ink)
+}
+.text-link:hover {
+  color:var(--accent)
+}
+.text-link span {
+  font-size:1.25rem
+}
+.hero-bottom {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  border-block:1px solid var(--line);
+  padding:20px 0;
+  color:var(--muted);
+  font-size:.8125rem;
+  letter-spacing:.03em
+}
+.directory {
+  padding-top:60px
+}
+.section-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:22px;
+  margin-bottom:26px
+}
+.section-heading .eyebrow {
+  margin-bottom:10px
+}
+.section-aside {
+  font-size:.8125rem;
+  color:var(--muted);
+  text-align:right;
+  flex-shrink:0
+}
+.source-pill {
+  display:block;
+  font-size:.75rem;
+  color:#97a9b8;
+  margin-top:3px
+}
+.case-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px
+}
+.case-card {
+  display:block;
+  background:linear-gradient(120deg,#192735,#15212c);
+  padding:29px 31px 0;
+  border:1px solid #344451;
+  transition:background .2s,border-color .2s,transform .2s
+}
+.case-card:hover {
+  background:var(--surface-hover);
+  border-color:#718ca2;
+  transform:translateY(-3px)
+}
+.card-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:31px
+}
+.case-number {
+  font-size:.75rem;
+  letter-spacing:.14em;
+  color:#a5b5c3
+}
+.badge {
+  display:inline-block;
+  border:1px solid #475b6d;
+  background:#aec6da08;
+  color:#c4d5e2;
+  padding:4px 11px;
+  border-radius:2px;
+  font-size:.75rem;
+  line-height:1.5;
+  white-space:normal
+}
+.case-type {
+  font-size:.75rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#a5b9c9;
+  margin-bottom:9px
+}
+.case-card h3 {
+  font-size:clamp(1.85rem,2.55vw,2.6rem)
+}
+.jurisdiction {
+  font-size:.875rem;
+  color:var(--muted);
+  margin-top:9px
+}
+.card-value {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:35px;
+  padding-bottom:24px;
+  gap:15px
+}
+.card-value>span {
+  font-size:.8125rem;
+  color:var(--muted)
+}
+.card-value strong {
+  font-size:1.8rem;
+  font-family:var(--serif);
+  font-weight:400;
+  line-height:1
+}
+.card-bottom {
+  border-top:1px solid #354452;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:18px 0
+}
+.card-bottom p {
+  font-size:.8125rem;
+  color:#bdc9d3;
+  line-height:1.65;
+  max-width:85%
+}
+.card-arrow {
+  font-size:1.5rem;
+  color:var(--accent)
+}
+.collection-note {
+  display:flex;
+  align-items:start;
+  gap:14px;
+  max-width:850px;
+  margin:29px 0 68px;
+  color:#a5b4c1;
+  font-size:.8125rem;
+  line-height:1.8
+}
+.note-symbol {
+  border:1px solid #63798c;
+  border-radius:50%;
+  font-family:Georgia,serif;
+  font-size:.75rem;
+  line-height:17px;
+  width:19px;
+  flex-shrink:0;
+  text-align:center;
+  margin-top:4px
+}
+.site-footer {
+  padding:35px 0 24px;
+  border-top:1px solid var(--line)
+}
+.site-footer>div:first-child {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px
+}
+.footer-brand {
+  font-size:1.8rem
+}
+.site-footer>div>span {
+  font-size:.75rem;
+  letter-spacing:.14em;
+  color:#a3b4c2
+}
+.site-footer>p {
+  max-width:870px;
+  color:#a3b2c0;
+  font-size:.8125rem;
+  line-height:1.85;
+  margin:23px 0 30px
+}
+.footer-bottom {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  border-top:1px solid #253441;
+  padding-top:19px
+}
+.footer-bottom>span {
+  font-size:.75rem!important;
+  letter-spacing:0!important
+}
+.directory-intro {
+  padding:64px 0 10px
+}
+.directory-intro h1 {
+  margin:18px 0
+}
+.directory-intro h1>span {
+  color:var(--accent)
+}
+.directory-intro>p:last-child {
+  color:var(--muted)
+}
+.client-heading {
+  padding-top:29px
+}
+.back-link {
+  color:var(--muted);
+  font-size:.8125rem;
+  display:inline-flex;
+  gap:10px;
+  align-items:center
+}
+.back-link:hover {
+  color:var(--ink)
+}
+.client-title-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:25px;
+  margin-top:35px
+}
+.client-title-row .eyebrow {
+  margin-bottom:15px
+}
+.client-title-row>.badge {
+  padding:7px 16px;
+  font-size:.8125rem;
+  flex-shrink:0
+}
+.meta-divider {
+  color:#61788b;
+  margin-inline:10px
+}
+.client-summary {
+  color:var(--muted);
+  max-width:820px;
+  margin-top:22px;
+  font-size:1rem;
+  line-height:1.8
+}
+.client-metadata {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 22px;
+  color:#a4b4c1;
+  font-size:.75rem;
+  margin:23px 0 31px
+}
+.client-metadata>span+span {
+  border-left:1px solid #435465;
+  padding-left:22px
+}
+.client-tabs {
+  display:flex;
+  border-bottom:1px solid #405263;
+  gap:30px;
+  overflow-x:auto;
+  padding-top:4px;
+  scrollbar-width:thin
+}
+.client-tabs a {
+  flex-shrink:0;
+  white-space:nowrap;
+  font-size:.875rem;
+  padding:14px 0 17px;
+  border-bottom:2px solid transparent;
+  color:var(--muted)
+}
+.client-tabs a[aria-current] {
+  border-bottom-color:var(--accent);
+  color:var(--ink)
+}
+.client-tabs a:hover {
+  color:var(--ink)
+}
+.client-content {
+  padding:31px 0 60px
+}
+.metric-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--line);
+  background:var(--surface);
+  margin-bottom:26px
+}
+.metric-grid>div {
+  padding:25px;
+  border-right:1px solid var(--line)
+}
+.metric-grid>div:last-child {
+  border-right:0
+}
+.metric-grid span {
+  display:block;
+  font-size:.8125rem;
+  color:var(--muted)
+}
+.metric-grid strong {
+  display:block;
+  font-family:var(--serif);
+  font-size:2.8rem;
+  font-weight:400;
+  margin:7px 0;
+  line-height:1.3
+}
+.metric-grid .text-metric {
+  font-size:2rem;
+  padding-top:10px;
+  padding-bottom:7px
+}
+.metric-grid small {
+  display:block;
+  color:#a4b4c1;
+  font-size:.75rem
+}
+.panel {
+  border:1px solid var(--line);
+  background:#14202a;
+  padding:29px;
+  min-width:0
+}
+.panel .section-heading h2 {
+  font-size:1.9rem
+}
+.panel .section-heading .eyebrow {
+  font-size:.75rem
+}
+.panel .section-aside {
+  font-size:.75rem;
+  white-space:normal;
+  flex-shrink:1
+}
+.overview-grid {
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:26px
+}
+.allocation-display {
+  display:flex;
+  align-items:center;
+  gap:32px;
+  padding-top:12px
+}
+.donut {
+  position:relative;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  flex-shrink:0;
+  display:grid;
+  place-items:center
+}
+.donut>div {
+  border-radius:50%;
+  width:145px;
+  height:145px;
+  background:#14202a;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:1px
+}
+.donut strong {
+  font-size:2.2rem;
+  font-family:var(--serif);
+  font-weight:400
+}
+.donut span {
+  font-size:.75rem;
+  letter-spacing:.08em;
+  color:var(--muted)
+}
+.bars {
+  flex:1;
+  min-width:0
+}
+.bar-row+.bar-row {
+  margin-top:15px
+}
+.bar-row>div:first-child {
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:15px;
+  font-size:.8125rem;
+  margin-bottom:7px
+}
+.bar-row>div>span {
+  color:#cad4dd
+}
+.bar-row strong {
+  font-size:.8125rem;
+  font-weight:500;
+  white-space:nowrap
+}
+.bar-row i {
+  display:inline-block;
+  width:6px;
+  height:6px;
+  margin-right:9px;
+  vertical-align:middle
+}
+.bar-track {
+  height:3px;
+  background:#2b3b48
+}
+.bar-track span {
+  height:100%;
+  display:block
+}
+.allocation-display .bar-track {
+  display:none
+}
+.panel-note {
+  font-size:.75rem;
+  color:#9fafbd;
+  margin-top:24px;
+  line-height:1.75
+}
+.objectives ol {
+  list-style:none;
+  counter-reset:objective;
+  padding:0;
+  margin:0
+}
+.objectives li {
+  counter-increment:objective;
+  display:flex;
+  gap:16px;
+  padding:10px 0;
+  border-bottom:1px solid #2d3d49;
+  font-size:.875rem;
+  line-height:1.6
+}
+.objectives li::before {
+  content:'0' counter(objective);
+  color:#8ca3b6;
+  font-size:.75rem;
+  margin-top:3px
+}
+.liquidity {
+  margin-top:22px
+}
+.liquidity>.eyebrow {
+  font-size:.75rem
+}
+.liquidity>p:last-child {
+  font-size:.875rem;
+  color:var(--muted);
+  margin-top:8px
+}
+.priorities {
+  margin-top:26px
+}
+.priority-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:25px
+}
+.priority-grid>div {
+  border-top:1px solid #405465;
+  padding-top:18px
+}
+.priority-grid span {
+  color:#90a9be;
+  font-size:.75rem
+}
+.priority-grid h3 {
+  font-family:var(--sans);
+  font-size:.9375rem;
+  margin-top:10px;
+  line-height:1.6;
+  color:#ced8df
+}
+.before-table {
+  margin:-8px 0 25px
+}
+.table-scroll {
+  overflow-x:auto;
+  width:100%;
+  scrollbar-width:thin
+}
+table {
+  border-collapse:collapse;
+  width:100%;
+  font-size:.8125rem;
+  min-width:980px;
+  text-align:left
+}
+th {
+  font-weight:500;
+  color:#b2c2cf;
+  font-size:.75rem;
+  padding:15px 12px;
+  border-block:1px solid #3b4c59
+}
+td {
+  padding:21px 12px;
+  border-bottom:1px solid #2f414f;
+  vertical-align:top;
+  color:#c1ced8
+}
+td strong {
+  font-size:.875rem;
+  color:var(--ink);
+  font-weight:500;
+  display:block;
+  min-width:160px
+}
+td small {
+  display:block;
+  color:#90a7b9;
+  margin-top:5px;
+  letter-spacing:.06em;
+  font-size:.75rem
+}
+td.thesis {
+  min-width:240px;
+  max-width:360px;
+  font-size:.8125rem;
+  line-height:1.7
+}
+.numeric {
+  text-align:right;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums
+}
+tfoot th,tfoot td {
+  border-bottom:0;
+  padding-top:19px;
+  font-weight:500
+}
+.chart-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:26px;
+  margin-top:26px
+}
+.chart-grid .bars {
+  padding-top:5px
+}
+.chart-grid .bar-row+.bar-row {
+  margin-top:19px
+}
+.method-note {
+  font-size:.8125rem;
+  line-height:1.9;
+  color:#a5b5c3;
+  margin-top:25px;
+  max-width:1000px
+}
+.section-intro {
+  margin:5px 0 29px
+}
+.section-intro h2 {
+  margin:9px 0 13px
+}
+.section-intro>p:last-child {
+  color:var(--muted);
+  font-size:.9375rem
+}
+.alternative-grid,.planning-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px
+}
+.alternative-heading {
+  display:flex;
+  gap:16px;
+  align-items:center;
+  border-bottom:1px solid #354754;
+  padding-bottom:20px
+}
+.alternative-heading h3 {
+  font-size:2rem
+}
+.alternative-holding {
+  padding-top:23px
+}
+.alternative-holding+.alternative-holding {
+  border-top:1px solid var(--line);
+  margin-top:23px
+}
+.holding-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:start;
+  gap:15px
+}
+.holding-heading h4 {
+  font-weight:500;
+  font-size:1rem;
+  line-height:1.7
+}
+.alternative-value {
+  font-family:var(--serif);
+  font-size:2.3rem;
+  font-weight:400;
+  display:block;
+  margin-top:16px
+}
+.alternative-value small {
+  font-family:var(--sans);
+  font-size:.75rem;
+  color:var(--muted);
+  margin-left:9px
+}
+.alternative-holding>p {
+  font-size:.875rem;
+  color:var(--muted);
+  line-height:1.8;
+  margin-top:9px
+}
+dl {
+  margin:22px 0 0
+}
+dt {
+  color:#9eb5c8;
+  font-size:.75rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:6px
+}
+dd {
+  margin:0;
+  font-size:.875rem;
+  color:#cad5de;
+  line-height:1.8
+}
+dl>div+div {
+  margin-top:20px
+}
+.planning-header {
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:center;
+  margin-bottom:21px
+}
+.planning-card h3 {
+  font-size:2rem
+}
+.professional-input {
+  border-top:1px solid #3b4d5a;
+  padding-top:18px
+}
+.research-card {
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:30px;
+  border-top:1px solid #3b4c5b;
+  padding:31px 0
+}
+.research-card:last-child {
+  border-bottom:1px solid #3b4c5b
+}
+.research-date time {
+  font-size:.875rem;
+  color:#d2dce4;
+  display:block
+}
+.research-date>span {
+  font-size:.75rem;
+  color:#99b0c2;
+  display:block;
+  margin-top:7px
+}
+.research-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:start;
+  gap:20px
+}
+.research-heading h3 {
+  font-size:2rem
+}
+.research-heading>.badge {
+  flex-shrink:0
+}
+.research-body>p {
+  font-size:.9375rem;
+  color:#b6c5d0;
+  margin-top:16px;
+  line-height:1.9
+}
+.rationale {
+  margin-top:22px;
+  border-left:2px solid #5f7a91;
+  padding:2px 0 2px 18px
+}
+.rationale .eyebrow {
+  font-size:.75rem
+}
+.rationale>p:last-child {
+  color:#aebfcd;
+  font-size:.875rem;
+  line-height:1.85;
+  margin-top:7px
+}
+.empty {
+  padding:27px 0;
+  color:var(--muted);
+  font-size:.875rem
+}
+.empty>span {
+  display:block;
+  color:#708aa0;
+  margin-bottom:10px
+}
+.state {
+  min-height:55vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:60px 15px;
+  gap:20px
+}
+.state h1 {
+  font-size:3rem
+}
+.state>p:not(.eyebrow) {
+  color:var(--muted);
+  max-width:540px
+}
+.button {
+  display:inline-flex;
+  gap:30px;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--accent);
+  color:#101b25;
+  border:0;
+  padding:13px 21px;
+  font-size:.875rem;
+  margin-top:5px
+}
+.button:hover {
+  background:#d0e0eb
+}
+.loader {
+  width:28px;
+  height:28px;
+  border:1px solid #465c6d;
+  border-top-color:#d7e4ed;
+  border-radius:50%;
+  animation:spin 1s linear infinite
+}
+.skip-link {
+  position:fixed;
+  left:20px;
+  top:-70px;
+  z-index:10;
+  padding:12px 20px;
+  background:var(--accent);
+  color:var(--bg)
+}
+.skip-link:focus {
+  top:20px
+}
+.notice {
+  padding:20px;
+  color:var(--muted)
+}
+@keyframes spin {
+  to {
+    transform:rotate(360deg)
+  }
+}
+@media(min-width:1600px) {
+  .hero-body {
+    padding-block:65px
+  }
+  .hero {
+    padding-top:55px
+  }
+  .directory {
+    padding-top:65px
+  }
+}
+@media(max-width:1150px) {
+  .site-header,main,.site-footer {
+    width:calc(100% - 64px)
+  }
+  .hero-body {
+    gap:45px
+  }
+  .header-note {
+    display:none
+  }
+  .allocation-display {
+    flex-direction:column;
+    align-items:stretch;
+    gap:25px
+  }
+  .donut {
+    align-self:center
+  }
+  .allocation-display .bars {
+    width:100%
+  }
+  .metric-grid>div {
+    padding:20px
+  }
+  .client-tabs {
+    gap:23px
+  }
+  .panel {
+    padding:24px
+  }
+  .research-card {
+    grid-template-columns:145px 1fr
+  }
+  .metric-grid .text-metric {
+    font-size:1.7rem
+  }
+  .hero-subtitle {
+    max-width:340px
+  }
+}
+@media(max-width:760px) {
+  .site-header,main,.site-footer {
+    width:calc(100% - 40px)
+  }
+  .site-header {
+    padding:23px 0;
+    gap:15px
+  }
+  .brand {
+    font-size:.75rem;
+    gap:12px;
+    letter-spacing:.12em
+  }
+  .brand small {
+    font-size:.75rem
+  }
+  .monogram {
+    font-size:2.3rem;
+    width:37px
+  }
+  .monogram span {
+    font-size:1.4rem
+  }
+  .site-header nav {
+    gap:18px;
+    font-size:.75rem
+  }
+  .site-header nav a span {
+    display:none
+  }
+  .hero {
+    padding-top:28px
+  }
+  .hero-top .eyebrow {
+    font-size:.75rem
+  }
+  .edition {
+    display:none
+  }
+  .hero-body {
+    grid-template-columns:1fr;
+    gap:34px;
+    padding:37px 0 33px
+  }
+  .hero h1 {
+    font-size:6.3rem
+  }
+  .hero-subtitle {
+    font-size:.875rem;
+    max-width:none;
+    margin-top:23px
+  }
+  .hero-description {
+    justify-self:start;
+    max-width:100%
+  }
+  .hero-description p {
+    font-size:.9375rem;
+    line-height:1.85
+  }
+  .fine-line {
+    display:none
+  }
+  .text-link {
+    padding-top:18px
+  }
+  .hero-bottom {
+    flex-direction:column;
+    gap:10px;
+    padding:18px 0;
+    font-size:.75rem
+  }
+  .directory {
+    padding-top:38px
+  }
+  .section-heading {
+    align-items:start;
+    gap:15px
+  }
+  .section-heading h2 {
+    font-size:2rem
+  }
+  .section-heading .eyebrow {
+    font-size:.75rem
+  }
+  .section-aside {
+    font-size:.75rem;
+    max-width:120px
+  }
+  .source-pill {
+    font-size:.75rem
+  }
+  .case-grid {
+    gap:17px;
+    grid-template-columns:1fr
+  }
+  .case-card {
+    padding:25px 24px 0
+  }
+  .case-card h3 {
+    font-size:2.2rem
+  }
+  .card-top {
+    margin-bottom:25px
+  }
+  .card-value {
+    margin-top:25px
+  }
+  .collection-note {
+    margin-bottom:39px
+  }
+  .site-footer {
+    padding-top:25px
+  }
+  .site-footer>div:first-child {
+    align-items:start;
+    flex-direction:column;
+    gap:8px
+  }
+  .site-footer>div>span {
+    font-size:.75rem
+  }
+  .site-footer>p {
+    margin-top:20px;
+    font-size:.75rem
+  }
+  .footer-bottom {
+    font-size:.75rem
+  }
+  .directory-intro {
+    padding:37px 0 0
+  }
+  .directory-intro>p:last-child {
+    font-size:.875rem
+  }
+  .client-title-row {
+    align-items:start;
+    flex-direction:column;
+    gap:15px;
+    margin-top:28px
+  }
+  .client-title-row h1 {
+    font-size:3rem
+  }
+  .client-title-row .eyebrow {
+    font-size:.75rem;
+    line-height:1.9
+  }
+  .client-title-row>.badge {
+    padding:4px 11px;
+    font-size:.75rem
+  }
+  .client-summary {
+    font-size:.875rem;
+    margin-top:19px
+  }
+  .client-metadata {
+    gap:7px 14px;
+    font-size:.75rem
+  }
+  .client-metadata>span+span {
+    padding-left:0;
+    border:0
+  }
+  .client-tabs {
+    gap:25px
+  }
+  .client-tabs a {
+    font-size:.8125rem
+  }
+  .client-content {
+    padding-top:22px;
+    padding-bottom:40px
+  }
+  .metric-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    margin-bottom:20px
+  }
+  .metric-grid>div {
+    padding:19px 16px;
+    border-bottom:1px solid var(--line)
+  }
+  .metric-grid>div:nth-child(2) {
+    border-right:0
+  }
+  .metric-grid>div:nth-child(n+3) {
+    border-bottom:0
+  }
+  .metric-grid strong {
+    font-size:2.4rem
+  }
+  .metric-grid .text-metric {
+    font-size:1.7rem;
+    overflow-wrap:anywhere
+  }
+  .metric-grid span {
+    font-size:.75rem
+  }
+  .metric-grid small {
+    font-size:.75rem
+  }
+  .overview-grid,.chart-grid,.alternative-grid,.planning-grid {
+    grid-template-columns:1fr;
+    gap:20px
+  }
+  .panel {
+    padding:22px 20px
+  }
+  .panel .section-heading {
+    flex-wrap:wrap;
+    margin-bottom:23px
+  }
+  .panel .section-heading h2 {
+    font-size:1.9rem
+  }
+  .panel .section-aside {
+    text-align:left;
+    max-width:none
+  }
+  .allocation-display {
+    flex-direction:row;
+    align-items:center;
+    gap:22px
+  }
+  .donut {
+    width:136px;
+    height:136px
+  }
+  .donut>div {
+    width:109px;
+    height:109px
+  }
+  .donut strong {
+    font-size:1.7rem
+  }
+  .donut span {
+    font-size:.75rem
+  }
+  .bar-row>div:first-child {
+    font-size:.75rem;
+    gap:8px
+  }
+  .bar-row strong {
+    font-size:.75rem
+  }
+  .bar-row i {
+    margin-right:6px
+  }
+  .priority-grid {
+    grid-template-columns:1fr;
+    gap:18px
+  }
+  .priorities {
+    margin-top:20px
+  }
+  .research-card {
+    grid-template-columns:1fr;
+    gap:16px;
+    padding:25px 0
+  }
+  .research-date {
+    display:flex;
+    gap:16px;
+    align-items:center
+  }
+  .research-date>span {
+    margin-top:0
+  }
+  .research-heading {
+    flex-direction:column;
+    gap:12px
+  }
+  .research-heading h3 {
+    font-size:1.85rem
+  }
+  .research-body>p {
+    font-size:.875rem
+  }
+  .section-intro>p:last-child {
+    font-size:.875rem
+  }
+  .alternative-value small {
+    display:block;
+    margin-left:0
+  }
+  .state h1 {
+    font-size:2.4rem
+  }
+}
+@media(max-width:390px) {
+  .site-header nav {
+    gap:12px
+  }
+  .site-header nav a:first-child {
+    display:none
+  }
+  .allocation-display {
+    flex-direction:column
+  }
+  .hero h1 {
+    font-size:5.8rem
+  }
+  .holding-heading {
+    flex-direction:column
+  }
+  .client-title-row h1 {
+    font-size:2.7rem
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html {
+    scroll-behavior:auto
+  }
+  *,*::before,*::after {
+    animation:none!important;
+    transition:none!important
+  }
+  .case-card:hover {
+    transform:none
+  }
+}
+/* Keep secondary labels readable and let navigation wrap on small screens. */ @media(max-width:760px) {
+  .site-header {
+    flex-wrap:wrap
+  }
+  .site-header nav {
+    width:100%;
+    justify-content:space-between;
+    border-top:1px solid var(--line);
+    padding-top:8px
+  }
+  .brand small {
+    letter-spacing:.08em
+  }
+  .hero-top .eyebrow {
+    letter-spacing:.1em
+  }
+  .site-footer>div>span {
+    letter-spacing:.08em
+  }
+  .donut {
+    width:150px;
+    height:150px
+  }
+  .donut>div {
+    width:123px;
+    height:123px
+  }
+  .donut span {
+    letter-spacing:.025em
+  }
+  .allocation-display {
+    flex-direction:column
+  }
+  .metric-grid .text-metric {
+    font-size:1.6rem
+  }
+}
+@media(max-width:390px) {
+  .site-header nav a:first-child {
+    display:block
+  }
+}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+/* Homepage-only compact introduction; all case surfaces retain their styles. */
+.hero-simplified .hero-body {
+  display: block;
+  padding: 28px 0 12px;
+}
+.hero-simplified .hero-description {
+  width: 75%;
+  max-width: none;
+  padding-bottom: 0;
+}
+@media (max-width: 760px) {
+  .hero-simplified .hero-body { padding: 24px 0 8px; }
+  .hero-simplified .hero-description { width: 100%; }
+}
 
-  <link rel="stylesheet" href="style.css" />
+/* Align the introduction with the section labels and retain its short rule. */
+.hero-simplified .hero-description {
+  justify-self: start;
+  margin-inline: 0 auto;
+  text-align: left;
+}
+.hero-simplified .fine-line {
+  display: block;
+}
+
+</style>
 </head>
 <body>
-  <div class="app">
-    <!-- Mobile drawer scrim -->
-    <div class="scrim" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="#/" aria-label="Virtual Wealth home"><span class="monogram" aria-hidden="true">V<span>W</span></span><span>VIRTUAL WEALTH<small>PRIVATE CLIENT CASE STUDIES</small></span></a>
+    <nav aria-label="Main navigation"><a href="#/" data-nav="home">Home</a><a href="#/clients" data-nav="clients">Client directory <span aria-hidden="true">↗</span></a></nav>
+    <span class="header-note">Independent thinking.<br>Long-term perspective.</span>
+  </header>
+  <main id="main" tabindex="-1"><div class="state" role="status"><span class="loader"></span><h1>Preparing your view</h1><p>Loading the client case collection…</p></div></main>
+  <footer class="site-footer"><div><a href="#/" class="footer-brand">Virtual Wealth</a><span>HYPOTHETICAL CASES · REAL-WORLD THINKING</span></div><p>This platform contains hypothetical client cases created for educational and portfolio demonstration purposes only. It does not constitute investment, tax, legal or financial advice.</p><div class="footer-bottom"><span>© <span id="year"></span> Virtual Wealth</span><span>Public showcase · Read-only</span></div></footer>
+  <noscript><p class="notice">Please enable JavaScript to view the client cases and portfolio data.</p></noscript>
+<script>
+(() => {
+"use strict";
+const COLUMNS = {
+  clients: ['id','name','type','jurisdiction','risk_profile','currency','net_worth','investable_assets','cash_value','cash_weight','portfolio_return_12m','horizon','liquidity','objectives','priorities','summary','asOf'],
+  positions: ['clientId','asset','ticker','assetClass','marketValue','targetWeight','currency','geography','sector','thesis'],
+  alternatives: ['clientId','name','category','marketValue','currency','geography','sector','liquidity','thesis','status'],
+  allocations: ['clientId','assetClass','targetWeight'],
+  planning: ['clientId','category','issue','objective','solution','professional','status'],
+  research: ['clientId','date','type','title','summary','rationale','status'],
+};
 
-    <!-- Sidebar navigation -->
-    <aside class="sidebar" aria-label="Primary">
-      <div class="brand">
-        <div class="mark">Virtual <b>Wealth</b></div>
-        <div class="tag">Portfolio Platform</div>
-      </div>
+function validateData(data) {
+  // Canonical Sheets fields; retain aliases for existing portfolio views and older feeds.
+  for (const c of data.clients || []) {
+    c.risk_profile ??= c.risk;
+    c.net_worth ??= c.netWorth;
+    c.investable_assets ??= c.investableAssets;
+    if (c.cash_value === undefined || c.cash_value === '') c.cash_value = (data.positions || []).filter(r => r.clientId === c.id && r.assetClass === 'Cash').reduce((sum,r) => sum + Number(r.marketValue), 0);
+    if (c.cash_weight === undefined || c.cash_weight === '') c.cash_weight = Number(c.cash_value) / Number(c.investable_assets) * 100;
+    if (c.portfolio_return_12m === undefined || c.portfolio_return_12m === '') c.portfolio_return_12m = null;
+    for (const [alias, field] of [['risk','risk_profile'],['netWorth','net_worth'],['investableAssets','investable_assets']]) {
+      Object.defineProperty(c, alias, { configurable: true, enumerable: false, get() { return this[field]; } });
+    }
+  }
+  for (const [table, fields] of Object.entries(COLUMNS)) {
+    if (!Array.isArray(data[table])) throw new Error(`Missing ${table} data.`);
+    for (const row of data[table]) {
+      for (const field of fields) if (!(field in row)) throw new Error(`Missing ${table}.${field}.`);
+    }
+  }
+  const ids = new Set();
+  for (const c of data.clients) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(c.id) || ids.has(c.id)) throw new Error('Invalid or duplicate client ID.');
+    ids.add(c.id);
+    if (!c.name || !String(c.risk_profile || '').trim() || !/^[A-Z]{3}$/.test(c.currency)) throw new Error('Client name, risk profile or currency is invalid.');
+    try { new Intl.NumberFormat('en-GB', { style: 'currency', currency: c.currency }); } catch { throw new Error('Unsupported currency.'); }
+  }
+  for (const table of Object.keys(COLUMNS).filter(t => t !== 'clients')) {
+    for (const row of data[table]) if (!ids.has(row.clientId)) throw new Error(`Unknown client ID in ${table}.`);
+  }
+  const numeric = { clients: ['net_worth','investable_assets','cash_value','cash_weight'], positions: ['marketValue','targetWeight'], alternatives: ['marketValue'], allocations: ['targetWeight'] };
+  for (const [table, fields] of Object.entries(numeric)) for (const row of data[table]) for (const field of fields) {
+    if (String(row[field]).trim() === '' || !Number.isFinite(Number(row[field])) || Number(row[field]) < 0) throw new Error(`Invalid number in ${table}.${field}.`);
+    row[field] = Number(row[field]);
+    if (field === 'targetWeight' && row[field] > 100) throw new Error('Target weights must be percentages from 0 to 100.');
+  }
+  for (const c of data.clients) {
+    if (c.investableAssets <= 0 || c.netWorth < c.investableAssets) throw new Error('Client wealth totals are inconsistent.');
+    if (c.cash_value > c.investable_assets || c.cash_weight > 100 || Math.abs(c.cash_weight - c.cash_value / c.investable_assets * 100) > .051) throw new Error(`Cash value and weight are inconsistent for ${c.name}.`);
+    if (c.portfolio_return_12m !== null) {
+      const value = Number(c.portfolio_return_12m);
+      if (!Number.isFinite(value) || value < -100) throw new Error(`Invalid 12-month return for ${c.name}.`);
+      c.portfolio_return_12m = value;
+    }
+    const holdings = [...data.positions, ...data.alternatives].filter(r => r.clientId === c.id);
+    if (holdings.length && Math.abs(holdings.reduce((sum, r) => sum + r.marketValue, 0) - c.investableAssets) > 1) throw new Error(`Holdings do not reconcile for ${c.name}.`);
+    const allocations = data.allocations.filter(r => r.clientId === c.id);
+    if (allocations.length && (new Set(allocations.map(r => r.assetClass)).size !== allocations.length || Math.abs(allocations.reduce((sum, r) => sum + r.targetWeight, 0) - 100) > .01)) throw new Error(`Strategic allocation is invalid for ${c.name}.`);
+  }
+  return data;
+}
 
-      <nav class="nav" aria-label="Sections">
-        <a href="#/home"        data-route="home"><span class="ico">◆</span> Overview</a>
-        <a href="#/clients"     data-route="clients"><span class="ico">❖</span> Clients</a>
-        <div class="group-label">Balance Sheet</div>
-        <a href="#/financial"   data-route="financial"><span class="ico">▤</span> Financial Assets</a>
-        <a href="#/real"        data-route="real"><span class="ico">▦</span> Real Assets</a>
-        <div class="group-label">Advisory</div>
-        <a href="#/tax"         data-route="tax"><span class="ico">§</span> Tax Planning</a>
-        <a href="#/wealth"      data-route="wealth"><span class="ico">✶</span> Wealth Planning</a>
-        <a href="#/succession"  data-route="succession"><span class="ico">⇲</span> Succession Planning</a>
-        <div class="group-label">Reference</div>
-        <a href="#/methodology" data-route="methodology"><span class="ico">⊙</span> Methodology</a>
-      </nav>
+// All remote content passes through escapeHTML before entering markup.
+const escapeHTML = (value = '') => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const money = (value, currency, compact = false) => new Intl.NumberFormat('en-GB', { style: 'currency', currency, notation: compact ? 'compact' : 'standard', maximumFractionDigits: compact ? 1 : 0 }).format(value);
+const percent = value => `${Number(value).toFixed(1).replace(/\.0$/, '')}%`;
+const list = value => String(value || '').split('|').map(s => s.trim()).filter(Boolean);
+const dateLabel = value => /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value)) ? new Intl.DateTimeFormat('en-GB', {day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(value)) : 'Date not supplied';
+const badge = value => `<span class="badge">${escapeHTML(value)}</span>`;
+const empty = label => `<div class="empty"><span aria-hidden="true">—</span><p>${escapeHTML(label)}</p></div>`;
+const sectionTitle = (eyebrow, title, aside = '') => `<div class="section-heading"><div><p class="eyebrow">${escapeHTML(eyebrow)}</p><h2>${escapeHTML(title)}</h2></div>${aside ? `<span class="section-aside">${escapeHTML(aside)}</span>` : ''}</div>`;
+const palette = ['#adc5d9','#7d98b1','#56758e','#c5c8bb','#8b8c9e','#486175','#93a5a7','#657683'];
 
-      <div class="sidebar-foot">
-        <span class="lock">🔒 Read-only</span>
-        <p>All clients &amp; figures are fictional, for educational portfolio demonstration only.</p>
-      </div>
-    </aside>
+function caseCard(client, index) {
+  const c = client;
+  return `<a class="case-card" href="#/client/${escapeHTML(c.id)}"><div class="card-top"><span class="case-number">CASE ${String(index + 1).padStart(2, '0')}</span>${badge(c.risk)}</div><p class="case-type">${escapeHTML(c.type)}</p><h3>${escapeHTML(c.name)}</h3><p class="jurisdiction">${escapeHTML(c.jurisdiction)}</p><div class="card-value"><span>Investable assets</span><strong>${money(c.investableAssets, c.currency, true)}</strong></div><div class="card-bottom"><p>${list(c.objectives).slice(0,2).map(escapeHTML).join(' · ')}</p><span class="card-arrow" aria-hidden="true">↗</span></div></a>`;
+}
 
-    <!-- Main column -->
-    <div class="main">
-      <header class="topbar">
-        <div class="mark">Virtual <b>Wealth</b></div>
-        <button class="menu-btn" aria-label="Open navigation">☰</button>
-      </header>
-      <main id="view" class="view" role="main"><!-- views render here --></main>
-    </div>
-  </div>
+function bars(items, { suffix = '%', total = 100 } = {}) {
+  if (!items.length) return empty('No allocation data available.');
+  return `<div class="bars">${items.map((item, i) => `<div class="bar-row"><div><span><i style="background:${palette[i % palette.length]}"></i>${escapeHTML(item.label)}</span><strong>${suffix === '%' ? percent(item.value) : escapeHTML(item.value)}</strong></div><div class="bar-track"><span style="width:${Math.max(0,Math.min(100, item.value / total * 100))}%;background:${palette[i % palette.length]}"></span></div></div>`).join('')}</div>`;
+}
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-<script src="app.js?v=5"></script>
+function donut(items, center, sublabel) {
+  if (!items.length) return empty('No allocation data available.');
+  let running = 0;
+  const slices = items.map((item, i) => { const start = running; running += item.value; return `${palette[i % palette.length]} ${start}% ${running}%`; });
+  return `<div class="allocation-display"><div class="donut" role="img" aria-label="${escapeHTML(items.map(i => `${i.label}: ${percent(i.value)}`).join('; '))}" style="background:conic-gradient(${slices.join(',')})"><div><strong>${escapeHTML(center)}</strong><span>${escapeHTML(sublabel)}</span></div></div>${bars(items)}</div>`;
+}
+
+function exposure(rows, field, total) {
+  const result = new Map();
+  rows.forEach(row => result.set(row[field] || 'Unclassified', (result.get(row[field] || 'Unclassified') || 0) + row.marketValue));
+  return [...result].map(([label, value]) => ({ label, value: value / total * 100 })).sort((a,b) => b.value - a.value);
+}
+
+const e = escapeHTML;
+async function loadData() {
+  const url = new URL('./data/portfolio.json', window.location.href.split('#')[0]);
+  url.searchParams.set('v', Date.now().toString());
+  const response = await fetch(url, { cache: 'no-store' });
+  if (!response.ok) throw new Error(`Portfolio data unavailable (${response.status})`);
+  const payload = await response.json();
+  return { data: validateData(payload), source: `Updated ${payload._meta?.generatedAt || 'recently'}` };
+}
+
+
+const main = document.querySelector('#main');
+const tabs = [['overview','Overview'],['investments','Investments'],['alternatives','Alternatives'],['planning','Wealth Planning'],['research','Research & Recommendations']];
+let dataset, source;
+document.querySelector('#year').textContent = new Date().getFullYear();
+document.querySelector('.skip-link').addEventListener('click', event => {
+  event.preventDefault();
+  main.focus();
+  main.scrollIntoView({ block: 'start' });
+});
+
+function home(directoryOnly = false) {
+  const cases = dataset.clients;
+  return `${directoryOnly ? `<section class="directory-intro"><p class="eyebrow">THE CASE COLLECTION</p><h1>Client directory<span>.</span></h1><p>Different circumstances. A considered approach to each.</p></section>` : `<section class="hero hero-simplified"><div class="hero-top"><p class="eyebrow">A PRIVATE WEALTH CASE COLLECTION</p><span class="edition">EDUCATIONAL PORTFOLIO / 01</span></div><div class="hero-body"><div class="hero-description"><span class="fine-line" aria-hidden="true"></span><p>A collection of hypothetical private-client cases combining investment portfolio construction, alternative investments, cross-border planning and intergenerational wealth strategy.</p><a class="text-link" href="#/clients">Explore the collection <span aria-hidden="true">↗</span></a></div></div></section>`}
+  <section class="directory" aria-labelledby="directory-title"><div class="section-heading"><div><p class="eyebrow">${directoryOnly ? 'HYPOTHETICAL CLIENT PROFILES' : 'THE CASE COLLECTION'}</p><h2 id="directory-title">${directoryOnly ? 'Individual lives. Distinct strategies.' : 'Client Cases'}</h2></div><span class="section-aside">${directoryOnly ? String(cases.length).padStart(2,'0') : cases.length} client cases${directoryOnly ? ` <span class="source-pill">${e(source)}</span>` : ''}</span></div><div class="case-grid">${cases.length ? cases.map(caseCard).join('') : empty('No client cases have been published yet.')}</div></section><div class="collection-note"><span class="note-symbol" aria-hidden="true">i</span><p>Every profile is fictional. Figures, holdings and proposed strategies are illustrative, not live market data or personalised recommendations.</p></div>`;
+}
+
+function overview(c, related) {
+  const strategic = related.allocations.map(a => ({label:a.assetClass,value:a.targetWeight}));
+  return `<div class="metric-grid"><div><span>Net Worth</span><strong>${money(c.net_worth,c.currency,true)}</strong></div><div><span>Investable Assets</span><strong>${money(c.investable_assets,c.currency,true)}</strong><small>Including alternative investments</small></div><div><span>Cash</span><strong>${money(c.cash_value,c.currency,true)}</strong><small>${c.cash_weight.toFixed(1)}% of investable assets</small></div><div><span>Portfolio Performance</span><strong>${c.portfolio_return_12m === null ? '—' : `${c.portfolio_return_12m > 0 ? '+' : ''}${c.portfolio_return_12m.toFixed(1)}%`}</strong><small>12-month portfolio return</small></div></div><div class="overview-grid"><section class="panel">${sectionTitle('THE PORTFOLIO','Strategic asset allocation','Target weights')}${donut(strategic,money(c.investableAssets,c.currency,true),'PORTFOLIO')}<p class="panel-note">Targets represent the total investable portfolio, including alternatives.</p></section><section class="panel objectives">${sectionTitle('THE MANDATE','Key objectives')}<ol>${list(c.objectives).map(item=>`<li>${e(item)}</li>`).join('')}</ol><div class="liquidity"><p class="eyebrow">LIQUIDITY REQUIREMENT</p><p>${e(c.liquidity)}</p></div></section></div><section class="panel priorities">${sectionTitle('LOOKING AHEAD','Key planning priorities')}<div class="priority-grid">${list(c.priorities).map((p,i)=>`<div><span>${String(i+1).padStart(2,'0')}</span><h3>${e(p)}</h3></div>`).join('')}</div></section>`;
+}
+
+function investments(c, related) {
+  const rows = related.positions;
+  const all = [...rows,...related.alternatives];
+  const publicTotal = rows.reduce((sum,r)=>sum+r.marketValue,0);
+  const allocation = exposure(all.map(r=>({...r,assetClass:r.assetClass || r.category})), 'assetClass', c.investableAssets);
+  return `<section class="panel">${sectionTitle('PUBLIC MARKETS','Investment portfolio',`${money(publicTotal,c.currency,true)} · ${percent(publicTotal/c.investableAssets*100)} of investable assets`)}<p class="panel-note before-table">Market values are expressed in ${e(c.currency)}, the case’s base currency. Weights and targets use total investable assets as the denominator. Currency identifies the holding’s denomination.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Public market positions" tabindex="0"><table><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Asset class</th><th scope="col" class="numeric">Market value (${e(c.currency)})</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">Target</th><th scope="col">Currency</th><th scope="col">Investment thesis</th></tr></thead><tbody>${rows.map(r=>`<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker)}</small></td><td>${e(r.assetClass)}</td><td class="numeric">${money(r.marketValue,c.currency)}</td><td class="numeric">${percent(r.marketValue/c.investableAssets*100)}</td><td class="numeric">${percent(r.targetWeight)}</td><td>${e(r.currency)}</td><td class="thesis">${e(r.thesis)}</td></tr>`).join('')}</tbody><tfoot><tr><th scope="row" colspan="2">Public-market total</th><td class="numeric">${money(publicTotal,c.currency)}</td><td class="numeric">${percent(publicTotal/c.investableAssets*100)}</td><td class="numeric">${percent(rows.reduce((sum,r)=>sum+r.targetWeight,0))}</td><td colspan="2"></td></tr></tfoot></table></div>` : empty('No public-market positions published.')}</section><div class="chart-grid"><section class="panel">${sectionTitle('CURRENT PORTFOLIO','Asset allocation')}${bars(allocation)}</section><section class="panel">${sectionTitle('CURRENT PORTFOLIO','Geographic allocation')}${bars(exposure(all,'geography',c.investableAssets))}</section><section class="panel">${sectionTitle('CURRENT PORTFOLIO','Currency exposure')}${bars(exposure(all,'currency',c.investableAssets))}</section><section class="panel">${sectionTitle('CURRENT PORTFOLIO','Sector exposure')}${bars(exposure(all,'sector',c.investableAssets))}</section></div><p class="method-note">Exposure charts cover all investable assets. Geographic and sector labels classify each holding at vehicle level; global and multi-sector funds are not decomposed. Currency exposure reflects denomination, not underlying economic FX exposure or hedging. These are illustrative snapshots.</p>`;
+}
+
+function alternatives(c, related) {
+  const categories = ['Real estate','Private equity','Private credit','Infrastructure','Other alternatives'];
+  const extra = related.alternatives.map(r=>r.category).filter(x=>!categories.includes(x));
+  return `<div class="section-intro"><p class="eyebrow">BEYOND PUBLIC MARKETS</p><h2>Alternative investments</h2><p>Longer-term capital, considered alongside liquidity and concentration.</p></div><div class="alternative-grid">${[...new Set([...categories,...extra])].map((category,index)=>{const rows = related.alternatives.filter(r=>r.category===category);return `<section class="panel alternative-card"><div class="alternative-heading"><span class="case-number">${String(index+1).padStart(2,'0')}</span><h3>${e(category)}</h3></div>${rows.length ? rows.map(r=>`<div class="alternative-holding"><div class="holding-heading"><h4>${e(r.name)}</h4>${badge(r.status)}</div><strong class="alternative-value">${money(r.marketValue,c.currency,true)} <small>${percent(r.marketValue/c.investableAssets*100)} of portfolio</small></strong><p>${e(r.thesis)}</p><dl><div><dt>Liquidity</dt><dd>${e(r.liquidity)}</dd></div><div><dt>Geography / denomination</dt><dd>${e(r.geography)} / ${e(r.currency)}</dd></div></dl></div>`).join('') : empty('No allocation in this case.')}</section>`;}).join('')}</div><p class="method-note">All vehicles are fictional. Values are illustrative and expressed in ${e(c.currency)}. Capital calls, valuation uncertainty, leverage and limited exit options require assessment before any real-world allocation.</p>`;
+}
+
+function planning(c, related) {
+  return `<div class="section-intro"><p class="eyebrow">STRUCTURE &amp; CONTINUITY</p><h2>Wealth planning</h2><p>Illustrative issues and options for discussion with appropriately qualified advisers.</p></div><div class="planning-grid">${related.planning.length ? related.planning.map((p,i)=>`<article class="panel planning-card"><div class="planning-header"><span class="case-number">${String(i+1).padStart(2,'0')}</span>${badge(p.status)}</div><h3>${e(p.category)}</h3><dl><div><dt>Current issue</dt><dd>${e(p.issue)}</dd></div><div><dt>Objective</dt><dd>${e(p.objective)}</dd></div><div><dt>Proposed solution</dt><dd>${e(p.solution)}</dd></div><div class="professional-input"><dt>Professional input required</dt><dd>${e(p.professional)}</dd></div></dl></article>`).join('') : empty('No planning items published.')}</div>`;
+}
+
+function research(c, related) {
+  const rows = [...related.research].sort((a,b)=>b.date.localeCompare(a.date));
+  return `<div class="section-intro"><p class="eyebrow">THE INVESTMENT PERSPECTIVE</p><h2>Research &amp; recommendations</h2><p>Case-specific observations and hypothetical proposals, with the reasoning made explicit.</p></div><div class="research-list">${rows.length ? rows.map(r=>`<article class="research-card"><div class="research-date"><time datetime="${e(r.date)}">${e(dateLabel(r.date))}</time><span>${e(r.type)}</span></div><div class="research-body"><div class="research-heading"><h3>${e(r.title)}</h3>${badge(r.status)}</div><p>${e(r.summary)}</p><div class="rationale"><p class="eyebrow">RATIONALE</p><p>${e(r.rationale)}</p></div></div></article>`).join('') : empty('No research notes published.')}</div><p class="method-note">Research entries are authored fictional case notes, not live investment research. Status labels describe the hypothetical process only.</p>`;
+}
+
+function detail(id, tab) {
+  const c = dataset.clients.find(item=>item.id===id);
+  if (!c || !tabs.some(([key])=>key===tab)) return notFound();
+  const related = Object.fromEntries(['positions','alternatives','allocations','planning','research'].map(table=>[table,dataset[table].filter(r=>r.clientId===id)]));
+  document.title = `${c.name} — ${tabs.find(([key])=>key===tab)[1]} | Virtual Wealth`;
+  const content = {overview,investments,alternatives,planning,research}[tab](c,related);
+  return `<div class="client-heading"><a class="back-link" href="#/clients"><span aria-hidden="true">←</span> Client directory</a><div class="client-title-row"><div><p class="eyebrow">${e(c.type)} <span class="meta-divider">/</span> ${e(c.jurisdiction)}</p><h1>${e(c.name)}</h1></div>${badge(c.risk_profile)}</div><p class="client-summary">${e(c.summary)}</p><div class="client-metadata"><span>Fictional client case</span><span>Base currency: ${e(c.currency)}</span></div></div><nav class="client-tabs" aria-label="Client sections">${tabs.map(([key,label])=>`<a href="#/client/${e(id)}${key==='overview'?'':`/${key}`}" ${tab===key?'aria-current="page"':''}>${label}</a>`).join('')}</nav><div class="client-content">${content}</div>`;
+}
+
+function notFound() {
+  document.title = 'Page not found | Virtual Wealth';
+  return '<section class="state"><p class="eyebrow">404 / PAGE NOT FOUND</p><h1>A different perspective.</h1><p>This client or section could not be found.</p><a class="button" href="#/clients">Return to the collection</a></section>';
+}
+
+function render(focus = false) {
+  if (!dataset) return;
+  const hash = location.hash === '#main' ? '#/' : (location.hash || '#/');
+  const parts = hash.slice(1).split('/').filter(Boolean);
+  document.title = 'Virtual Wealth | Private Client Portfolio & Planning';
+  if (!parts.length) main.innerHTML = home();
+  else if (parts[0]==='clients' && parts.length===1) main.innerHTML = home(true);
+  else if (parts[0]==='client' && parts.length>=2 && parts.length<=3) main.innerHTML = detail(parts[1],parts[2] || 'overview');
+  else main.innerHTML = notFound();
+  document.querySelectorAll('[data-nav]').forEach(a=>{
+    const active = a.dataset.nav === (!parts.length ? 'home' : 'clients');
+    if (active) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+  });
+  if (focus) { main.focus({preventScroll:true}); window.scrollTo({top:0,behavior:'instant'}); }
+}
+
+async function init() {
+  main.innerHTML = '<div class="state" role="status"><span class="loader"></span><h1>Preparing your view</h1><p>Loading the client case collection…</p></div>';
+  try { const result = await loadData(); dataset = result.data; source = result.source; render(); }
+  catch(error) {
+    console.error('Case data could not be loaded:',error);
+    main.innerHTML = '<section class="state" role="alert"><p class="eyebrow">DATA TEMPORARILY UNAVAILABLE</p><h1>We couldn’t load the cases.</h1><p>The published dataset may be unavailable or incorrectly configured. Please try again shortly.</p><button class="button" id="retry" type="button">Try again <span aria-hidden="true">↻</span></button></section>';
+    document.querySelector('#retry').addEventListener('click',init);
+  }
+}
+window.addEventListener('hashchange',()=>render(true));
+init();
+
+})();
+</script>
 </body>
 </html>
