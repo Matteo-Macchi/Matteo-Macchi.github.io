@@ -62,7 +62,15 @@
       "stale": false,
       "actualWeight": 31.691167128999588,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE00BJ0KDR00-ETFP.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.03,
+      "incomeTreatment": "Accumulating",
+      "lookThroughGeography": [
+        {
+          "label": "USA",
+          "weight": 100
+        }
+      ]
     },
     {
       "clientId": "rossi-family",
@@ -102,7 +110,35 @@
       "stale": false,
       "actualWeight": 17.134906664401775,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE0006WW1TQ4-ETFP.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.15,
+      "incomeTreatment": "Accumulating",
+      "lookThroughGeography": [
+        {
+          "label": "Japan",
+          "weight": 20.73
+        },
+        {
+          "label": "United Kingdom",
+          "weight": 12.67
+        },
+        {
+          "label": "Canada",
+          "weight": 12.41
+        },
+        {
+          "label": "France",
+          "weight": 8.46
+        },
+        {
+          "label": "Switzerland",
+          "weight": 8.09
+        },
+        {
+          "label": "Other developed",
+          "weight": 37.64
+        }
+      ]
     },
     {
       "clientId": "rossi-family",
@@ -142,7 +178,15 @@
       "stale": false,
       "actualWeight": 8.742692476450136,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE00BKM4GZ66-ETFP.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.18,
+      "incomeTreatment": "Accumulating",
+      "lookThroughGeography": [
+        {
+          "label": "Emerging markets",
+          "weight": 100
+        }
+      ]
     },
     {
       "clientId": "rossi-family",
@@ -182,7 +226,31 @@
       "stale": false,
       "actualWeight": 3.1282930082435314,
       "sourceUrl": "https://www.ssga.com/uk/en_gb/intermediary/etfs/state-street-spdr-msci-world-value-ucits-etf-acc-wval-na",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.25,
+      "incomeTreatment": "Accumulating",
+      "lookThroughGeography": [
+        {
+          "label": "USA",
+          "weight": 48.94
+        },
+        {
+          "label": "Japan",
+          "weight": 17.9
+        },
+        {
+          "label": "United Kingdom",
+          "weight": 7.35
+        },
+        {
+          "label": "France",
+          "weight": 6.07
+        },
+        {
+          "label": "Other developed",
+          "weight": 19.74
+        }
+      ]
     },
     {
       "clientId": "rossi-family",
@@ -222,7 +290,35 @@
       "stale": false,
       "actualWeight": 3.433305418394852,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE00BP3QZ825-ETFP.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.25,
+      "incomeTreatment": "Accumulating",
+      "lookThroughGeography": [
+        {
+          "label": "USA",
+          "weight": 56.08
+        },
+        {
+          "label": "Japan",
+          "weight": 11.52
+        },
+        {
+          "label": "Canada",
+          "weight": 7.09
+        },
+        {
+          "label": "United Kingdom",
+          "weight": 5.33
+        },
+        {
+          "label": "Netherlands",
+          "weight": 3.16
+        },
+        {
+          "label": "Other developed",
+          "weight": 16.82
+        }
+      ]
     },
     {
       "clientId": "rossi-family",
@@ -262,7 +358,19 @@
       "stale": false,
       "actualWeight": 3.9004075718743243,
       "sourceUrl": "https://live.deutsche-boerse.com/en/etf/avantis-global-small-cap-value-ucits-etf/price-history/historical-prices-and-volumes?currency=EUR",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.39,
+      "incomeTreatment": "Accumulating",
+      "lookThroughGeography": [
+        {
+          "label": "USA",
+          "weight": 66.69
+        },
+        {
+          "label": "Other developed",
+          "weight": 33.31
+        }
+      ]
     },
     {
       "clientId": "rossi-family",
@@ -302,7 +410,9 @@
       "stale": false,
       "actualWeight": 1.7067608766590772,
       "sourceUrl": "https://www.deutsche-finanzagentur.de/en/federal-securities/factsheet/isin/DE0001102622",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "coupon": 2.1,
+      "maturity": "2029-11-15"
     },
     {
       "clientId": "rossi-family",
@@ -342,7 +452,9 @@
       "stale": false,
       "actualWeight": 1.709713279301943,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/scheda/FR001400Z2L7-MOTX.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "coupon": 2.7,
+      "maturity": "2031-02-25"
     },
     {
       "clientId": "rossi-family",
@@ -382,7 +494,9 @@
       "stale": false,
       "actualWeight": 2.1463049369146545,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/scheda/ES0000012N35-MOTX.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "coupon": 3.45,
+      "maturity": "2034-10-31"
     },
     {
       "clientId": "rossi-family",
@@ -422,7 +536,9 @@
       "stale": false,
       "actualWeight": 2.144964162226026,
       "sourceUrl": "https://www.deutsche-finanzagentur.de/en/federal-securities/factsheet/isin/DE000BU2Z072",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "coupon": 3,
+      "maturity": "2036-08-15"
     },
     {
       "clientId": "rossi-family",
@@ -462,7 +578,9 @@
       "stale": false,
       "actualWeight": 2.136174152642772,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/scheda/FR0014015MU5-MOTX.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "coupon": 4.1,
+      "maturity": "2046-05-25"
     },
     {
       "clientId": "rossi-family",
@@ -502,7 +620,9 @@
       "stale": false,
       "actualWeight": 2.142307823629052,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/obbligazioni/mot/btp/scheda/IT0005611741-MOTX.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "coupon": 4.3,
+      "maturity": "2054-10-01"
     },
     {
       "clientId": "rossi-family",
@@ -542,7 +662,9 @@
       "stale": false,
       "actualWeight": 5.162277422701819,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE00BGYWT403-ETFP.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.07,
+      "incomeTreatment": "Accumulating"
     },
     {
       "clientId": "rossi-family",
@@ -582,7 +704,9 @@
       "stale": false,
       "actualWeight": 4.299246504184427,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE00B0M62X26-ETFP.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.09,
+      "incomeTreatment": "Accumulating"
     },
     {
       "clientId": "rossi-family",
@@ -622,7 +746,9 @@
       "stale": false,
       "actualWeight": 0.8603728590480433,
       "sourceUrl": "https://www.ishares.com/uk/individual/en/products/327355/ishares-ultrashort-bond-ucits-etf",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.09,
+      "incomeTreatment": "Accumulating"
     },
     {
       "clientId": "rossi-family",
@@ -662,7 +788,9 @@
       "stale": false,
       "actualWeight": 6.527605518367068,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etc-etn/scheda/IE00B4ND3602-ETFP.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.12,
+      "incomeTreatment": "No income"
     },
     {
       "clientId": "rossi-family",
@@ -702,7 +830,9 @@
       "stale": false,
       "actualWeight": 1.2429869763951251,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etc-etn/scheda/XS2940466316-ETFP.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.15,
+      "incomeTreatment": "No income"
     },
     {
       "clientId": "rossi-family",
@@ -742,7 +872,10 @@
       "stale": false,
       "actualWeight": 1.8905132195658099,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etc-etn/scheda/IE00BVFZGD11-ETFP.html",
-      "performanceType": "Hypothetical backtest / ex-post entry window"
+      "performanceType": "Hypothetical backtest / ex-post entry window",
+      "ongoingCost": 0.25,
+      "otherOngoingCost": 0.41,
+      "incomeTreatment": "No income"
     }
   ],
   "liquidity": [
@@ -868,6 +1001,10 @@
     "publicCurrentValue": 5811006.178799999,
     "publicPL": 815003.7282,
     "modelReturnSinceEntry": 16.31311706226488,
+    "capitalAvailable": 5000000,
+    "unallocatedCash": 3997.5493999999017,
+    "equityGeographyMethod": "Holdings/index look-through. Country weights use the latest official provider or index data available at the valuation date; emerging markets and residual developed-market exposures are grouped where complete country detail is unavailable.",
+    "equityGeographyAsOf": "2026-09-25",
     "warnings": [
       "1M and YTD performance are not populated because a complete daily price series is not loaded.",
       "Automatic daily pricing must be validated instrument by instrument before activation.",
