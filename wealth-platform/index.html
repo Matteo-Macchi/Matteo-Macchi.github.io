@@ -840,7 +840,7 @@ tfoot th,tfoot td {
 }
 .liquidity-summary {
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:repeat(5,minmax(0,1fr));
   border-block:1px solid var(--line);
   margin-bottom:25px
 }
@@ -920,6 +920,10 @@ tfoot th,tfoot td {
   display:block;
   color:#8399aa;
   margin-top:2px
+}
+.tier-list .tier-metric {
+  color:#adc5d9;
+  margin-top:4px
 }
 .tier-list strong {
   font-weight:500;
@@ -1482,11 +1486,19 @@ dl>div+div {
   .liquidity-summary>div:nth-child(2) {
     border-right:0
   }
-  .liquidity-summary>div:nth-child(-n+2) {
+  .liquidity-summary>div:nth-child(-n+4) {
     border-bottom:1px solid var(--line)
   }
-  .liquidity-summary>div:nth-child(3) {
+  .liquidity-summary>div:nth-child(3),
+  .liquidity-summary>div:nth-child(5) {
     padding-left:0
+  }
+  .liquidity-summary>div:nth-child(4) {
+    border-right:0
+  }
+  .liquidity-summary>div:nth-child(5) {
+    grid-column:1 / -1;
+    border-right:0
   }
   .tier-grid {
     grid-template-columns:1fr
@@ -1845,20 +1857,22 @@ function liquidityPanel(c, rows) {
   const total = tiers.reduce((sum,tier)=>sum+tierTotal(tier),0);
   const annualNeed = optionalNumber(c.annual_spending ?? c.annualLiquidityNeed ?? c.annual_liquidity_need);
   const targetMonths = optionalNumber(c.liquidity_target_months ?? c.liquidityTargetMonths) || 36;
-  const minimum = annualNeed === null ? null : annualNeed * targetMonths / 12;
-  const months = annualNeed && total ? total / annualNeed * 12 : null;
+  const explicitMinimum = optionalNumber(c.liquidity_minimum_36m ?? c.liquidityMinimum36m);
+  const minimum = explicitMinimum ?? (annualNeed === null ? null : annualNeed * targetMonths / 12);
+  const coverage = minimum && total ? total / minimum : null;
   const surplus = minimum === null ? null : total - minimum;
   const tierMeta = {
-    1:['Operational cash','Current accounts and immediately accessible deposits.'],
-    2:['Immediate liquidity','Money-market funds, overnight ETFs and cash equivalents.'],
-    3:['Strategic liquidity','Short-duration government securities and reserve instruments.']
+    1:['Operational cash','Immediately accessible cash and deposits · 0–12 months'],
+    2:['Immediate liquidity','XEON · EUR overnight-rate exposure · 12–24 months'],
+    3:['Strategic liquidity','CSBGE3 · EUR government bonds 1–3yr · 24–36+ months']
   };
   const summaryValue = (value, suffix='') => value === null ? '—' : `${suffix}${money(value,c.currency,true)}`;
-  return `<section class="panel liquidity-panel">${sectionTitle('LIQUIDITY FRAMEWORK','Cash & liquidity reserve',total ? `${money(total,c.currency,true)} across three liquidity tiers` : 'Structure ready for client data')}<p class="panel-note before-table">Liquidity is classified by purpose and accessibility. Tier classifications are analytical labels; each holding is counted only once in portfolio totals.</p><div class="liquidity-summary"><div><span>Total liquidity reserve</span><strong>${summaryValue(total)}</strong></div><div><span>Annual liquidity need</span><strong>${summaryValue(annualNeed)}</strong></div><div><span>Minimum reserve</span><strong>${minimum === null ? '—' : money(minimum,c.currency,true)}</strong><span>${targetMonths}-month requirement</span></div><div><span>Liquidity coverage</span><strong>${months === null ? '—' : `${months.toFixed(0)} months`}</strong><span>${surplus === null ? 'Requirement not yet set' : `${surplus >= 0 ? '+' : '−'}${money(Math.abs(surplus),c.currency,true)} vs minimum`}</span></div></div><div class="tier-grid">${tiers.map(tier=>{const [title,description]=tierMeta[tier.number];const tierValue=tierTotal(tier);return `<article class="tier-card"><div class="tier-heading"><h3>Tier ${tier.number} · ${e(title)}</h3><strong>${tier.rows.length ? money(tierValue,c.currency,true) : '—'}</strong></div><p>${e(description)}</p>${tier.rows.length ? `<ul class="tier-list">${tier.rows.map(row=>`<li><span>${e(row.asset)}<small>${e(row.ticker || row.currency)}</small></span><strong>${money(row.marketValue,c.currency)}</strong></li>`).join('')}</ul>` : '<div class="empty"><span aria-hidden="true">—</span><p>Not yet configured.</p></div>'}</article>`;}).join('')}</div></section>`;
+  return `<section class="panel liquidity-panel">${sectionTitle('LIQUIDITY FRAMEWORK','Cash & liquidity reserve',total ? `${money(total,c.currency,true)} across three liquidity tiers` : 'Structure ready for client data')}<p class="panel-note before-table">Liquidity is classified by time horizon and accessibility. Tier 1 bank interest is modelled gross before tax; Tier 2 and Tier 3 are shown again in the investment table for transparency but are excluded from the €5m financial-portfolio total.</p><div class="liquidity-summary"><div><span>Total liquidity reserve</span><strong>${summaryValue(total)}</strong></div><div><span>12-month requirement</span><strong>${summaryValue(annualNeed)}</strong></div><div><span>Minimum reserve</span><strong>${minimum === null ? '—' : money(minimum,c.currency,true)}</strong><span>${targetMonths}-month requirement</span></div><div><span>Surplus liquidity buffer</span><strong>${surplus === null ? '—' : `${surplus >= 0 ? '+' : '−'}${money(Math.abs(surplus),c.currency,true)}`}</strong></div><div><span>36-month coverage</span><strong>${coverage === null ? '—' : `${(coverage*100).toFixed(1)}%`}</strong><span>${coverage === null ? 'Requirement not yet set' : `${coverage.toFixed(2)}x minimum`}</span></div></div><div class="tier-grid">${tiers.map(tier=>{const [title,description]=tierMeta[tier.number];const tierValue=tierTotal(tier);return `<article class="tier-card"><div class="tier-heading"><h3>Tier ${tier.number} · ${e(title)}</h3><strong>${tier.rows.length ? money(tierValue,c.currency,true) : '—'}</strong></div><p>${e(description)}</p>${tier.rows.length ? `<ul class="tier-list">${tier.rows.map(row=>{const rate=optionalNumber(row.annualRate);const earned=optionalNumber(row.interestEarned);const ytm=optionalNumber(row.currentYTM);const metric=earned!==null?`Gross interest ${money(earned,c.currency)} · ${percent(row.performanceSincePurchase)}`:ytm!==null?`YTM ${percent(ytm)} · duration ${Number(row.duration).toFixed(2)}y`:rate!==null&&rate>0?`Gross rate ${percent(rate)}`:'';return `<li><span>${e(row.asset)}<small>${e(row.ticker || row.currency)}</small>${metric?`<small class="tier-metric">${e(metric)}</small>`:''}</span><strong>${money(row.marketValue,c.currency)}</strong></li>`;}).join('')}</ul>` : '<div class="empty"><span aria-hidden="true">—</span><p>Not yet configured.</p></div>'}</article>`;}).join('')}</div></section>`;
 }
 
 function positionGroup(row) {
   const value = String(row.assetClass || 'Other');
+  if (/portfolio liquidity/i.test(value)) return 'Opportunity Reserve';
   if (/cash|liquid|money market/i.test(value)) return 'Liquidity';
   if (/equit|stock/i.test(value)) return 'Equities';
   if (/fixed|bond|credit/i.test(value)) return 'Fixed Income';
@@ -1913,19 +1927,23 @@ function investments(c, related) {
   const equityTotal = rows.filter(r=>positionGroup(r)==='Equities').reduce((sum,r)=>sum+r.marketValue,0);
   const usaEquity = geography.find(item=>item.label==='USA')?.value ?? null;
   const usaPortfolio = usaEquity === null ? null : usaEquity/100*equityTotal/denominator*100;
-  const groupOrder = ['Equities','Fixed Income','Liquidity','Gold','Digital Assets','Commodities'];
+  const groupOrder = ['Equities','Fixed Income','Opportunity Reserve','Gold','Digital Assets','Commodities'];
   const groups = [...new Set(rows.map(positionGroup))].sort((a,b)=>{
     const ai = groupOrder.indexOf(a), bi = groupOrder.indexOf(b);
     return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi) || a.localeCompare(b);
   });
-  const tableRows = groups.map(group=>{
+  const reserveRows = related.liquidity.filter(row=>[2,3].includes(liquidityTier(row)));
+  const reserveTotal = related.liquidity.reduce((sum,row)=>sum+row.marketValue,0) || 1;
+  const reserveInvested = reserveRows.reduce((sum,row)=>sum+row.marketValue,0);
+  const liquidityTableRows = reserveRows.length ? `<tr class="position-group"><th colspan="7" scope="rowgroup">Liquidity <small>Tier 2 &amp; Tier 3 · outside financial portfolio</small></th><th class="group-total" colspan="4">${money(reserveInvested,c.currency)} · ${percent(reserveInvested/reserveTotal*100)} of reserve</th></tr>${reserveRows.map(r=>{const quantity=optionalNumber(r.quantity);const facts=[optionalNumber(r.ongoingCost)===null?null:`Ongoing cost ${percent(r.ongoingCost)}`,optionalNumber(r.currentYTM)===null?null:`YTM ${percent(r.currentYTM)}`,optionalNumber(r.duration)===null?null:`Duration ${Number(r.duration).toFixed(2)}y`,r.horizon].filter(Boolean);return `<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker)}</small><div class="position-facts">${facts.map(f=>`<span>${e(f)}</span>`).join('')}</div><details class="position-detail"><summary>Liquidity role</summary><p>${e(r.thesis)}</p></details></td><td>${e(dateLabel(r.purchaseDate))}</td><td class="numeric">${quantity===null?'—':new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}<small>Model units</small></td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${priceLabel(r.price,r.priceCurrency||r.currency)}</td><td class="numeric">${money(r.marketValue,c.currency)}</td><td>${e(r.currency)}</td><td class="numeric">${percent(r.marketValue/reserveTotal*100)}<small>of reserve</small></td><td class="numeric">${performance(r.performance1M)}</td><td class="numeric">${performance(r.performanceYTD)}</td><td class="numeric">${performance(r.performanceSincePurchase)}</td></tr>`;}).join('')}` : '';
+  const tableRows = liquidityTableRows + groups.map(group=>{
     const members = rows.filter(row=>positionGroup(row)===group);
     const subtotal = members.reduce((sum,row)=>sum+row.marketValue,0);
     return `<tr class="position-group"><th colspan="7" scope="rowgroup">${e(group)}</th><th class="group-total" colspan="4">${money(subtotal,c.currency)} · ${percent(subtotal/denominator*100)}</th></tr>${members.map(r=>{const quantity=optionalNumber(r.quantity);const oneMonth=r.performance1M ?? r.performance_1m ?? r.return_1m;const ytd=r.performanceYTD ?? r.performance_ytd ?? r.return_ytd;const since=r.performanceSincePurchase ?? r.performance_since_purchase ?? r.total_return;const directBond=optionalNumber(r.coupon)!==null;const facts=directBond?[`Coupon ${percent(r.coupon)}`,`Maturity ${dateLabel(r.maturity)}`,optionalNumber(r.currentYTM)===null?'YTM unavailable':`YTM ${percent(r.currentYTM)}`,optionalNumber(r.duration)===null?'Duration unavailable':`Duration ${Number(r.duration).toFixed(2)}y`]:[optionalNumber(r.ongoingCost)===null?null:`Ongoing cost ${percent(r.ongoingCost)}`,optionalNumber(r.otherOngoingCost)===null?null:`Additional cost ${percent(r.otherOngoingCost)}`,r.incomeTreatment].filter(Boolean);return `<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker || r.isin)}</small><div class="position-facts">${facts.map(f=>`<span>${e(f)}</span>`).join('')}</div>${r.thesis ? `<details class="position-detail"><summary>Investment rationale</summary><p>${e(r.thesis)}</p></details>` : ''}</td><td>${e(dateLabel(r.purchaseDate))}</td><td class="numeric">${quantity === null ? '—' : new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}<small>${quantityLabel(r)}</small></td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency,directBond)}</td><td class="numeric">${priceLabel(r.price,r.priceCurrency||r.currency,directBond)}</td><td class="numeric">${money(r.marketValue,c.currency)}</td><td>${e(r.currency)}</td><td class="numeric">${percent(r.marketValue/denominator*100)}</td><td class="numeric">${performance(oneMonth)}</td><td class="numeric">${performance(ytd)}</td><td class="numeric">${performance(since)}</td></tr>`;}).join('')}`;
   }).join('');
   const analytics = `<div class="chart-grid">${chartPanel(c.id,'asset','Current asset allocation',allocation)}${chartPanel(c.id,'geography','Equity geography · look-through',geography)}${chartPanel(c.id,'currency','Economic currency exposure',exposure(rows,'economicCurrency',denominator))}${chartPanel(c.id,'sector','Strategy exposure',exposure(rows,'sector',denominator))}</div>`;
   const summary = `<div class="portfolio-summary"><div><span>Capital available</span><strong>${money(initialCapital,c.currency)}</strong></div><div><span>Initial amount invested</span><strong>${money(initialCost,c.currency)}</strong></div><div><span>Current market value</span><strong>${money(publicTotal,c.currency)}</strong></div><div><span>Model P/L</span><strong>${totalPL>=0?'+':''}${money(totalPL,c.currency)}</strong></div><div><span>Model return since entry</span><strong>${modelReturn===null?'—':`${modelReturn>=0?'+':''}${percent(modelReturn)}`}</strong></div></div>`;
-  const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`Prices as of ${dateLabel(valuationDate)}`)}${summary}<p class="panel-note before-table">The model started with ${money(initialCapital,c.currency)}. ${money(initialCost,c.currency)} was deployed and ${money(unallocated,c.currency)} remained unallocated because units and bond nominal amounts were rounded. Current values use the exact prices stored in the model; displayed prices retain sufficient decimals to reconcile the calculations. 1M and YTD will populate only after a complete daily price history is connected.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Financial portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Model entry date</th><th scope="col" class="numeric">Units / nominal</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Market value (${e(c.currency)})</th><th scope="col">Trading currency</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since entry</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><th scope="row" colspan="5">Financial portfolio total</th><td class="numeric">${money(publicTotal,c.currency)}</td><td></td><td class="numeric">100%</td><td colspan="3"></td></tr></tfoot></table></div>` : empty('No financial-market positions published.')}</section>`;
+  const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`Prices as of ${dateLabel(valuationDate)}`)}${summary}<p class="panel-note before-table">The liquidity reserve appears first for visibility: XEON and CSBGE3 total ${money(reserveInvested,c.currency)} and sit outside the €5m financial portfolio. The financial model started with ${money(initialCapital,c.currency)}; ${money(initialCost,c.currency)} was deployed and ${money(unallocated,c.currency)} remained unallocated because units and bond nominal amounts were rounded. 1M and YTD populate only when a complete price history is available.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Liquidity and financial portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Model entry date</th><th scope="col" class="numeric">Units / nominal</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Market value (${e(c.currency)})</th><th scope="col">Trading currency</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since entry</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><th scope="row" colspan="5">Financial portfolio total <small>excludes liquidity reserve</small></th><td class="numeric">${money(publicTotal,c.currency)}</td><td></td><td class="numeric">100%</td><td colspan="3"></td></tr></tfoot></table></div>` : empty('No financial-market positions published.')}</section>`;
   const geographyNote = usaEquity === null ? '' : ` USA exposure is approximately ${percent(usaPortfolio)} of the financial portfolio and ${percent(usaEquity)} of the equity sleeve.`;
   return `${liquidityPanel(c,related.liquidity)}${analytics}<p class="method-note">The geographic chart applies holdings/index look-through to the equity sleeve and uses equity as its denominator.${geographyNote} Residual countries are grouped where complete provider detail is unavailable. Other analytics cover the current financial portfolio; private-market and real assets are excluded.</p>${portfolio}`;
 }
