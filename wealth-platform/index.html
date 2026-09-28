@@ -1623,8 +1623,9 @@ dl>div+div {
 (() => {
 "use strict";
 const COLUMNS = {
-  clients: ['id','name','type','jurisdiction','risk_profile','currency','net_worth','investable_assets','cash_value','cash_weight','portfolio_return_12m','horizon','liquidity','objectives','priorities','summary','asOf'],
+  clients: ['id','name','type','jurisdiction','risk_profile','currency','net_worth','investable_assets','current_investable_assets','cash_value','cash_weight','portfolio_return_12m','model_return_since_entry','horizon','liquidity','objectives','priorities','summary','asOf'],
   positions: ['clientId','asset','ticker','assetClass','marketValue','targetWeight','currency','geography','sector','thesis'],
+  liquidity: ['clientId','asset','ticker','tier','marketValue','currency','geography','sector','thesis'],
   alternatives: ['clientId','name','category','marketValue','currency','geography','sector','liquidity','thesis','status'],
   allocations: ['clientId','assetClass','targetWeight'],
   planning: ['clientId','category','issue','objective','solution','professional','status'],
@@ -1637,10 +1638,11 @@ function validateData(data) {
     c.risk_profile ??= c.risk;
     c.net_worth ??= c.netWorth;
     c.investable_assets ??= c.investableAssets;
-    if (c.cash_value === undefined || c.cash_value === '') c.cash_value = (data.positions || []).filter(r => r.clientId === c.id && r.assetClass === 'Cash').reduce((sum,r) => sum + Number(r.marketValue), 0);
+    c.current_investable_assets ??= c.currentInvestableAssets ?? c.investable_assets;
+    if (c.cash_value === undefined || c.cash_value === '') c.cash_value = (data.liquidity || []).filter(r => r.clientId === c.id).reduce((sum,r) => sum + Number(r.marketValue), 0);
     if (c.cash_weight === undefined || c.cash_weight === '') c.cash_weight = Number(c.cash_value) / Number(c.investable_assets) * 100;
     if (c.portfolio_return_12m === undefined || c.portfolio_return_12m === '') c.portfolio_return_12m = null;
-    for (const [alias, field] of [['risk','risk_profile'],['netWorth','net_worth'],['investableAssets','investable_assets']]) {
+    for (const [alias, field] of [['risk','risk_profile'],['netWorth','net_worth'],['investableAssets','investable_assets'],['currentInvestableAssets','current_investable_assets']]) {
       Object.defineProperty(c, alias, { configurable: true, enumerable: false, get() { return this[field]; } });
     }
   }
@@ -1660,7 +1662,7 @@ function validateData(data) {
   for (const table of Object.keys(COLUMNS).filter(t => t !== 'clients')) {
     for (const row of data[table]) if (!ids.has(row.clientId)) throw new Error(`Unknown client ID in ${table}.`);
   }
-  const numeric = { clients: ['net_worth','investable_assets','cash_value','cash_weight'], positions: ['marketValue','targetWeight'], alternatives: ['marketValue'], allocations: ['targetWeight'] };
+  const numeric = { clients: ['net_worth','investable_assets','current_investable_assets','cash_value','cash_weight'], positions: ['marketValue','targetWeight'], liquidity: ['tier','marketValue'], alternatives: ['marketValue'], allocations: ['targetWeight'] };
   for (const [table, fields] of Object.entries(numeric)) for (const row of data[table]) for (const field of fields) {
     if (String(row[field]).trim() === '' || !Number.isFinite(Number(row[field])) || Number(row[field]) < 0) throw new Error(`Invalid number in ${table}.${field}.`);
     row[field] = Number(row[field]);
@@ -1675,7 +1677,9 @@ function validateData(data) {
       c.portfolio_return_12m = value;
     }
     const holdings = [...data.positions, ...data.alternatives].filter(r => r.clientId === c.id);
-    if (holdings.length && Math.abs(holdings.reduce((sum, r) => sum + r.marketValue, 0) - c.investableAssets) > 1) throw new Error(`Holdings do not reconcile for ${c.name}.`);
+    if (holdings.length && Math.abs(holdings.reduce((sum, r) => sum + r.marketValue, 0) - c.currentInvestableAssets) > 1) throw new Error(`Current holdings do not reconcile for ${c.name}.`);
+    const liquidityRows = data.liquidity.filter(r => r.clientId === c.id);
+    if (liquidityRows.length && Math.abs(liquidityRows.reduce((sum, r) => sum + r.marketValue, 0) - c.cash_value) > 1) throw new Error(`Liquidity reserve does not reconcile for ${c.name}.`);
     const allocations = data.allocations.filter(r => r.clientId === c.id);
     if (allocations.length && (new Set(allocations.map(r => r.assetClass)).size !== allocations.length || Math.abs(allocations.reduce((sum, r) => sum + r.targetWeight, 0) - 100) > .01)) throw new Error(`Strategic allocation is invalid for ${c.name}.`);
   }
@@ -1735,7 +1739,7 @@ const performance = value => {
 };
 
 function liquidityTier(row) {
-  const explicit = String(row.liquidityTier || row.liquidity_tier || '').match(/[123]/)?.[0];
+  const explicit = String(row.tier || row.liquidityTier || row.liquidity_tier || '').match(/[123]/)?.[0];
   if (explicit) return Number(explicit);
   const assetClass = String(row.assetClass || '').toLowerCase();
   const sector = String(row.sector || '').toLowerCase();
@@ -1799,7 +1803,8 @@ function home(directoryOnly = false) {
 
 function overview(c, related) {
   const strategic = related.allocations.map(a => ({label:a.assetClass,value:a.targetWeight}));
-  return `<div class="metric-grid"><div><span>Net Worth</span><strong>${money(c.net_worth,c.currency,true)}</strong></div><div><span>Investable Assets</span><strong>${money(c.investable_assets,c.currency,true)}</strong><small>Including alternative investments</small></div><div><span>Cash</span><strong>${money(c.cash_value,c.currency,true)}</strong><small>${c.cash_weight.toFixed(1)}% of investable assets</small></div><div><span>Portfolio Performance</span><strong>${c.portfolio_return_12m === null ? '—' : `${c.portfolio_return_12m > 0 ? '+' : ''}${c.portfolio_return_12m.toFixed(1)}%`}</strong><small>12-month portfolio return</small></div></div><div class="overview-grid"><section class="panel">${sectionTitle('THE PORTFOLIO','Strategic asset allocation','Target weights')}${donut(strategic,money(c.investableAssets,c.currency,true),'PORTFOLIO')}<p class="panel-note">Targets represent the total investable portfolio, including alternatives.</p></section><section class="panel objectives">${sectionTitle('THE MANDATE','Key objectives')}<ol>${list(c.objectives).map(item=>`<li>${e(item)}</li>`).join('')}</ol><div class="liquidity"><p class="eyebrow">LIQUIDITY REQUIREMENT</p><p>${e(c.liquidity)}</p></div></section></div><section class="panel priorities">${sectionTitle('LOOKING AHEAD','Key planning priorities')}<div class="priority-grid">${list(c.priorities).map((p,i)=>`<div><span>${String(i+1).padStart(2,'0')}</span><h3>${e(p)}</h3></div>`).join('')}</div></section>`;
+  const modelReturn = optionalNumber(c.model_return_since_entry);
+  return `<div class="metric-grid"><div><span>Net Worth</span><strong>${money(c.net_worth,c.currency,true)}</strong></div><div><span>Investable Assets</span><strong>${money(c.investable_assets,c.currency,true)}</strong><small>Target capital including alternatives</small></div><div><span>Liquidity Reserve</span><strong>${money(c.cash_value,c.currency,true)}</strong><small>${c.cash_weight.toFixed(1)}% of target investable assets</small></div><div><span>Portfolio Performance</span><strong>${modelReturn === null ? '—' : `${modelReturn > 0 ? '+' : ''}${modelReturn.toFixed(1)}%`}</strong><small>Model return since entry</small></div></div><div class="overview-grid"><section class="panel">${sectionTitle('THE PORTFOLIO','Strategic asset allocation','Target weights')}${donut(strategic,money(c.investableAssets,c.currency,true),'PORTFOLIO')}<p class="panel-note">Targets represent the total investable portfolio, including alternatives.</p></section><section class="panel objectives">${sectionTitle('THE MANDATE','Key objectives')}<ol>${list(c.objectives).map(item=>`<li>${e(item)}</li>`).join('')}</ol><div class="liquidity"><p class="eyebrow">LIQUIDITY REQUIREMENT</p><p>${e(c.liquidity)}</p></div></section></div><section class="panel priorities">${sectionTitle('LOOKING AHEAD','Key planning priorities')}<div class="priority-grid">${list(c.priorities).map((p,i)=>`<div><span>${String(i+1).padStart(2,'0')}</span><h3>${e(p)}</h3></div>`).join('')}</div></section>`;
 }
 
 function investments(c, related) {
@@ -1807,7 +1812,7 @@ function investments(c, related) {
   const publicTotal = rows.reduce((sum,r)=>sum+r.marketValue,0);
   const denominator = publicTotal || 1;
   const allocation = exposure(rows.map(r=>({...r,assetClass:positionGroup(r)})), 'assetClass', denominator);
-  const groupOrder = ['Liquidity','Equities','Fixed Income'];
+  const groupOrder = ['Equities','Fixed Income','Liquidity','Gold','Digital Assets','Commodities'];
   const groups = [...new Set(rows.map(positionGroup))].sort((a,b)=>{
     const ai = groupOrder.indexOf(a), bi = groupOrder.indexOf(b);
     return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi) || a.localeCompare(b);
@@ -1817,9 +1822,9 @@ function investments(c, related) {
     const subtotal = members.reduce((sum,row)=>sum+row.marketValue,0);
     return `<tr class="position-group"><th colspan="6" scope="rowgroup">${e(group)}</th><th class="group-total" colspan="4">${money(subtotal,c.currency)} · ${percent(subtotal/denominator*100)}</th></tr>${members.map(r=>{const quantity=optionalNumber(r.quantity);const price=optionalNumber(r.price);const oneMonth=r.performance1M ?? r.performance_1m ?? r.return_1m;const ytd=r.performanceYTD ?? r.performance_ytd ?? r.return_ytd;const since=r.performanceSincePurchase ?? r.performance_since_purchase ?? r.total_return;return `<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker)}</small>${r.thesis ? `<details class="position-detail"><summary>Investment rationale</summary><p>${e(r.thesis)}</p></details>` : ''}</td><td>${e(r.assetClass)}</td><td class="numeric">${quantity === null ? '—' : new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}</td><td class="numeric">${price === null ? '—' : money(price,r.priceCurrency || r.currency)}</td><td class="numeric">${money(r.marketValue,c.currency)}</td><td>${e(r.currency)}</td><td class="numeric">${percent(r.marketValue/denominator*100)}</td><td class="numeric">${performance(oneMonth)}</td><td class="numeric">${performance(ytd)}</td><td class="numeric">${performance(since)}</td></tr>`;}).join('')}`;
   }).join('');
-  const analytics = `<div class="chart-grid">${chartPanel(c.id,'asset','Asset allocation',allocation)}${chartPanel(c.id,'geography','Geographic allocation',exposure(rows,'geography',denominator))}${chartPanel(c.id,'currency','Currency exposure',exposure(rows,'currency',denominator))}${chartPanel(c.id,'sector','Sector exposure',exposure(rows,'sector',denominator))}</div>`;
-  const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`${money(publicTotal,c.currency,true)} financial portfolio`)}<p class="panel-note before-table">Market values are translated into ${e(c.currency)}, the client’s base currency. Position weights use the financial portfolio shown below as the denominator. Performance fields remain blank until verified market history or acquisition data is available.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Financial portfolio positions" tabindex="0"><table><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Asset class</th><th scope="col" class="numeric">Quantity</th><th scope="col" class="numeric">Price</th><th scope="col" class="numeric">Market value (${e(c.currency)})</th><th scope="col">Currency</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since purchase</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><th scope="row" colspan="4">Financial portfolio total</th><td class="numeric">${money(publicTotal,c.currency)}</td><td></td><td class="numeric">100%</td><td colspan="3"></td></tr></tfoot></table></div>` : empty('No financial-market positions published.')}</section>`;
-  return `${liquidityPanel(c,rows)}${analytics}<p class="method-note">Analytics cover the financial portfolio only; private-market and real assets are excluded. Vehicle geography and sector are not look-through exposures. Currency shows instrument denomination rather than underlying economic FX risk or hedging.</p>${portfolio}`;
+  const analytics = `<div class="chart-grid">${chartPanel(c.id,'asset','Asset allocation',allocation)}${chartPanel(c.id,'geography','Geographic allocation',exposure(rows,'geography',denominator))}${chartPanel(c.id,'currency','Currency exposure',exposure(rows,'economicCurrency',denominator))}${chartPanel(c.id,'sector','Sector exposure',exposure(rows,'sector',denominator))}</div>`;
+  const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`${money(publicTotal,c.currency,true)} financial portfolio`)}<p class="panel-note before-table">Market values are expressed in ${e(c.currency)}, the client’s base currency. Position weights use the financial portfolio shown below as the denominator. 1M and YTD remain blank until a complete price history is connected; since-purchase performance uses the documented model entry price.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Financial portfolio positions" tabindex="0"><table><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Asset class</th><th scope="col" class="numeric">Quantity</th><th scope="col" class="numeric">Price</th><th scope="col" class="numeric">Market value (${e(c.currency)})</th><th scope="col">Currency</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since purchase</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><th scope="row" colspan="4">Financial portfolio total</th><td class="numeric">${money(publicTotal,c.currency)}</td><td></td><td class="numeric">100%</td><td colspan="3"></td></tr></tfoot></table></div>` : empty('No financial-market positions published.')}</section>`;
+  return `${liquidityPanel(c,related.liquidity)}${analytics}<p class="method-note">Analytics cover the financial portfolio only; private-market and real assets are excluded. Geography, sector and currency are instrument-level exposure proxies rather than full holdings look-through.</p>${portfolio}`;
 }
 
 function alternatives(c, related) {
@@ -1840,7 +1845,7 @@ function research(c, related) {
 function detail(id, tab) {
   const c = dataset.clients.find(item=>item.id===id);
   if (!c || !tabs.some(([key])=>key===tab)) return notFound();
-  const related = Object.fromEntries(['positions','alternatives','allocations','planning','research'].map(table=>[table,dataset[table].filter(r=>r.clientId===id)]));
+  const related = Object.fromEntries(['positions','liquidity','alternatives','allocations','planning','research'].map(table=>[table,dataset[table].filter(r=>r.clientId===id)]));
   document.title = `${c.name} — ${tabs.find(([key])=>key===tab)[1]} | Virtual Wealth`;
   const content = {overview,investments,alternatives,planning,research}[tab](c,related);
   return `<div class="client-heading"><a class="back-link" href="#/clients"><span aria-hidden="true">←</span> Client directory</a><div class="client-title-row"><div><p class="eyebrow">${e(c.type)} <span class="meta-divider">/</span> ${e(c.jurisdiction)}</p><h1>${e(c.name)}</h1></div>${badge(c.risk_profile)}</div><p class="client-summary">${e(c.summary)}</p><div class="client-metadata"><span>Fictional client case</span><span>Base currency: ${e(c.currency)}</span></div></div><nav class="client-tabs" aria-label="Client sections">${tabs.map(([key,label])=>`<a href="#/client/${e(id)}${key==='overview'?'':`/${key}`}" ${tab===key?'aria-current="page"':''}>${label}</a>`).join('')}</nav><div class="client-content">${content}</div>`;
