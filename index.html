@@ -462,7 +462,25 @@
       border: 1px solid var(--gold-border);
       color: var(--gold);
     }
+/* ─── LANGUAGES ─── */
 
+.languages-section {
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
+}
+
+.languages-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.languages-inline strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
     /* ─── PORTFOLIO ─── */
     .portfolio { background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
@@ -905,6 +923,16 @@
 
   </div>
 </section>
+ <!-- LANGUAGES -->
+<section class="languages-section">
+  <div class="section-tag">Languages</div>
+
+  <div class="languages-inline">
+    <span><strong>Italian</strong> · Native</span>
+    <span><strong>English</strong> · Fluent</span>
+    <span><strong>French</strong> · Basic</span>
+  </div>
+</section> 
 
 <!-- PORTFOLIO -->
 <section class="portfolio" id="portfolio">
@@ -1034,13 +1062,6 @@
   <!-- FOOTER -->
   <footer>
     <p>© 2025 Matteo Macchi · London | Verona | Milan</p>
-    <div class="footer-lang">
-      Languages:
-      <strong>Italian</strong> ·
-      <strong>English</strong> ·
-      French (A1) ·
-      German (basic)
-    </div>
   </footer>
 
   <!-- SCROLL REVEAL -->
