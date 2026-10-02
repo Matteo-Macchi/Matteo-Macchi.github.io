@@ -735,7 +735,7 @@ button,.button {
 }
 .portfolio-summary {
   display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
   gap:1px;
   background:var(--line);
   border:1px solid var(--line);
@@ -1018,6 +1018,21 @@ tfoot th,tfoot td {
 }
 .performance.negative {
   color:#d69a9a
+}
+.transaction-history {
+  margin-top:30px
+}
+.transaction-history h3 {
+  font-family:var(--serif);
+  font-size:1.55rem;
+  font-weight:400;
+  margin-bottom:6px
+}
+.transaction-history>p {
+  color:#9fafbd;
+  font-size:.78rem;
+  line-height:1.7;
+  margin-bottom:14px
 }
 .position-detail {
   margin-top:8px
@@ -1747,6 +1762,7 @@ dl>div+div {
 const COLUMNS = {
   clients: ['id','name','type','jurisdiction','risk_profile','currency','net_worth','investable_assets','current_investable_assets','cash_value','cash_weight','portfolio_return_12m','model_return_since_entry','horizon','liquidity','objectives','priorities','summary','asOf'],
   positions: ['clientId','asset','ticker','assetClass','marketValue','targetWeight','currency','geography','sector','thesis'],
+  closedPositions: ['clientId','asset','ticker','assetClass','quantity','purchaseDate','purchasePrice','saleDate','salePrice','initialCost','saleProceeds','realizedPL','realizedReturn','status'],
   liquidity: ['clientId','asset','ticker','tier','marketValue','currency','geography','sector','thesis'],
   alternatives: ['clientId','name','category','marketValue','currency','geography','sector','liquidity','thesis','status'],
   allocations: ['clientId','assetClass','targetWeight'],
@@ -1784,9 +1800,10 @@ function validateData(data) {
   for (const table of Object.keys(COLUMNS).filter(t => t !== 'clients')) {
     for (const row of data[table]) if (!ids.has(row.clientId)) throw new Error(`Unknown client ID in ${table}.`);
   }
-  const numeric = { clients: ['net_worth','investable_assets','current_investable_assets','cash_value','cash_weight'], positions: ['marketValue','targetWeight'], liquidity: ['tier','marketValue'], alternatives: ['marketValue'], allocations: ['targetWeight'] };
+  const numeric = { clients: ['net_worth','investable_assets','current_investable_assets','cash_value','cash_weight'], positions: ['marketValue','targetWeight'], closedPositions: ['quantity','purchasePrice','salePrice','initialCost','saleProceeds','realizedPL','realizedReturn'], liquidity: ['tier','marketValue'], alternatives: ['marketValue'], allocations: ['targetWeight'] };
+  const signedNumeric = new Set(['closedPositions.realizedPL','closedPositions.realizedReturn']);
   for (const [table, fields] of Object.entries(numeric)) for (const row of data[table]) for (const field of fields) {
-    if (String(row[field]).trim() === '' || !Number.isFinite(Number(row[field])) || Number(row[field]) < 0) throw new Error(`Invalid number in ${table}.${field}.`);
+    if (String(row[field]).trim() === '' || !Number.isFinite(Number(row[field])) || (Number(row[field]) < 0 && !signedNumeric.has(`${table}.${field}`))) throw new Error(`Invalid number in ${table}.${field}.`);
     row[field] = Number(row[field]);
     if (field === 'targetWeight' && row[field] > 100) throw new Error('Target weights must be percentages from 0 to 100.');
   }
@@ -1966,20 +1983,24 @@ function overview(c, related) {
 
 function investments(c, related) {
   const rows = related.positions;
-  const publicTotal = rows.reduce((sum,r)=>sum+r.marketValue,0);
+  const investedValue = rows.reduce((sum,r)=>sum+r.marketValue,0);
+  const portfolioCash = optionalNumber(dataset._meta?.portfolioCash) || 0;
+  const publicTotal = optionalNumber(dataset._meta?.publicCurrentValue) || investedValue + portfolioCash;
   const denominator = publicTotal || 1;
   const initialCapital = optionalNumber(dataset._meta?.capitalAvailable) || 5000000;
-  const initialCost = rows.reduce((sum,r)=>sum+(optionalNumber(r.initialCost)||0),0);
-  const unallocated = Math.max(0,initialCapital-initialCost);
-  const totalPL = rows.reduce((sum,r)=>sum+(optionalNumber(r.totalPL) ?? (r.marketValue-(optionalNumber(r.initialCost)||r.marketValue))),0);
-  const modelReturn = initialCost ? totalPL/initialCost*100 : null;
+  const openCost = rows.reduce((sum,r)=>sum+(optionalNumber(r.initialCost)||0),0);
+  const totalPL = optionalNumber(dataset._meta?.publicPL) ?? publicTotal-initialCapital;
+  const realizedPL = optionalNumber(dataset._meta?.realizedPL) || 0;
+  const unrealizedPL = optionalNumber(dataset._meta?.unrealizedPL) ?? rows.reduce((sum,r)=>sum+(optionalNumber(r.totalPL)||0),0);
+  const modelReturn = initialCapital ? totalPL/initialCapital*100 : null;
   const valuationDate = dataset._meta?.valuationDate || c.asOf;
-  const allocation = exposure(rows.map(r=>({...r,assetClass:positionGroup(r)})), 'assetClass', denominator);
+  const analyticsRows = portfolioCash > 0 ? [...rows,{marketValue:portfolioCash,assetClass:'Portfolio Cash',economicCurrency:'EUR',sector:'Residual cash'}] : rows;
+  const allocation = exposure(analyticsRows.map(r=>({...r,assetClass:positionGroup(r)})), 'assetClass', denominator);
   const geography = lookThroughExposure(rows);
   const equityTotal = rows.filter(r=>positionGroup(r)==='Equities').reduce((sum,r)=>sum+r.marketValue,0);
   const usaEquity = geography.find(item=>item.label==='USA')?.value ?? null;
   const usaPortfolio = usaEquity === null ? null : usaEquity/100*equityTotal/denominator*100;
-  const groupOrder = ['Equities','Fixed Income','Opportunity Reserve','Gold','Digital Assets','Commodities'];
+  const groupOrder = ['Equities','Fixed Income','Gold','Digital Assets','Tactical','Opportunity Reserve','Commodities'];
   const groups = [...new Set(rows.map(positionGroup))].sort((a,b)=>{
     const ai = groupOrder.indexOf(a), bi = groupOrder.indexOf(b);
     return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi) || a.localeCompare(b);
@@ -1993,9 +2014,11 @@ function investments(c, related) {
     const subtotal = members.reduce((sum,row)=>sum+row.marketValue,0);
     return `<tr class="position-group"><th colspan="7" scope="rowgroup">${e(group)}</th><th class="group-total" colspan="4">${money(subtotal,c.currency)} · ${percent(subtotal/denominator*100)}</th></tr>${members.map(r=>{const quantity=optionalNumber(r.quantity);const oneMonth=r.performance1M ?? r.performance_1m ?? r.return_1m;const ytd=r.performanceYTD ?? r.performance_ytd ?? r.return_ytd;const since=r.performanceSincePurchase ?? r.performance_since_purchase ?? r.total_return;const directBond=optionalNumber(r.coupon)!==null;const facts=directBond?[`Coupon ${percent(r.coupon)}`,`Maturity ${dateLabel(r.maturity)}`,optionalNumber(r.currentYTM)===null?'YTM unavailable':`YTM ${percent(r.currentYTM)}`,optionalNumber(r.duration)===null?'Duration unavailable':`Duration ${Number(r.duration).toFixed(2)}y`]:[optionalNumber(r.ongoingCost)===null?null:`Ongoing cost ${percent(r.ongoingCost)}`,optionalNumber(r.otherOngoingCost)===null?null:`Additional cost ${percent(r.otherOngoingCost)}`,r.incomeTreatment].filter(Boolean);const priceDate=String(r.priceTimestamp||valuationDate).slice(0,10);return `<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker || r.isin)}</small><div class="position-facts">${facts.map(f=>`<span>${e(f)}</span>`).join('')}</div>${r.thesis ? `<details class="position-detail"><summary>Investment rationale</summary><p>${e(r.thesis)}</p></details>` : ''}</td><td>${e(dateLabel(r.purchaseDate))}</td><td class="numeric">${quantity === null ? '—' : new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}<small>${quantityLabel(r)}</small></td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency,directBond)}</td><td class="numeric">${priceLabel(r.price,r.priceCurrency||r.currency,directBond)}<small>${e(dateLabel(priceDate))}</small></td><td class="numeric">${money(r.marketValue,c.currency)}</td><td>${e(r.currency)}</td><td class="numeric">${percent(r.marketValue/denominator*100)}</td><td class="numeric">${performance(oneMonth)}</td><td class="numeric">${performance(ytd)}</td><td class="numeric">${performance(since)}</td></tr>`;}).join('')}`;
   }).join('');
-  const analytics = `<div class="chart-grid">${chartPanel(c.id,'asset','Current asset allocation',allocation)}${chartPanel(c.id,'geography','Equity geography · look-through',geography)}${chartPanel(c.id,'currency','Economic currency exposure',exposure(rows,'economicCurrency',denominator))}${chartPanel(c.id,'sector','Strategy exposure',exposure(rows,'sector',denominator))}</div>`;
-  const summary = `<div class="portfolio-summary"><div><span>Capital available</span><strong>${money(initialCapital,c.currency)}</strong></div><div><span>Initial amount invested</span><strong>${money(initialCost,c.currency)}</strong></div><div><span>Current market value</span><strong>${money(publicTotal,c.currency)}</strong></div><div><span>Model P/L</span><strong>${totalPL>=0?'+':''}${money(totalPL,c.currency)}</strong></div><div><span>Model return since entry</span><strong>${modelReturn===null?'—':`${modelReturn>=0?'+':''}${percent(modelReturn)}`}</strong></div></div>`;
-  const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`Prices as of ${dateLabel(valuationDate)}`)}${summary}<p class="panel-note before-table">The liquidity reserve appears first for visibility: XEON and CSBGE3 total ${money(reserveInvested,c.currency)} and sit outside the €5m financial portfolio. Exchange-traded prices and 1M/YTD performance are refreshed after market close by the automated feed. Direct sovereign bonds remain manual-price instruments until a reliable institutional bond feed is connected. The financial model started with ${money(initialCapital,c.currency)}; ${money(initialCost,c.currency)} was deployed and ${money(unallocated,c.currency)} remained unallocated.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Liquidity and financial portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Model entry date</th><th scope="col" class="numeric">Units / nominal</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Market value (${e(c.currency)})</th><th scope="col">Trading currency</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since entry</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><th scope="row" colspan="5">Financial portfolio total <small>excludes liquidity reserve</small></th><td class="numeric">${money(publicTotal,c.currency)}</td><td></td><td class="numeric">100%</td><td colspan="3"></td></tr></tfoot></table></div>` : empty('No financial-market positions published.')}</section>`;
+  const analytics = `<div class="chart-grid">${chartPanel(c.id,'asset','Current asset allocation',allocation)}${chartPanel(c.id,'geography','Equity geography · look-through',geography)}${chartPanel(c.id,'currency','Economic currency exposure',exposure(analyticsRows,'economicCurrency',denominator))}${chartPanel(c.id,'sector','Strategy exposure',exposure(analyticsRows,'sector',denominator))}</div>`;
+  const summary = `<div class="portfolio-summary"><div><span>Starting capital</span><strong>${money(initialCapital,c.currency)}</strong></div><div><span>Current NAV</span><strong>${money(publicTotal,c.currency)}</strong></div><div><span>Total model P/L</span><strong>${totalPL>=0?'+':''}${money(totalPL,c.currency)}</strong></div><div><span>Return since inception</span><strong>${modelReturn===null?'—':`${modelReturn>=0?'+':''}${percent(modelReturn)}`}</strong></div><div><span>Realised P/L</span><strong>${realizedPL>=0?'+':''}${money(realizedPL,c.currency)}</strong></div><div><span>Portfolio cash</span><strong>${money(portfolioCash,c.currency)}</strong></div></div>`;
+  const closedRows = related.closedPositions || [];
+  const transactionHistory = closedRows.length ? `<div class="transaction-history"><h3>Closed positions &amp; realised performance</h3><p>Realised proceeds remain inside the model portfolio. The Brent disposal funded the WQTM purchase, so the gain is preserved in portfolio NAV without being counted twice.</p><div class="table-scroll" role="region" aria-label="Closed portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Bought</th><th scope="col">Sold</th><th scope="col" class="numeric">Units</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Sale price</th><th scope="col" class="numeric">Cost basis</th><th scope="col" class="numeric">Sale proceeds</th><th scope="col" class="numeric">Realised P/L</th><th scope="col" class="numeric">Return</th></tr></thead><tbody>${closedRows.map(r=>`<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker || r.isin)}</small><div class="position-facts"><span>${e(r.exitReason || r.status)}</span></div></td><td>${e(dateLabel(r.purchaseDate))}</td><td>${e(dateLabel(r.saleDate))}</td><td class="numeric">${new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(r.quantity)}</td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${priceLabel(r.salePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${money(r.initialCost,c.currency)}</td><td class="numeric">${money(r.saleProceeds,c.currency)}</td><td class="numeric">${r.realizedPL>=0?'+':''}${money(r.realizedPL,c.currency)}</td><td class="numeric">${performance(r.realizedReturn)}</td></tr>`).join('')}</tbody></table></div></div>` : '';
+  const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`Prices as of ${dateLabel(valuationDate)}`)}${summary}<p class="panel-note before-table">The liquidity reserve appears first for visibility: XEON and CSBGE3 total ${money(reserveInvested,c.currency)} and sit outside the €5m financial portfolio. Exchange-traded prices, FX and 1M/YTD performance are refreshed after market close by the automated feed. Direct sovereign bonds remain manual clean-price instruments until a reliable institutional bond feed is connected. Open-position cost basis is ${money(openCost,c.currency)} because realised Brent proceeds were reinvested into WQTM; total performance is calculated from the original ${money(initialCapital,c.currency)} starting capital.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Liquidity and financial portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Model entry date</th><th scope="col" class="numeric">Units / nominal</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Market value (${e(c.currency)})</th><th scope="col">Trading currency</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since entry</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><th scope="row" colspan="5">Financial portfolio NAV <small>includes ${money(portfolioCash,c.currency)} residual cash; excludes family liquidity reserve</small></th><td class="numeric">${money(publicTotal,c.currency)}</td><td></td><td class="numeric">100%</td><td colspan="3"></td></tr></tfoot></table></div>` : empty('No financial-market positions published.')}${transactionHistory}</section>`;
   const geographyNote = usaEquity === null ? '' : ` USA exposure is approximately ${percent(usaPortfolio)} of the financial portfolio and ${percent(usaEquity)} of the equity sleeve.`;
   return `${liquidityPanel(c,related.liquidity)}${analytics}<p class="method-note">The geographic chart applies holdings/index look-through to the equity sleeve and uses equity as its denominator.${geographyNote} Residual countries are grouped where complete provider detail is unavailable. Other analytics cover the current financial portfolio; private-market and real assets are excluded.</p>${portfolio}`;
 }
@@ -2018,7 +2041,7 @@ function research(c, related) {
 function detail(id, tab) {
   const c = dataset.clients.find(item=>item.id===id);
   if (!c || !tabs.some(([key])=>key===tab)) return notFound();
-  const related = Object.fromEntries(['positions','liquidity','alternatives','allocations','planning','research'].map(table=>[table,dataset[table].filter(r=>r.clientId===id)]));
+  const related = Object.fromEntries(['positions','closedPositions','liquidity','alternatives','allocations','planning','research'].map(table=>[table,dataset[table].filter(r=>r.clientId===id)]));
   document.title = `${c.name} — ${tabs.find(([key])=>key===tab)[1]} | Virtual Wealth`;
   const content = {overview,investments,alternatives,planning,research}[tab](c,related);
   return `<div class="client-heading"><a class="back-link" href="#/"><span aria-hidden="true">←</span> All client cases</a><div class="client-title-row"><div><p class="eyebrow">${e(c.type)} <span class="meta-divider">/</span> ${e(c.jurisdiction)}</p><h1>${e(c.name)}</h1></div><div class="client-actions">${badge(c.risk_profile)}<a class="ips-link" href="Rossi_Family_Investment_Policy_Statement_v1.1.pdf" target="_blank" rel="noopener">Investment Policy Statement <span aria-hidden="true">↗</span></a></div></div><p class="client-summary">${e(c.summary)}</p><div class="client-metadata"><span>Fictional client case</span><span>Base currency: ${e(c.currency)}</span><span>€20m family balance sheet</span></div></div><nav class="client-tabs" aria-label="Client sections">${tabs.map(([key,label])=>`<a href="#/client/${e(id)}${key==='overview'?'':`/${key}`}" ${tab===key?'aria-current="page"':''}>${label}</a>`).join('')}</nav><div class="client-content">${content}</div>`;
