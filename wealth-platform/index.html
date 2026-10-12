@@ -1744,6 +1744,393 @@ dl>div+div {
   display: block;
 }
 
+/* Tax & Cross-Border dashboard */
+.tax-dashboard {
+  display:grid;
+  gap:24px
+}
+.tax-hero {
+  display:grid;
+  grid-template-columns:minmax(0,1.45fr) minmax(320px,.75fr);
+  gap:0;
+  border:1px solid #425565;
+  background:linear-gradient(135deg,#172632 0%,#13202a 56%,#101922 100%);
+  overflow:hidden
+}
+.tax-hero-copy {
+  padding:42px 44px
+}
+.tax-hero-copy h2 {
+  max-width:760px;
+  margin:11px 0 17px
+}
+.tax-hero-copy>p:last-of-type {
+  max-width:760px;
+  color:var(--muted)
+}
+.tax-hero-result {
+  padding:38px 34px;
+  border-left:1px solid #425565;
+  background:rgba(173,197,217,.045);
+  display:flex;
+  flex-direction:column;
+  justify-content:center
+}
+.tax-hero-result>span,.tax-kpi span,.tax-source-total span,.tax-comparison-stat span {
+  color:var(--muted);
+  font-size:.72rem;
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+.tax-hero-result>strong {
+  display:block;
+  margin:4px 0 7px;
+  font-family:var(--serif);
+  font-size:3.45rem;
+  font-weight:400;
+  line-height:1
+}
+.tax-hero-result p {
+  color:var(--accent);
+  font-size:.84rem
+}
+.tax-kpis {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--line);
+  border-top:0
+}
+.tax-kpi {
+  padding:19px 22px;
+  border-right:1px solid var(--line)
+}
+.tax-kpi:last-child { border-right:0 }
+.tax-kpi strong {
+  display:block;
+  margin-top:4px;
+  font-size:1.14rem;
+  font-weight:550
+}
+.tax-kpi small {
+  display:block;
+  color:var(--muted);
+  margin-top:2px
+}
+.tax-alert {
+  display:flex;
+  align-items:flex-start;
+  gap:15px;
+  padding:18px 21px;
+  border:1px solid #4b6274;
+  background:#172631
+}
+.tax-alert>span {
+  display:grid;
+  place-items:center;
+  width:27px;
+  height:27px;
+  flex:0 0 27px;
+  border:1px solid var(--accent);
+  border-radius:50%;
+  color:var(--accent)
+}
+.tax-alert strong { display:block; margin-bottom:2px }
+.tax-alert p { color:var(--muted); font-size:.85rem }
+.tax-section-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:24px;
+  margin-bottom:25px
+}
+.tax-section-head h2 { margin-top:7px }
+.tax-section-head>p {
+  max-width:520px;
+  color:var(--muted);
+  font-size:.84rem;
+  text-align:right
+}
+.tax-timeline {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--line)
+}
+.tax-time-item {
+  padding:23px 24px 5px 0;
+  border-right:1px solid var(--line)
+}
+.tax-time-item:not(:first-child) { padding-left:24px }
+.tax-time-item:last-child { border-right:0 }
+.tax-time-item>span:first-child {
+  color:var(--accent);
+  font-size:.74rem;
+  letter-spacing:.08em
+}
+.tax-time-item h3 {
+  margin:8px 0 4px;
+  font-family:var(--sans);
+  font-size:1rem;
+  font-weight:600
+}
+.tax-time-item p { color:var(--muted); font-size:.8rem }
+.tax-status {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  width:max-content;
+  margin-top:12px;
+  padding:4px 8px;
+  border:1px solid #405363;
+  color:#c8d5df;
+  font-size:.62rem;
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+.tax-status::before {
+  content:"";
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#8aa8be
+}
+.tax-status.assumption::before { background:#d4b56c }
+.tax-status.tbd::before,.tax-status.not-taxable-income::before { background:#8a96a0 }
+.tax-scenario-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px
+}
+.tax-scenario {
+  position:relative;
+  padding:27px 25px;
+  border:1px solid var(--line);
+  background:var(--surface)
+}
+.tax-scenario.recommended {
+  border-color:#6f8da3;
+  background:linear-gradient(180deg,#192b38,#15212c)
+}
+.tax-scenario .recommended-label {
+  position:absolute;
+  top:0;
+  right:0;
+  padding:7px 10px;
+  background:var(--accent);
+  color:#101922;
+  font-size:.61rem;
+  font-weight:700;
+  letter-spacing:.09em
+}
+.tax-scenario h3 {
+  min-height:54px;
+  margin:7px 0 13px;
+  font-size:1.65rem
+}
+.tax-scenario>p { min-height:116px; color:var(--muted); font-size:.81rem }
+.tax-scenario-metric {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:21px;
+  padding-top:18px;
+  border-top:1px solid var(--line)
+}
+.tax-scenario-metric strong { font-size:1.35rem }
+.tax-scenario-metric span { color:var(--muted); font-size:.72rem; text-align:right }
+.tax-source-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px
+}
+.tax-source-total {
+  padding:25px;
+  border:1px solid var(--line);
+  background:var(--surface)
+}
+.tax-source-total strong {
+  display:block;
+  margin:6px 0 8px;
+  font-family:var(--serif);
+  font-size:2.25rem;
+  font-weight:400
+}
+.tax-source-total p { color:var(--muted); font-size:.82rem }
+.tax-income-types {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--line)
+}
+.tax-income-types>div {
+  padding:19px;
+  border-right:1px solid var(--line)
+}
+.tax-income-types>div:last-child { border-right:0 }
+.tax-income-types strong { display:block; margin:5px 0 3px }
+.tax-income-types p { color:var(--muted); font-size:.73rem }
+.tax-feature-grid {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px
+}
+.tax-feature {
+  min-height:245px;
+  padding:20px 18px;
+  border:1px solid var(--line);
+  background:#13202a
+}
+.tax-feature>span:first-child { color:var(--accent); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase }
+.tax-feature h3 { margin:12px 0 14px; font-size:1.35rem }
+.tax-feature strong { display:block; margin-bottom:11px; font-size:.85rem }
+.tax-feature p { color:var(--muted); font-size:.76rem; line-height:1.65 }
+.tax-table { min-width:1500px }
+.tax-table td,.tax-table th { vertical-align:top }
+.tax-table td { font-size:.76rem; line-height:1.5 }
+.tax-table td strong { font-size:.8rem }
+.tax-table .tax-amount { white-space:nowrap }
+.tax-table .tax-amount small { display:block; color:var(--muted); margin-top:4px }
+.tax-source-links a {
+  display:block;
+  width:max-content;
+  color:var(--accent);
+  border-bottom:1px solid #61788a;
+  margin-bottom:4px
+}
+.tax-accordion {
+  border-top:1px solid var(--line)
+}
+.tax-accordion details { border-bottom:1px solid var(--line) }
+.tax-accordion summary {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  list-style:none;
+  cursor:pointer;
+  padding:20px 2px;
+  font-weight:550
+}
+.tax-accordion summary::-webkit-details-marker { display:none }
+.tax-accordion summary::after { content:"+"; color:var(--accent); font-size:1.25rem; font-weight:400 }
+.tax-accordion details[open] summary::after { content:"−" }
+.tax-accordion-body { padding:0 2px 22px }
+.tax-formula {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:8px 20px;
+  padding:10px 0;
+  border-bottom:1px dotted #334551
+}
+.tax-formula:last-child { border-bottom:0 }
+.tax-formula span { font-size:.8rem }
+.tax-formula small { display:block; color:var(--muted) }
+.tax-formula strong { font-size:.84rem }
+.tax-formula.total { margin-top:7px; border-top:1px solid var(--accent); border-bottom:0 }
+.tax-legal-note {
+  padding:13px 0;
+  border-bottom:1px dotted #334551
+}
+.tax-legal-note:last-child { border-bottom:0 }
+.tax-legal-note a { color:var(--accent); border-bottom:1px solid #61788a }
+.tax-legal-note p { color:var(--muted); font-size:.78rem; margin-top:4px }
+.tax-sensitivity-scroll { overflow-x:auto }
+.tax-sensitivity {
+  width:100%;
+  min-width:760px;
+  border-collapse:collapse
+}
+.tax-sensitivity th,.tax-sensitivity td {
+  padding:15px;
+  border:1px solid var(--line);
+  text-align:left
+}
+.tax-sensitivity th { color:var(--muted); font-size:.72rem; font-weight:500 }
+.tax-sensitivity td strong { display:block; font-size:.8rem }
+.tax-sensitivity td span { color:var(--muted); font-size:.71rem }
+.tax-sensitivity td.impatriati { background:rgba(97,139,166,.12) }
+.tax-sensitivity td.art24bis { background:rgba(173,197,217,.06) }
+.tax-comparison {
+  border:1px solid #526a7c;
+  background:linear-gradient(135deg,#172733,#121e28);
+  padding:34px
+}
+.tax-comparison-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  margin-top:27px;
+  border:1px solid var(--line)
+}
+.tax-comparison-card {
+  position:relative;
+  padding:25px 23px;
+  border-right:1px solid var(--line)
+}
+.tax-comparison-card:last-child { border-right:0 }
+.tax-comparison-card.recommended { background:rgba(173,197,217,.07) }
+.tax-comparison-card h3 { min-height:48px; font-size:1.45rem }
+.tax-comparison-card>strong {
+  display:block;
+  margin:14px 0 19px;
+  font-family:var(--serif);
+  font-size:2rem;
+  font-weight:400
+}
+.tax-comparison-stats {
+  display:grid;
+  gap:10px
+}
+.tax-comparison-stat {
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  padding-top:8px;
+  border-top:1px solid #30424f
+}
+.tax-comparison-stat strong { font-size:.78rem; text-align:right }
+.tax-rationale {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:35px;
+  margin-top:28px;
+  padding-top:25px;
+  border-top:1px solid #526a7c
+}
+.tax-rationale h3 { font-size:1.35rem; margin-bottom:8px }
+.tax-rationale p { color:var(--muted); font-size:.82rem }
+.tax-disclaimer {
+  color:#94a5b2;
+  font-size:.72rem;
+  line-height:1.7
+}
+@media(max-width:1100px) {
+  .tax-feature-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .tax-feature:last-child { grid-column:1 / -1; min-height:auto }
+  .tax-income-types { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .tax-income-types>div:nth-child(2) { border-right:0 }
+  .tax-income-types>div:nth-child(-n+2) { border-bottom:1px solid var(--line) }
+  .tax-scenario>p { min-height:155px }
+}
+@media(max-width:760px) {
+  .tax-hero,.tax-source-grid,.tax-rationale { grid-template-columns:1fr }
+  .tax-hero-copy { padding:28px 22px }
+  .tax-hero-result { border-left:0; border-top:1px solid #425565; padding:27px 22px }
+  .tax-hero-result>strong { font-size:2.7rem }
+  .tax-kpis { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .tax-kpi:nth-child(2) { border-right:0 }
+  .tax-kpi:nth-child(-n+2) { border-bottom:1px solid var(--line) }
+  .tax-timeline,.tax-scenario-grid,.tax-comparison-grid { grid-template-columns:1fr }
+  .tax-time-item,.tax-time-item:not(:first-child) { padding:19px 0; border-right:0; border-bottom:1px solid var(--line) }
+  .tax-time-item:last-child { border-bottom:0 }
+  .tax-scenario>p { min-height:0 }
+  .tax-section-head { align-items:flex-start; flex-direction:column }
+  .tax-section-head>p { text-align:left }
+  .tax-feature-grid { grid-template-columns:1fr }
+  .tax-feature,.tax-feature:last-child { grid-column:auto; min-height:auto }
+  .tax-comparison { padding:23px 18px }
+  .tax-comparison-card { border-right:0; border-bottom:1px solid var(--line) }
+  .tax-comparison-card:last-child { border-bottom:0 }
+}
+
 </style>
 </head>
 <body>
@@ -1947,7 +2334,7 @@ async function loadData() {
 
 
 const main = document.querySelector('#main');
-const tabs = [['overview','Overview'],['investments','Investments'],['alternatives','Alternatives'],['planning','Wealth Planning'],['research','Research & Recommendations']];
+const tabs = [['overview','Overview'],['investments','Investments'],['alternatives','Alternatives'],['tax','Tax & Cross-Border'],['planning','Wealth Planning'],['research','Research & Recommendations']];
 let dataset, source;
 document.querySelector('#year').textContent = new Date().getFullYear();
 document.querySelector('.skip-link').addEventListener('click', event => {
@@ -2029,6 +2416,73 @@ function alternatives(c, related) {
   return `<div class="section-intro"><p class="eyebrow">BEYOND PUBLIC MARKETS</p><h2>Alternative investments</h2><p>Longer-term capital, considered alongside liquidity and concentration.</p></div><div class="alternative-grid">${[...new Set([...categories,...extra])].map((category,index)=>{const rows = related.alternatives.filter(r=>r.category===category);return `<section class="panel alternative-card"><div class="alternative-heading"><span class="case-number">${String(index+1).padStart(2,'0')}</span><h3>${e(category)}</h3></div>${rows.length ? rows.map(r=>`<div class="alternative-holding"><div class="holding-heading"><h4>${e(r.name)}</h4>${badge(r.status)}</div><strong class="alternative-value">${money(r.marketValue,c.currency,true)} <small>${percent(r.marketValue/c.investableAssets*100)} of portfolio</small></strong><p>${e(r.thesis)}</p><dl><div><dt>Liquidity</dt><dd>${e(r.liquidity)}</dd></div><div><dt>Geography / denomination</dt><dd>${e(r.geography)} / ${e(r.currency)}</dd></div></dl></div>`).join('') : empty('No allocation in this case.')}</section>`;}).join('')}</div><p class="method-note">All vehicles are fictional. Values are illustrative and expressed in ${e(c.currency)}. Capital calls, valuation uncertainty, leverage and limited exit options require assessment before any real-world allocation.</p>`;
 }
 
+function taxStatus(value, labels) {
+  const key = String(value || 'tbd').toLowerCase();
+  const label = labels[key] || (key === 'mixed' ? 'Confirmed + assumptions' : key === 'not-taxable-income' ? 'Not annual taxable income' : value);
+  return `<span class="tax-status ${e(key)}">${e(label)}</span>`;
+}
+
+function taxAndCrossBorder(c) {
+  const t = dataset.taxCrossBorder;
+  if (!t || t.clientId !== c.id) return empty('The tax and cross-border model has not yet been published for this case.');
+  const labels = t.statusLegend || {};
+  const sourceIndex = new Map(t.sources.map(item=>[item.id,item]));
+  const byScenario = id => t.scenarios.find(item=>item.id===id);
+  const ordinary = byScenario('ordinary');
+  const impatriati = byScenario('impatriati');
+  const art24bis = byScenario('art24bis');
+  const signedMoney = value => `${Number(value) > 0 ? '+' : Number(value) < 0 ? '−' : ''}${money(Math.abs(Number(value)),t.currency)}`;
+  const valueOrTbd = item => item.amount === null || item.amount === undefined
+    ? (item.amountStatus === 'not-taxable-income' ? 'Not annual income' : 'TBD')
+    : money(item.amount,t.currency);
+  const legalLinks = ids => `<div class="tax-source-links">${ids.map(id=>{const source=sourceIndex.get(id);return source ? `<a href="#tax-source-${e(id)}">${e(source.title)}</a>` : '';}).join('')}</div>`;
+
+  const scenarioCards = t.scenarios.map(s=>`<article class="tax-scenario ${s.recommended?'recommended':''}">${s.recommended?'<span class="recommended-label">CURRENT LEAD</span>':''}<p class="eyebrow">${e(s.shortName)}</p><h3>${e(s.name)}</h3><p>${e(s.description)}</p><div class="tax-scenario-metric"><strong>${money(s.annualTax,t.currency)}</strong><span>${percent(s.effectiveRate)} effective rate</span></div></article>`).join('');
+
+  const featureCards = t.featureCards.map(card=>`<article class="tax-feature"><span>${e(card.tag)}</span><h3>${e(card.title)}</h3><strong>${e(card.metric)}</strong><p>${e(card.text)}</p>${taxStatus(card.status,labels)}</article>`).join('');
+
+  const incomeRows = t.incomeSources.map(item=>`<tr><td><strong>${e(item.asset)}</strong><small>${e(item.incomeType)}</small></td><td>${e(item.jurisdiction)}<small>${e(item.source)}</small></td><td class="tax-amount"><strong>${e(valueOrTbd(item))}</strong>${taxStatus(item.amountStatus,labels)}</td><td>${e(item.sourceCountryTax)}</td><td>${e(item.ordinary)}</td><td>${e(item.impatriati)}</td><td>${e(item.art24bis)}</td><td>${legalLinks(item.legalBasis)}</td></tr>`).join('');
+
+  const calculationDetails = t.scenarios.map(s=>`<details ${s.recommended?'open':''}><summary><span>${e(s.name)}</span><strong>${money(s.annualTax,t.currency)}</strong></summary><div class="tax-accordion-body">${s.components.map(row=>`<div class="tax-formula"><span>${e(row.label)}<small>${e(row.formula)}</small></span><strong>${signedMoney(row.amount)}</strong></div>`).join('')}<div class="tax-formula total"><span>Modelled annual tax<small>Before professional validation and excluding all TBD income</small></span><strong>${money(s.annualTax,t.currency)}</strong></div>${s.extension?`<div class="tax-alert"><span>i</span><div><strong>Years 6–10 extension is conditional</strong><p>${e(s.extension.note)} Modelled annual tax: ${money(s.extension.annualTaxYears6to10,t.currency)}.</p></div></div>`:''}${s.carveOut?`<div class="tax-alert"><span>i</span><div><strong>${e(s.carveOut.name)} · ${money(s.carveOut.annualTax,t.currency)}</strong><p>${e(s.carveOut.note)}</p></div></div>`:''}</div></details>`).join('');
+
+  const progressiveTax = base => Math.min(base,28000)*.23 + Math.max(Math.min(base,50000)-28000,0)*.35 + Math.max(base-50000,0)*.43 + base*.02;
+  const sensitivityCell = (workIncome,foreignIncome) => {
+    const fixedInvestTax = 3146.25 + 2240.625;
+    const wealthTaxes = 20940;
+    const ukTax = 7110.3448;
+    const values = {
+      ordinary: progressiveTax(workIncome+16100+50000)+fixedInvestTax+foreignIncome*.26+wealthTaxes,
+      impatriati: progressiveTax(workIncome*.10+16100+50000)+fixedInvestTax+foreignIncome*.26+wealthTaxes,
+      art24bis: progressiveTax(workIncome+16100)+3146.25+100000+ukTax
+    };
+    const winner = Object.entries(values).sort((a,b)=>a[1]-b[1])[0];
+    const label = winner[0] === 'art24bis' ? 'Art. 24-bis' : winner[0] === 'impatriati' ? 'Impatriati' : 'Ordinary';
+    return `<td class="${e(winner[0])}"><strong>${e(label)}</strong><span>${money(winner[1],t.currency)} annual tax</span></td>`;
+  };
+  const sensitivityHead = t.sensitivity.additionalForeignInvestmentIncome.map(value=>`<th scope="col">${money(value,t.currency,true)} foreign investment income</th>`).join('');
+  const sensitivityRows = t.sensitivity.workIncome.map(work=>`<tr><th scope="row">${money(work,t.currency,true)} qualifying work income</th>${t.sensitivity.additionalForeignInvestmentIncome.map(foreign=>sensitivityCell(work,foreign)).join('')}</tr>`).join('');
+
+  const legalNotes = t.sources.map(source=>`<div class="tax-legal-note" id="tax-source-${e(source.id)}"><strong>${source.url?`<a href="${e(source.url)}" target="_blank" rel="noopener">${e(source.title)} ↗</a>`:e(source.title)}</strong><small> · ${e(source.authority)}</small><p>${e(source.note)}</p></div>`).join('');
+
+  const comparisonCards = t.scenarios.map(s=>`<article class="tax-comparison-card ${s.recommended?'recommended':''}"><h3>${e(s.shortName)}${s.recommended?' · Recommended':''}</h3><strong>${money(s.annualTax,t.currency)} / year</strong><div class="tax-comparison-stats"><div class="tax-comparison-stat"><span>Effective rate</span><strong>${percent(s.effectiveRate)}</strong></div><div class="tax-comparison-stat"><span>Saving vs ordinary</span><strong>${s.savingVsOrdinary===0?'Baseline':signedMoney(s.savingVsOrdinary)}</strong></div><div class="tax-comparison-stat"><span>5-year saving</span><strong>${s.fiveYearSaving===0?'Baseline':signedMoney(s.fiveYearSaving)}</strong></div><div class="tax-comparison-stat"><span>10-year saving</span><strong>${s.tenYearSaving===0?'Baseline':signedMoney(s.tenYearSaving)}</strong></div></div></article>`).join('');
+
+  return `<div class="tax-dashboard">
+    <section><div class="tax-hero"><div class="tax-hero-copy"><p class="eyebrow">ROSSI FAMILY · CROSS-BORDER TAX MODEL</p><h2>Historical Impatriati currently produces the lowest modelled tax burden.</h2><p>The conclusion is driven by the assumed ${money(t.assumptions.italianProfessionalIncome,t.currency)} of qualifying Italian work income. It is not a blanket recommendation: eligibility and every TBD value require professional confirmation.</p></div><div class="tax-hero-result"><span>Modelled annual tax</span><strong>${money(t.headline.annualTax,t.currency)}</strong><p>${signedMoney(t.headline.annualSavingVsOrdinary)} vs ordinary taxation</p></div></div><div class="tax-kpis"><div class="tax-kpi"><span>Effective tax rate</span><strong>${percent(t.headline.effectiveRate)}</strong><small>On ${money(t.assumptions.totalModelledIncome,t.currency)} modelled income</small></div><div class="tax-kpi"><span>5-year saving</span><strong>${money(t.headline.fiveYearSaving,t.currency)}</strong><small>Years 1–5 vs ordinary</small></div><div class="tax-kpi"><span>10-year saving</span><strong>${money(t.headline.tenYearSaving,t.currency)}</strong><small>Conditional extension assumed</small></div><div class="tax-kpi"><span>Model date</span><strong>${e(dateLabel(t.asOf))}</strong><small>Illustrative · not tax advice</small></div></div></section>
+    <div class="tax-alert"><span>!</span><div><strong>Alternative regimes — never combined in this model</strong><p>The Rossi case compares Ordinary taxation, historical Impatriati and Art. 24-bis as three separate paths. Impatriati relief is not stacked with the Art. 24-bis substitute tax.</p></div></div>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">RESIDENCE HISTORY</p><h2>From the United Kingdom to Sardinia</h2></div><p>Residence history determines which historical rules are tested. The dashboard treats the move date as confirmed case data, while regime eligibility remains a professional-review point.</p></div><div class="tax-timeline">${t.residenceHistory.map(item=>`<article class="tax-time-item"><span>${e(item.period)}</span><h3>${e(item.jurisdiction)} · ${e(item.years)}</h3><p>${e(item.note)}</p>${taxStatus(item.status,labels)}</article>`).join('')}</div></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">THREE SEPARATE PATHS</p><h2>The regimes in plain language</h2></div><p>Each card shows the same income facts under a different legal framework. No regime is selected automatically.</p></div><div class="tax-scenario-grid">${scenarioCards}</div></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">SOURCE OF INCOME</p><h2>Italian and foreign income kept separate</h2></div><p>Only contractual or realised income enters the annual tax base. Market performance is tracked separately.</p></div><div class="tax-source-grid">${t.sourceTotals.map(item=>`<article class="tax-source-total"><span>${e(item.source)}</span><strong>${money(item.amount,t.currency)}</strong><p>${e(item.note)}</p></article>`).join('')}</div></section>
+    <section class="tax-income-types">${t.incomeTypeTotals.map(item=>`<div><span class="eyebrow">${e(item.type)}</span><strong>${item.amount===null?'Not included':money(item.amount,t.currency)}</strong><p>${item.status==='not-taxable-income'?'Tracked as performance, not annual taxable cash income.':item.status==='tbd'?'No realised amount supplied.':'Included in the current model.'}</p></div>`).join('')}</section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">MATERIAL ASSETS</p><h2>What matters, at a glance</h2></div><p>Five focused views explain the items most likely to be misunderstood in a cross-border case.</p></div><div class="tax-feature-grid">${featureCards}</div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">INCOME &amp; TREATMENT MAP</p><h2>Every material source, one consistent framework</h2></div><p>Scroll horizontally for the complete comparison. Legal links lead to the expandable source notes below.</p></div><div class="table-scroll" role="region" aria-label="Tax treatment by material income source. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table tax-table"><thead><tr><th>Asset / income type</th><th>Jurisdiction / source</th><th>Taxable or realised income</th><th>Source-country tax</th><th>Ordinary Italian treatment</th><th>Historical Impatriati</th><th>Art. 24-bis</th><th>Legal basis / source</th></tr></thead><tbody>${incomeRows}</tbody></table></div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">TRANSPARENT CALCULATION</p><h2>Open a regime to inspect the bridge</h2></div><p>Negative lines are tax credits. The UK rental calculation assumes Personal Allowance eligibility and the modelled FX rate.</p></div><div class="tax-accordion">${calculationDetails}</div></section>
+    <section class="panel" id="tax-legal-notes"><div class="tax-section-head"><div><p class="eyebrow">LEGAL &amp; TAX SOURCES</p><h2>Authoritative notes, kept out of the main view</h2></div><p>Expand only when the legal basis is needed. Sources support the model; they do not replace client-specific advice.</p></div><div class="tax-accordion"><details><summary>Italian regimes, IRPEF and foreign-asset taxes</summary><div class="tax-accordion-body">${legalNotes}</div></details></div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">SENSITIVITY</p><h2>The winner changes with the income mix</h2></div><p>${e(t.sensitivity.note)}</p></div><div class="tax-sensitivity-scroll"><table class="tax-sensitivity"><thead><tr><th>Qualifying Italian work income</th>${sensitivityHead}</tr></thead><tbody>${sensitivityRows}</tbody></table></div><p class="panel-note">At the current ${money(t.assumptions.italianProfessionalIncome,t.currency)} work-income assumption and no additional foreign investment income, Impatriati wins. As covered foreign investment income rises, the fixed Art. 24-bis charge can become more efficient. Conversely, higher qualifying Italian work income generally strengthens Impatriati.</p></section>
+    <section class="tax-comparison"><div class="tax-section-head"><div><p class="eyebrow">FINAL COMPARISON</p><h2>Decision view under current assumptions</h2></div><p>All savings are measured against Ordinary Italian taxation. Negative savings mean an additional tax cost.</p></div><div class="tax-comparison-grid">${comparisonCards}</div><div class="tax-rationale"><div><h3>Why Impatriati wins today</h3><p>The current model contains substantial qualifying Italian work income and comparatively modest foreign investment income. The historical Sardinia relief sharply reduces the progressive-tax base, while the €100k Art. 24-bis fixed charge is too large for the present foreign-income mix.</p></div><div><h3>What could change the answer</h3><p>The recommendation can move to Art. 24-bis if covered foreign investment income increases materially, or if Impatriati eligibility/extension fails. Alternatives income, future trust assets, ISA realisations, source-country withholding and the final Italian/foreign income mix must be updated before implementation.</p></div></div></section>
+    <p class="tax-disclaimer">Illustrative educational case only. Confirmed case facts, assumptions and TBD values are labelled separately. The model is not a tax return, legal opinion or personalised advice; tax residence, sourcing, treaty relief, regime eligibility, investment classification and foreign-asset taxes require review by qualified Italian and UK advisers.</p>
+  </div>`;
+}
+
 function planning(c, related) {
   return `<div class="section-intro"><p class="eyebrow">STRUCTURE &amp; CONTINUITY</p><h2>Wealth planning</h2><p>Illustrative issues and options for discussion with appropriately qualified advisers.</p></div><div class="planning-grid">${related.planning.length ? related.planning.map((p,i)=>`<article class="panel planning-card"><div class="planning-header"><span class="case-number">${String(i+1).padStart(2,'0')}</span>${badge(p.status)}</div><h3>${e(p.category)}</h3><dl><div><dt>Current issue</dt><dd>${e(p.issue)}</dd></div><div><dt>Objective</dt><dd>${e(p.objective)}</dd></div><div><dt>Proposed solution</dt><dd>${e(p.solution)}</dd></div><div class="professional-input"><dt>Professional input required</dt><dd>${e(p.professional)}</dd></div></dl></article>`).join('') : empty('No planning items published.')}</div>`;
 }
@@ -2043,7 +2497,7 @@ function detail(id, tab) {
   if (!c || !tabs.some(([key])=>key===tab)) return notFound();
   const related = Object.fromEntries(['positions','closedPositions','liquidity','alternatives','allocations','planning','research'].map(table=>[table,dataset[table].filter(r=>r.clientId===id)]));
   document.title = `${c.name} — ${tabs.find(([key])=>key===tab)[1]} | Virtual Wealth`;
-  const content = {overview,investments,alternatives,planning,research}[tab](c,related);
+  const content = {overview,investments,alternatives,tax:taxAndCrossBorder,planning,research}[tab](c,related);
   return `<div class="client-heading"><a class="back-link" href="#/"><span aria-hidden="true">←</span> All client cases</a><div class="client-title-row"><div><p class="eyebrow">${e(c.type)} <span class="meta-divider">/</span> ${e(c.jurisdiction)}</p><h1>${e(c.name)}</h1></div><div class="client-actions">${badge(c.risk_profile)}<a class="ips-link" href="Rossi_Family_Investment_Policy_Statement_v1.1.pdf" target="_blank" rel="noopener">Investment Policy Statement <span aria-hidden="true">↗</span></a></div></div><p class="client-summary">${e(c.summary)}</p><div class="client-metadata"><span>Fictional client case</span><span>Base currency: ${e(c.currency)}</span><span>€20m family balance sheet</span></div></div><nav class="client-tabs" aria-label="Client sections">${tabs.map(([key,label])=>`<a href="#/client/${e(id)}${key==='overview'?'':`/${key}`}" ${tab===key?'aria-current="page"':''}>${label}</a>`).join('')}</nav><div class="client-content">${content}</div>`;
 }
 

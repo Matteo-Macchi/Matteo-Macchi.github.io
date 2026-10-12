@@ -13,11 +13,11 @@
       "alternatives_target": 5000000,
       "direct_real_estate": 4661000,
       "wealth_planning_capital": 3959000,
-      "current_investable_assets": 10619522.886394402,
-      "cash_value": 1381788.6007990204,
-      "cash_weight": 13.817886007990204,
+      "current_investable_assets": 10567133.987176556,
+      "cash_value": 1380821.2174474779,
+      "cash_weight": 13.808212174474779,
       "portfolio_return_12m": null,
-      "model_return_since_entry": 12.490351576927248,
+      "model_return_since_entry": 11.44257359257033,
       "horizon": "10+ years",
       "annual_spending": 442850,
       "liquidity_minimum_36m": 1203550,
@@ -26,7 +26,7 @@
       "objectives": "Long-term real capital growth|Maintain family liquidity and resilience|Diversify across public and private markets",
       "priorities": "Maintain the 36-month liquidity framework|Rebalance the financial portfolio annually|Develop the alternatives and succession-planning structures",
       "summary": "A fictional Italian family with a €20m net worth, previous UK links and two adult children. The case allocates €10m of investable assets across €5m of public markets and €5m of alternatives, while maintaining a €1.38m three-tier liquidity reserve and coordinating direct real estate with future succession and wealth-planning structures.",
-      "asOf": "2026-10-09"
+      "asOf": "2026-09-30"
     }
   ],
   "positions": [
@@ -38,7 +38,7 @@
       "isin": "IE00BJ0KDR00",
       "assetClass": "Equities",
       "subAssetClass": "US Broad Equity",
-      "marketValue": 1844824.3927790204,
+      "marketValue": 1805434.5392267334,
       "targetWeight": 30,
       "currency": "EUR",
       "economicCurrency": "USD",
@@ -50,18 +50,18 @@
       "purchaseDate": "2026-04-01",
       "purchasePrice": 194.13,
       "purchaseAccruedPer100": 0,
-      "price": 230.85000610351562,
+      "price": 228.3699951171875,
       "currentAccruedPer100": 0,
       "priceCurrency": "USD",
       "initialCost": 1499868.92952603,
-      "totalPL": 344955.4632529903,
-      "performance1M": 5.961253442647574,
-      "performanceYTD": 19.37678937505445,
-      "performanceSincePurchase": 22.99904054696309,
+      "totalPL": 305565.6097007033,
+      "performance1M": 1.7494482952252532,
+      "performanceYTD": 16.82791032215867,
+      "performanceSincePurchase": 20.372820830235284,
       "currentYTM": null,
       "duration": null,
       "status": "Updated",
-      "priceTimestamp": "2026-10-09T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "XD9U.L"
@@ -69,7 +69,7 @@
       "priceSymbol": "XD9U.L",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 32.82884383735817,
+      "actualWeight": 32.43023328314724,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE00BJ0KDR00-ETFP.html",
       "performanceType": "Hypothetical model portfolio",
       "ongoingCost": 0.03,
@@ -81,7 +81,7 @@
         }
       ],
       "purchaseFxRateToBase": 0.8627700563326072,
-      "currentFxRateToBase": 0.8923999798299032
+      "currentFxRateToBase": 0.8828300630049555
     },
     {
       "clientId": "rossi-family",
@@ -91,7 +91,7 @@
       "isin": "IE0006WW1TQ4",
       "assetClass": "Equities",
       "subAssetClass": "Developed ex-US",
-      "marketValue": 934499.5052939059,
+      "marketValue": 935919.4334317236,
       "targetWeight": 17,
       "currency": "EUR",
       "economicCurrency": "Multi-currency",
@@ -103,18 +103,18 @@
       "purchaseDate": "2026-04-01",
       "purchasePrice": 42.19,
       "purchaseAccruedPer100": 0,
-      "price": 44.845001220703125,
+      "price": 45.400001525878906,
       "currentAccruedPer100": 0,
       "priceCurrency": "USD",
       "initialCost": 849982.67386898,
-      "totalPL": 84516.83142492583,
-      "performance1M": 0.03729405274093267,
-      "performanceYTD": 14.162907506707633,
-      "performanceSincePurchase": 9.943359320515865,
+      "totalPL": 85936.7595627436,
+      "performance1M": -1.3504844935471105,
+      "performanceYTD": 14.33637268645953,
+      "performanceSincePurchase": 10.110413094842174,
       "currentYTM": null,
       "duration": null,
       "status": "Updated",
-      "priceTimestamp": "2026-10-09T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "EXUS.L"
@@ -122,7 +122,7 @@
       "priceSymbol": "EXUS.L",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 16.62951685020184,
+      "actualWeight": 16.81151263087144,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE0006WW1TQ4-ETFP.html",
       "performanceType": "Hypothetical model portfolio",
       "ongoingCost": 0.15,
@@ -154,7 +154,7 @@
         }
       ],
       "purchaseFxRateToBase": 0.8627700563326072,
-      "currentFxRateToBase": 0.8923999798299032
+      "currentFxRateToBase": 0.8828300630049555
     },
     {
       "clientId": "rossi-family",
@@ -164,7 +164,7 @@
       "isin": "IE00BKM4GZ66",
       "assetClass": "Equities",
       "subAssetClass": "Emerging Markets",
-      "marketValue": 480527.2706390836,
+      "marketValue": 475808.318472701,
       "targetWeight": 8,
       "currency": "EUR",
       "economicCurrency": "Multi-currency",
@@ -176,18 +176,18 @@
       "purchaseDate": "2026-04-01",
       "purchasePrice": 47.14,
       "purchaseAccruedPer100": 0,
-      "price": 54.75,
+      "price": 54.79999923706055,
       "currentAccruedPer100": 0,
       "priceCurrency": "USD",
       "initialCost": 399999.09278003,
-      "totalPL": 80528.1778590536,
-      "performance1M": 1.13945965065676,
-      "performanceYTD": 27.207397917432385,
-      "performanceSincePurchase": 20.1320901253488,
+      "totalPL": 75809.22569267103,
+      "performance1M": 1.1115228750103734,
+      "performanceYTD": 25.95817511019398,
+      "performanceSincePurchase": 18.95234940804229,
       "currentYTM": null,
       "duration": null,
       "status": "Updated",
-      "priceTimestamp": "2026-10-09T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "EIMI.L"
@@ -195,7 +195,7 @@
       "priceSymbol": "EIMI.L",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 8.55103325235142,
+      "actualWeight": 8.54673732604042,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE00BKM4GZ66-ETFP.html",
       "performanceType": "Hypothetical model portfolio",
       "ongoingCost": 0.18,
@@ -207,7 +207,7 @@
         }
       ],
       "purchaseFxRateToBase": 0.8627700563326072,
-      "currentFxRateToBase": 0.8923999798299032
+      "currentFxRateToBase": 0.8828300630049555
     },
     {
       "clientId": "rossi-family",
@@ -217,7 +217,7 @@
       "isin": "IE00BJXRT813",
       "assetClass": "Equities",
       "subAssetClass": "Value Factor",
-      "marketValue": 177387.42957859606,
+      "marketValue": 177087.0777338254,
       "targetWeight": 3,
       "currency": "EUR",
       "economicCurrency": "Multi-currency",
@@ -229,18 +229,18 @@
       "purchaseDate": "2026-04-01",
       "purchasePrice": 43.355,
       "purchaseAccruedPer100": 0,
-      "price": 49.56999969482422,
+      "price": 50.022499084472656,
       "currentAccruedPer100": 0,
       "priceCurrency": "USD",
       "initialCost": 149995.63712712,
-      "totalPL": 27391.792451476067,
-      "performance1M": 0.813657999877071,
-      "performanceYTD": 23.60997700279286,
-      "performanceSincePurchase": 18.2617261249121,
+      "totalPL": 27091.440606705408,
+      "performance1M": 0.036043321078271795,
+      "performanceYTD": 23.400680973682753,
+      "performanceSincePurchase": 18.061485737575957,
       "currentYTM": null,
       "duration": null,
       "status": "Updated",
-      "priceTimestamp": "2026-10-09T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "WVAL.L"
@@ -248,7 +248,7 @@
       "priceSymbol": "WVAL.L",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 3.1566279409249165,
+      "actualWeight": 3.180937950150494,
       "sourceUrl": "https://www.ssga.com/uk/en_gb/intermediary/etfs/state-street-spdr-msci-world-value-ucits-etf-acc-wval-na",
       "performanceType": "Hypothetical model portfolio",
       "ongoingCost": 0.25,
@@ -276,7 +276,7 @@
         }
       ],
       "purchaseFxRateToBase": 0.8627700563326072,
-      "currentFxRateToBase": 0.8923999798299032
+      "currentFxRateToBase": 0.8828300630049555
     },
     {
       "clientId": "rossi-family",
@@ -286,7 +286,7 @@
       "isin": "IE00BP3QZ825",
       "assetClass": "Equities",
       "subAssetClass": "Momentum Factor",
-      "marketValue": 190385.5432319857,
+      "marketValue": 189697.61637541594,
       "targetWeight": 3,
       "currency": "EUR",
       "economicCurrency": "Multi-currency",
@@ -298,18 +298,18 @@
       "purchaseDate": "2026-04-01",
       "purchasePrice": 96.36,
       "purchaseAccruedPer100": 0,
-      "price": 118.26000213623047,
+      "price": 119.11000061035156,
       "currentAccruedPer100": 0,
       "priceCurrency": "USD",
       "initialCost": 149978.28682129,
-      "totalPL": 40407.2564106957,
-      "performance1M": 4.451540006270682,
-      "performanceYTD": 27.049917328781614,
-      "performanceSincePurchase": 26.942070927135433,
+      "totalPL": 39719.32955412593,
+      "performance1M": 5.755827515645073,
+      "performanceYTD": 26.590843342533923,
+      "performanceSincePurchase": 26.48338662612759,
       "currentYTM": null,
       "duration": null,
       "status": "Updated",
-      "priceTimestamp": "2026-10-09T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "IWMO.L"
@@ -317,7 +317,7 @@
       "priceSymbol": "IWMO.L",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 3.3879307386207813,
+      "actualWeight": 3.4074555563485465,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE00BP3QZ825-ETFP.html",
       "performanceType": "Hypothetical model portfolio",
       "ongoingCost": 0.25,
@@ -349,7 +349,7 @@
         }
       ],
       "purchaseFxRateToBase": 0.8627700563326072,
-      "currentFxRateToBase": 0.8923999798299032
+      "currentFxRateToBase": 0.8828300630049555
     },
     {
       "clientId": "rossi-family",
@@ -359,7 +359,7 @@
       "isin": "IE0003R87OG3",
       "assetClass": "Equities",
       "subAssetClass": "Global Small Value",
-      "marketValue": 223028.28408050537,
+      "marketValue": 221468.32387924194,
       "targetWeight": 4,
       "currency": "EUR",
       "economicCurrency": "Multi-currency",
@@ -371,18 +371,18 @@
       "purchaseDate": "2026-04-01",
       "purchasePrice": 22.435,
       "purchaseAccruedPer100": 0,
-      "price": 25.020000457763672,
+      "price": 24.844999313354492,
       "currentAccruedPer100": 0,
       "priceCurrency": "EUR",
       "initialCost": 199985.59,
-      "totalPL": 23042.694080505375,
-      "performance1M": -2.0360236457451775,
-      "performanceYTD": 22.40704405107401,
-      "performanceSincePurchase": 11.522177213120898,
+      "totalPL": 21482.733879241947,
+      "performance1M": -2.625906691441149,
+      "performanceYTD": 21.550874091011686,
+      "performanceSincePurchase": 10.742140910873598,
       "currentYTM": null,
       "duration": null,
       "status": "Updated",
-      "priceTimestamp": "2026-10-08T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "AVWS.DE"
@@ -390,7 +390,7 @@
       "priceSymbol": "AVWS.DE",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 3.9688117405925323,
+      "actualWeight": 3.9781389201225683,
       "sourceUrl": "https://live.deutsche-boerse.com/en/etf/avantis-global-small-cap-value-ucits-etf/price-history/historical-prices-and-volumes?currency=EUR",
       "performanceType": "Hypothetical model portfolio",
       "ongoingCost": 0.39,
@@ -448,7 +448,7 @@
       "priceSource": "Model clean-price snapshot · manual verification required",
       "updateMode": "manual",
       "stale": false,
-      "actualWeight": 1.7622581489927864,
+      "actualWeight": 1.778841684574303,
       "performanceType": "Hypothetical model portfolio"
     },
     {
@@ -491,7 +491,7 @@
       "priceSource": "Model clean-price snapshot · manual verification required",
       "updateMode": "manual",
       "stale": false,
-      "actualWeight": 1.765719296921749,
+      "actualWeight": 1.7823354032533938,
       "performanceType": "Hypothetical model portfolio"
     },
     {
@@ -534,7 +534,7 @@
       "priceSource": "Model clean-price snapshot · manual verification required",
       "updateMode": "manual",
       "stale": false,
-      "actualWeight": 1.3243081575515965,
+      "actualWeight": 1.3367704131321432,
       "performanceType": "Hypothetical model portfolio"
     },
     {
@@ -577,7 +577,7 @@
       "priceSource": "Model clean-price snapshot · manual verification required",
       "updateMode": "manual",
       "stale": false,
-      "actualWeight": 1.3194963611506123,
+      "actualWeight": 1.3319133358528312,
       "performanceType": "Hypothetical model portfolio"
     },
     {
@@ -588,7 +588,7 @@
       "isin": "US91282CRF04",
       "assetClass": "Fixed Income",
       "subAssetClass": "Direct Sovereign Bond",
-      "marketValue": 100545.99180745134,
+      "marketValue": 99467.75693471794,
       "targetWeight": 2,
       "currency": "EUR",
       "priceCurrency": "USD",
@@ -605,12 +605,12 @@
       "purchaseFxRateToBase": 0.8828300629709238,
       "price": 94.68,
       "currentAccruedPer100": 0,
-      "currentFxRateToBase": 0.8923999798299032,
+      "currentFxRateToBase": 0.8828300630049555,
       "initialCost": 99467.75693088,
-      "totalPL": 1078.2348765713396,
+      "totalPL": 0.000003837936674244702,
       "performance1M": null,
       "performanceYTD": null,
-      "performanceSincePurchase": 1.0840044149351247,
+      "performanceSincePurchase": 3.8548275682614985e-9,
       "coupon": 4.625,
       "maturity": "2036-08-15",
       "currentYTM": null,
@@ -620,7 +620,7 @@
       "priceSource": "Model clean-price snapshot · manual verification required",
       "updateMode": "manual",
       "stale": false,
-      "actualWeight": 1.7892264848833752,
+      "actualWeight": 1.7866959402061078,
       "performanceType": "Hypothetical model portfolio"
     },
     {
@@ -663,7 +663,7 @@
       "priceSource": "Model clean-price snapshot · manual verification required",
       "updateMode": "manual",
       "stale": false,
-      "actualWeight": 1.7748891145453698,
+      "actualWeight": 1.7915915124324964,
       "performanceType": "Hypothetical model portfolio"
     },
     {
@@ -706,7 +706,7 @@
       "priceSource": "Model clean-price snapshot · manual verification required",
       "updateMode": "manual",
       "stale": false,
-      "actualWeight": 2.6556667357173565,
+      "actualWeight": 2.6806575940825677,
       "performanceType": "Hypothetical model portfolio"
     },
     {
@@ -717,7 +717,7 @@
       "isin": "IE00BGYWT403",
       "assetClass": "Fixed Income",
       "subAssetClass": "EUR Investment Grade Corporate",
-      "marketValue": 297239.31548309326,
+      "marketValue": 295997.1885910034,
       "targetWeight": 6,
       "currency": "EUR",
       "economicCurrency": "Multi-currency",
@@ -729,18 +729,18 @@
       "purchaseDate": "2026-01-02",
       "purchasePrice": 53.126,
       "purchaseAccruedPer100": 0,
-      "price": 52.645999908447266,
+      "price": 52.42599868774414,
       "currentAccruedPer100": 0,
       "priceCurrency": "EUR",
       "initialCost": 299949.396,
-      "totalPL": -2710.080516906746,
-      "performance1M": -0.9296189064266325,
-      "performanceYTD": -1.0153064850928373,
-      "performanceSincePurchase": -0.9035125768037,
+      "totalPL": -3952.20740899659,
+      "performance1M": -1.528931189068472,
+      "performanceYTD": -1.428951461768646,
+      "performanceSincePurchase": -1.317624726604405,
       "currentYTM": null,
       "duration": null,
       "status": "Updated",
-      "priceTimestamp": "2026-10-08T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "VECA.DE"
@@ -748,7 +748,7 @@
       "priceSymbol": "VECA.DE",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 5.289404839025541,
+      "actualWeight": 5.3168684151092656,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etf/scheda/IE00BGYWT403-ETFP.html",
       "performanceType": "Hypothetical model portfolio",
       "ongoingCost": 0.09,
@@ -775,17 +775,17 @@
       "purchaseDate": "2026-01-02",
       "purchasePrice": 55.824,
       "purchaseFxRateToBase": 1,
-      "price": 53.7760009765625,
+      "price": 53.555999755859375,
       "currentFxRateToBase": 1,
       "priceCurrency": "EUR",
       "initialCost": 299998.176,
-      "marketValue": 288992.2292480469,
-      "totalPL": -11005.946751953103,
-      "performance1M": -2.339093089380395,
-      "performanceYTD": -3.9782882946272524,
-      "performanceSincePurchase": -3.6686712228387375,
+      "marketValue": 287809.9426879883,
+      "totalPL": -12188.233312011696,
+      "performance1M": -3.2272041643354177,
+      "performanceYTD": -4.371119546590229,
+      "performanceSincePurchase": -4.062769138973598,
       "status": "Updated",
-      "priceTimestamp": "2026-10-08T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "VDCE.DE"
@@ -793,7 +793,7 @@
       "priceSymbol": "VDCE.DE",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 5.142647073254826,
+      "actualWeight": 5.1698044873885785,
       "ongoingCost": 0.07,
       "incomeTreatment": "Accumulating",
       "performanceType": "Hypothetical model portfolio"
@@ -806,7 +806,7 @@
       "isin": "IE00B4ND3602",
       "assetClass": "Gold",
       "subAssetClass": "Physical Gold ETC",
-      "marketValue": 356020.1144648744,
+      "marketValue": 349450.80701679055,
       "targetWeight": 7,
       "currency": "EUR",
       "economicCurrency": "USD / gold",
@@ -818,18 +818,18 @@
       "purchaseDate": "2026-01-02",
       "purchasePrice": 83.795,
       "purchaseAccruedPer100": 0,
-      "price": 81.28500366210938,
+      "price": 80.6500015258789,
       "currentAccruedPer100": 0,
       "priceCurrency": "USD",
       "initialCost": 349999.59249279,
-      "totalPL": 6020.52197208436,
-      "performance1M": -1.2140437060381704,
-      "performanceYTD": 1.8689436366338574,
-      "performanceSincePurchase": 1.7201511376652823,
+      "totalPL": -548.7854759994661,
+      "performance1M": -6.685109240795695,
+      "performanceYTD": -0.010749063219461785,
+      "performanceSincePurchase": -0.15679603284298738,
       "currentYTM": null,
       "duration": null,
       "status": "Updated",
-      "priceTimestamp": "2026-10-09T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "IGLN.L"
@@ -837,13 +837,13 @@
       "priceSymbol": "IGLN.L",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 6.335415330843221,
+      "actualWeight": 6.277032451917311,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etc-etn/scheda/IE00B4ND3602-ETFP.html",
       "performanceType": "Hypothetical model portfolio",
       "ongoingCost": 0.12,
       "incomeTreatment": "No income",
       "purchaseFxRateToBase": 0.8510300186180926,
-      "currentFxRateToBase": 0.8923999798299032
+      "currentFxRateToBase": 0.8828300630049555
     },
     {
       "clientId": "rossi-family",
@@ -853,7 +853,7 @@
       "isin": "XS2940466316",
       "assetClass": "Digital Assets",
       "subAssetClass": "Bitcoin ETP",
-      "marketValue": 68416.71801185608,
+      "marketValue": 69970.78233718872,
       "targetWeight": 1,
       "currency": "EUR",
       "economicCurrency": "Bitcoin / USD",
@@ -865,18 +865,18 @@
       "purchaseDate": "2026-07-01",
       "purchasePrice": 5.276,
       "purchaseAccruedPer100": 0,
-      "price": 7.21999979019165,
+      "price": 7.383999824523926,
       "currentAccruedPer100": 0,
       "priceCurrency": "EUR",
       "initialCost": 49995.376,
-      "totalPL": 18421.342011856083,
-      "performance1M": 7.105764756663091,
-      "performanceYTD": -3.3337806541370862,
-      "performanceSincePurchase": 36.846091550258734,
+      "totalPL": 19975.406337188724,
+      "performance1M": 8.396947206103068,
+      "performanceYTD": -1.138037752173382,
+      "performanceSincePurchase": 39.95450766724651,
       "currentYTM": null,
       "duration": null,
       "status": "Updated",
-      "priceTimestamp": "2026-10-08T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "IB1T.DE"
@@ -884,7 +884,7 @@
       "priceSymbol": "IB1T.DE",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 1.2174826830495145,
+      "actualWeight": 1.2568546490592964,
       "sourceUrl": "https://www.borsaitaliana.it/borsa/etc-etn/scheda/XS2940466316-ETFP.html",
       "performanceType": "Hypothetical model portfolio",
       "ongoingCost": 0.15,
@@ -911,17 +911,17 @@
       "purchaseDate": "2026-09-30",
       "purchasePrice": 37.85,
       "purchaseFxRateToBase": 0.8828300629709238,
-      "price": 36.6349983215332,
-      "currentFxRateToBase": 0.8923999798299032,
+      "price": 37.849998474121094,
+      "currentFxRateToBase": 0.8828300630049555,
       "priceCurrency": "USD",
       "initialCost": 63221.40303549,
-      "marketValue": 61855.291775983416,
-      "totalPL": -1366.111259506586,
-      "performance1M": 2.4068803177828,
-      "performanceYTD": 28.274904037811478,
-      "performanceSincePurchase": -2.1608366690884395,
+      "marketValue": 63221.400489225845,
+      "totalPL": -0.002546264156990219,
+      "performance1M": 2.8133569566018757,
+      "performanceYTD": 31.107927034955107,
+      "performanceSincePurchase": -0.000004027529332262247,
       "status": "Updated",
-      "priceTimestamp": "2026-10-09T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "priceSymbols": [
         "WQTM.L"
@@ -929,7 +929,7 @@
       "priceSymbol": "WQTM.L",
       "updateMode": "automatic",
       "stale": false,
-      "actualWeight": 1.1007214140144024,
+      "actualWeight": 1.1356184463109966,
       "ongoingCost": 0.45,
       "incomeTreatment": "Accumulating",
       "performanceType": "Hypothetical model portfolio"
@@ -941,16 +941,16 @@
       "asset": "BBVA remunerated current account",
       "ticker": "Instant access deposit",
       "tier": 1,
-      "marketValue": 300393.34645101416,
+      "marketValue": 300144.1733625266,
       "currency": "EUR",
       "geography": "Italy",
       "sector": "Operational cash",
       "thesis": "Immediately accessible remunerated balance for the first twelve months of requirements.",
       "purchaseDate": "2026-07-01",
       "openingBalance": 297631.9907526049,
-      "interestEarned": 2761.3556984092575,
-      "annualRate": 3.365124672914985,
-      "performanceSincePurchase": 0.9277751667173817,
+      "interestEarned": 2512.1826099216705,
+      "annualRate": 3.3661749880129848,
+      "performanceSincePurchase": 0.8440566498141733,
       "updateMode": "rate-schedule",
       "rateSchedule": [
         {
@@ -969,7 +969,7 @@
         }
       ],
       "rateNote": "Illustrative blended gross rate: 4.00% on the first €200k and 2.10% on the next €100k; interest calculated daily before tax.",
-      "priceTimestamp": "2026-10-09T00:00:00.000Z"
+      "priceTimestamp": "2026-09-30T00:00:00.000Z"
     },
     {
       "clientId": "rossi-family",
@@ -1002,7 +1002,7 @@
       "asset": "Xtrackers II EUR Overnight Rate Swap UCITS ETF 1C",
       "ticker": "XEON · LU0290358497",
       "tier": 2,
-      "marketValue": 460422.36433715135,
+      "marketValue": 460220.3724492024,
       "currency": "EUR",
       "priceCurrency": "EUR",
       "geography": "Euro area",
@@ -1010,13 +1010,13 @@
       "thesis": "Second liquidity line for the 12–24 month requirement; economic exposure to €STR + 8.5 bps through a swap-based accumulating ETF.",
       "purchaseDate": "2026-09-25",
       "purchasePrice": 150.29,
-      "price": 150.42799377441406,
+      "price": 150.36199951171875,
       "quantity": 3060.749218178189,
       "initialCost": 460000,
-      "totalPL": 422.36433715134626,
-      "performanceSincePurchase": 0.09181833416334051,
-      "performance1M": 0.19515721070930692,
-      "performanceYTD": 1.5780771974712282,
+      "totalPL": 220.37244920240482,
+      "performanceSincePurchase": 0.047907054174434194,
+      "performance1M": 0.21461359637084954,
+      "performanceYTD": 1.5335138808806548,
       "ongoingCost": 0.1,
       "incomeTreatment": "Accumulating",
       "horizon": "12–24 months",
@@ -1026,7 +1026,7 @@
       ],
       "priceSymbol": "XEON.DE",
       "updateMode": "automatic",
-      "priceTimestamp": "2026-10-08T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "currentFxRateToBase": 1,
       "stale": false,
@@ -1037,7 +1037,7 @@
       "asset": "iShares € Govt Bond 1–3yr UCITS ETF EUR (Acc)",
       "ticker": "CSBGE3 · IE00B3VTMJ91",
       "tier": 3,
-      "marketValue": 460972.8900108548,
+      "marketValue": 460456.6716357489,
       "currency": "EUR",
       "priceCurrency": "EUR",
       "geography": "Euro area",
@@ -1045,13 +1045,13 @@
       "thesis": "Strategic liquidity for the 24–36+ month requirement, accepting limited duration and price volatility.",
       "purchaseDate": "2026-09-25",
       "purchasePrice": 115.84,
-      "price": 116.08499908447266,
+      "price": 115.95500183105469,
       "quantity": 3970.9944751381213,
       "initialCost": 460000,
-      "totalPL": 972.8900108548114,
-      "performanceSincePurchase": 0.21149782844669396,
-      "performance1M": -0.18057447678668792,
-      "performanceYTD": 0.250443387117838,
+      "totalPL": 456.6716357488767,
+      "performanceSincePurchase": 0.09927644255411927,
+      "performance1M": -0.3480567009045199,
+      "performanceYTD": 0.13817838822012263,
       "ongoingCost": 0.1,
       "incomeTreatment": "Accumulating",
       "currentYTM": 3.37,
@@ -1064,7 +1064,7 @@
       ],
       "priceSymbol": "CSBGE3.SW",
       "updateMode": "automatic",
-      "priceTimestamp": "2026-10-08T07:00:00.000Z",
+      "priceTimestamp": "2026-09-30T07:00:00.000Z",
       "priceSource": "Yahoo Finance chart feed · indicative/delayed",
       "currentFxRateToBase": 1,
       "stale": false,
@@ -1129,14 +1129,14 @@
   "planning": [],
   "research": [],
   "_meta": {
-    "generatedAt": "2026-10-09T22:49:30.207Z",
-    "valuationDate": "2026-10-09",
+    "generatedAt": "2026-10-02T12:53:25.411Z",
+    "valuationDate": "2026-09-30",
     "priceMode": "mixed-automatic-and-manual",
     "provider": "Yahoo Finance delayed chart feed for exchange-traded instruments; manual clean-price snapshots for direct sovereign bonds",
     "publicInitialCost": 5000000,
-    "publicCurrentValue": 5624517.578846362,
-    "publicPL": 624517.5788463624,
-    "modelReturnSinceEntry": 12.490351576927248,
+    "publicCurrentValue": 5572128.679628517,
+    "publicPL": 572128.6796285165,
+    "modelReturnSinceEntry": 11.44257359257033,
     "capitalAvailable": 5000000,
     "unallocatedCash": 4994.69245196,
     "equityGeographyMethod": "Holdings/index look-through. Country weights use the latest official provider or index data available at the valuation date; emerging markets and residual developed-market exposures are grouped where complete country detail is unavailable.",
@@ -1148,11 +1148,13 @@
     "portfolioCash": 4994.69245196,
     "realizedPL": 13237.40303457,
     "transactionHistoryCount": 1,
-    "unrealizedPL": 611280.1758117924,
+    "unrealizedPL": 558891.2765939458,
     "marketDataCoverage": {
       "automaticUpdated": 13,
       "manualInstruments": 7
-    }
+    },
+    "taxModelAsOf": "2026-10-12",
+    "taxModelSource": "Rossi_Family_Architecture_Pillar1_Tax_v2(4).xlsx"
   },
   "closedPositions": [
     {
@@ -1181,5 +1183,556 @@
       "priceSource": "Verified historical closing prices · Yahoo Finance chart feed",
       "transactionType": "Full disposal"
     }
-  ]
+  ],
+  "taxCrossBorder": {
+    "clientId": "rossi-family",
+    "asOf": "2026-10-12",
+    "modelYear": 2026,
+    "currency": "EUR",
+    "statusLegend": {
+      "confirmed": "Confirmed case data",
+      "assumption": "Modelling assumption",
+      "tbd": "To be determined"
+    },
+    "residenceHistory": [
+      {
+        "period": "2010–2021",
+        "jurisdiction": "United Kingdom",
+        "years": "12 years",
+        "status": "confirmed",
+        "note": "UK tax resident before the move to Italy."
+      },
+      {
+        "period": "From 2022",
+        "jurisdiction": "Italy · Sardinia",
+        "years": "Italian resident",
+        "status": "confirmed",
+        "note": "The model treats 2022 as the first Italian tax-residence year."
+      },
+      {
+        "period": "2026 model year",
+        "jurisdiction": "Italy with UK links",
+        "years": "Year 5",
+        "status": "assumption",
+        "note": "Historical Impatriati treatment is modelled for the fifth year, subject to professional confirmation of eligibility."
+      }
+    ],
+    "headline": {
+      "recommendedScenario": "Historical Impatriati · Years 1–5",
+      "annualTax": 59961.875,
+      "effectiveRate": 17.15800629515416,
+      "annualSavingVsOrdinary": 101250,
+      "fiveYearSaving": 506250,
+      "tenYearSaving": 787500,
+      "caveat": "Recommendation under the current income assumptions. Impatriati eligibility, the 2022 start year and any extension must be confirmed by an Italian tax adviser."
+    },
+    "assumptions": {
+      "totalModelledIncome": 349475,
+      "italianProfessionalIncome": 250000,
+      "veronaRentalNetIncome": 16100,
+      "italianDepositInterest": 9000,
+      "btpCouponIncome": 6450,
+      "londonRentalNetIncome": 50000,
+      "foreignSovereignCouponIncome": 17925,
+      "isaRealisedIncomeAndGains": 0,
+      "alternativesIncome": null,
+      "trustIncome": null,
+      "londonPropertyIvieProxyValue": 1900000,
+      "fxEurGbp": 0.87,
+      "italianLocalSurchargeProxy": 2,
+      "ivieRate": 1.06,
+      "ivafeRate": 0.2,
+      "financialTaxRate": 26,
+      "qualifyingSovereignRate": 12.5,
+      "art24bisSubstituteTax": 100000,
+      "ukPersonalAllowanceGbp": 12570,
+      "ukBasicBandGbp": 37700
+    },
+    "sourceTotals": [
+      {
+        "source": "Italian-source",
+        "amount": 281550,
+        "note": "Professional income, Verona rent, Italian deposit interest and BTP coupon."
+      },
+      {
+        "source": "Foreign-source",
+        "amount": 67925,
+        "note": "London rent and contractual foreign sovereign coupons. ISA, Alternatives and trust income remain zero/TBD."
+      }
+    ],
+    "incomeTypeTotals": [
+      {
+        "type": "Work & rental income",
+        "amount": 316100,
+        "status": "assumption"
+      },
+      {
+        "type": "Contractual investment income",
+        "amount": 33375,
+        "status": "mixed"
+      },
+      {
+        "type": "Realised capital gains",
+        "amount": 0,
+        "status": "tbd"
+      },
+      {
+        "type": "Unrealised investment performance",
+        "amount": null,
+        "status": "not-taxable-income"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "ordinary",
+        "name": "Ordinary Italian taxation",
+        "shortName": "Ordinary",
+        "description": "Italian residents are modelled on worldwide income. Progressive IRPEF applies to work and rental income; investment income uses the relevant 26% or qualifying 12.5% assumption. UK tax on London rent is credited where available.",
+        "annualTax": 161211.875,
+        "effectiveRate": 46.129726733526,
+        "savingVsOrdinary": 0,
+        "fiveYearTax": 806059.375,
+        "fiveYearSaving": 0,
+        "tenYearTax": 1612118.75,
+        "tenYearSaving": 0,
+        "recommended": false,
+        "components": [
+          {
+            "label": "IRPEF + 2% local surcharge proxy",
+            "amount": 134885,
+            "formula": "Progressive tax on €316,100"
+          },
+          {
+            "label": "Investment taxation",
+            "amount": 5386.875,
+            "formula": "26% on €9,000 + 12.5% on €24,375"
+          },
+          {
+            "label": "UK tax on London rent",
+            "amount": 7110.3448,
+            "formula": "£30,930 taxable at 20%, converted at €1 = £0.87"
+          },
+          {
+            "label": "Foreign tax credit",
+            "amount": -7110.3448,
+            "formula": "Modelled credit equal to UK rental tax"
+          },
+          {
+            "label": "IVIE / IVAFE",
+            "amount": 20940,
+            "formula": "1.06% on €1.9m London property + 0.2% on €400k ISA"
+          }
+        ]
+      },
+      {
+        "id": "impatriati",
+        "name": "Historical Impatriati · 2022 relocation",
+        "shortName": "Impatriati",
+        "description": "The historical regime is modelled with 90% of qualifying work income excluded in Sardinia for years 1–5. Rental and investment income are not treated as qualifying work income. The model does not combine this regime with Art. 24-bis.",
+        "annualTax": 59961.875,
+        "effectiveRate": 17.15800629515416,
+        "savingVsOrdinary": 101250,
+        "fiveYearTax": 299809.375,
+        "fiveYearSaving": 506250,
+        "tenYearTax": 824618.75,
+        "tenYearSaving": 787500,
+        "recommended": true,
+        "components": [
+          {
+            "label": "IRPEF + 2% local surcharge proxy",
+            "amount": 33635,
+            "formula": "Progressive tax on €91,100: 10% of €250k work income + Italian and UK rent"
+          },
+          {
+            "label": "Investment taxation",
+            "amount": 5386.875,
+            "formula": "26% on €9,000 + 12.5% on €24,375"
+          },
+          {
+            "label": "UK tax on London rent",
+            "amount": 7110.3448,
+            "formula": "Source-country tax remains due"
+          },
+          {
+            "label": "Foreign tax credit",
+            "amount": -7110.3448,
+            "formula": "Modelled credit equal to UK rental tax"
+          },
+          {
+            "label": "IVIE / IVAFE",
+            "amount": 20940,
+            "formula": "Foreign asset taxes remain in the model"
+          }
+        ],
+        "extension": {
+          "annualTaxYears6to10": 104961.875,
+          "taxableWorkShare": 50,
+          "status": "tbd",
+          "note": "Years 6–10 assume a 50% taxable share only if the historical extension conditions are satisfied."
+        }
+      },
+      {
+        "id": "art24bis",
+        "name": "Art. 24-bis New Resident Regime",
+        "shortName": "Art. 24-bis",
+        "description": "Italian-source income remains ordinarily taxed. Foreign-source income is modelled under the historical €100k annual substitute tax for a 2022 entrant. UK tax can still arise on London rent and is not credited against the substitute tax.",
+        "annualTax": 222641.5948,
+        "effectiveRate": 63.70745669218085,
+        "savingVsOrdinary": -61429.7198,
+        "fiveYearTax": 1113207.974,
+        "fiveYearSaving": -307148.599,
+        "tenYearTax": 2226415.948,
+        "tenYearSaving": -614297.198,
+        "recommended": false,
+        "components": [
+          {
+            "label": "IRPEF + 2% local surcharge proxy",
+            "amount": 112385,
+            "formula": "Progressive tax on €266,100 Italian work and Verona rent"
+          },
+          {
+            "label": "Domestic investment taxation",
+            "amount": 3146.25,
+            "formula": "26% on €9,000 + 12.5% on €6,450 BTP coupon"
+          },
+          {
+            "label": "Historical substitute tax",
+            "amount": 100000,
+            "formula": "Fixed annual charge on covered foreign-source income"
+          },
+          {
+            "label": "UK tax on London rent",
+            "amount": 7110.3448,
+            "formula": "Source-country tax remains due; no Italian credit against the substitute tax"
+          },
+          {
+            "label": "IVIE / IVAFE",
+            "amount": 0,
+            "formula": "Modelled exemption for foreign assets covered by the regime"
+          }
+        ],
+        "carveOut": {
+          "name": "UK carve-out illustration",
+          "annualTax": 258971.25,
+          "status": "assumption",
+          "note": "Illustrative only: UK income and assets are excluded from the substitute-tax perimeter and revert to ordinary Italian treatment."
+        }
+      }
+    ],
+    "incomeSources": [
+      {
+        "asset": "Italian professional activity",
+        "jurisdiction": "Italy",
+        "source": "Italian-source",
+        "incomeType": "Work income",
+        "amount": 250000,
+        "amountStatus": "assumption",
+        "sourceCountryTax": "Included in Italian IRPEF",
+        "ordinary": "Progressive IRPEF + local surcharge proxy",
+        "impatriati": "10% taxable share in Years 1–5, if qualifying",
+        "art24bis": "Ordinary Italian taxation; not covered by the foreign-income substitute tax",
+        "legalBasis": [
+          "irpef",
+          "impatriati",
+          "art24bis"
+        ]
+      },
+      {
+        "asset": "Verona rental property",
+        "jurisdiction": "Italy",
+        "source": "Italian-source",
+        "incomeType": "Rental income",
+        "amount": 16100,
+        "amountStatus": "assumption",
+        "sourceCountryTax": "Italian tax only",
+        "ordinary": "Included in progressive base in this model",
+        "impatriati": "No Impatriati reduction; included in progressive base",
+        "art24bis": "Ordinary Italian taxation",
+        "legalBasis": [
+          "irpef",
+          "art24bis"
+        ]
+      },
+      {
+        "asset": "Tier-1 Italian deposit",
+        "jurisdiction": "Italy",
+        "source": "Italian-source",
+        "incomeType": "Contractual interest",
+        "amount": 9000,
+        "amountStatus": "assumption",
+        "sourceCountryTax": "26% Italian investment tax assumption",
+        "ordinary": "26%",
+        "impatriati": "26%; no work-income relief",
+        "art24bis": "26%; Italian-source income remains outside substitute tax",
+        "legalBasis": [
+          "financial",
+          "art24bis"
+        ]
+      },
+      {
+        "asset": "Italian BTP",
+        "jurisdiction": "Italy",
+        "source": "Italian-source",
+        "incomeType": "Contractual coupon",
+        "amount": 6450,
+        "amountStatus": "confirmed",
+        "sourceCountryTax": "12.5% qualifying sovereign assumption",
+        "ordinary": "12.5%",
+        "impatriati": "12.5%; no work-income relief",
+        "art24bis": "12.5%; Italian-source income remains outside substitute tax",
+        "legalBasis": [
+          "sovereign",
+          "art24bis"
+        ]
+      },
+      {
+        "asset": "London rental property",
+        "jurisdiction": "United Kingdom",
+        "source": "Foreign-source",
+        "incomeType": "Rental income",
+        "amount": 50000,
+        "amountStatus": "assumption",
+        "sourceCountryTax": "€7,110 modelled UK tax after Personal Allowance",
+        "ordinary": "Worldwide income; Italian tax with modelled foreign tax credit",
+        "impatriati": "Not qualifying work income; ordinary treatment with modelled credit",
+        "art24bis": "Covered by €100k substitute tax if UK included; UK source tax remains due and is not credited against the substitute tax",
+        "legalBasis": [
+          "uk-rent",
+          "uk-double-tax",
+          "art24bis"
+        ]
+      },
+      {
+        "asset": "Legacy UK Stocks & Shares ISA",
+        "jurisdiction": "United Kingdom",
+        "source": "Foreign-source",
+        "incomeType": "Realised income / gains only",
+        "amount": 0,
+        "amountStatus": "tbd",
+        "sourceCountryTax": "UK ISA relief retained; Italian treatment requires transaction data",
+        "ordinary": "Italian tax may apply to distributions and realised gains; €0 modelled until realised data are supplied",
+        "impatriati": "Same investment treatment as ordinary; no work-income relief",
+        "art24bis": "Covered foreign income/gains if UK included; historical substitute tax applies",
+        "legalBasis": [
+          "isa",
+          "financial",
+          "art24bis"
+        ]
+      },
+      {
+        "asset": "Foreign sovereign bonds",
+        "jurisdiction": "Germany · France · Spain · United States",
+        "source": "Foreign-source",
+        "incomeType": "Contractual coupons",
+        "amount": 17925,
+        "amountStatus": "confirmed",
+        "sourceCountryTax": "TBD by security, treaty and custody chain",
+        "ordinary": "12.5% qualifying sovereign assumption, subject to eligibility check",
+        "impatriati": "Same as ordinary; no work-income relief",
+        "art24bis": "Covered by the historical substitute tax if jurisdictions are included",
+        "legalBasis": [
+          "sovereign",
+          "art24bis"
+        ]
+      },
+      {
+        "asset": "Public-market funds and ETCs",
+        "jurisdiction": "Multiple",
+        "source": "Foreign-source / mixed",
+        "incomeType": "Distributions and realised gains only",
+        "amount": 0,
+        "amountStatus": "tbd",
+        "sourceCountryTax": "TBD when a taxable event occurs",
+        "ordinary": "26% assumption for taxable distributions and realised gains; instrument-specific review required",
+        "impatriati": "Same investment treatment as ordinary; no work-income relief",
+        "art24bis": "Foreign-source taxable events may fall within substitute tax if covered",
+        "legalBasis": [
+          "financial",
+          "art24bis"
+        ]
+      },
+      {
+        "asset": "Accumulating ETF NAV growth",
+        "jurisdiction": "Multiple",
+        "source": "Foreign-source / mixed",
+        "incomeType": "Unrealised investment performance",
+        "amount": null,
+        "amountStatus": "not-taxable-income",
+        "sourceCountryTax": "None modelled before a taxable event",
+        "ordinary": "Not presented as annual taxable cash income; tax considered on a taxable event",
+        "impatriati": "Same principle",
+        "art24bis": "Same classification; source/perimeter assessed when a taxable event occurs",
+        "legalBasis": [
+          "financial"
+        ]
+      },
+      {
+        "asset": "Alternatives portfolio",
+        "jurisdiction": "TBD",
+        "source": "TBD",
+        "incomeType": "Distributions / realised gains",
+        "amount": null,
+        "amountStatus": "tbd",
+        "sourceCountryTax": "TBD",
+        "ordinary": "TBD after the €5m alternatives portfolio is defined",
+        "impatriati": "TBD; investment income is not qualifying work income",
+        "art24bis": "TBD by asset, vehicle, source and selected countries",
+        "legalBasis": [
+          "art24bis"
+        ]
+      },
+      {
+        "asset": "Future trust assets",
+        "jurisdiction": "TBD",
+        "source": "TBD",
+        "incomeType": "Excluded from current model",
+        "amount": null,
+        "amountStatus": "tbd",
+        "sourceCountryTax": "Not modelled",
+        "ordinary": "Excluded until Pillar 3 determines settled assets and legal structure",
+        "impatriati": "Excluded",
+        "art24bis": "Excluded",
+        "legalBasis": [
+          "professional-review"
+        ]
+      }
+    ],
+    "featureCards": [
+      {
+        "title": "London rental property",
+        "tag": "Foreign-source",
+        "metric": "€50,000 net rent",
+        "status": "assumption",
+        "text": "UK source taxation remains relevant. Ordinary and Impatriati scenarios model an Italian foreign tax credit; Art. 24-bis does not credit UK tax against the fixed substitute tax."
+      },
+      {
+        "title": "Legacy UK Stocks & Shares ISA",
+        "tag": "Legacy wrapper",
+        "metric": "€400,000 asset value",
+        "status": "confirmed",
+        "text": "The ISA may retain UK tax relief after emigration, but it is not automatically tax-free in Italy. No income or gain is invented: the model stays at €0 until realised data are available."
+      },
+      {
+        "title": "Italian BTP",
+        "tag": "Italian-source",
+        "metric": "€6,450 coupon",
+        "status": "confirmed",
+        "text": "The contractual coupon is included. A 12.5% qualifying sovereign rate is assumed in all three scenarios."
+      },
+      {
+        "title": "Foreign sovereign bonds",
+        "tag": "Foreign-source",
+        "metric": "€17,925 coupons",
+        "status": "confirmed",
+        "text": "Contractual coupons are included. The 12.5% Italian rate is a modelling assumption subject to issuer eligibility; source-country withholding is TBD."
+      },
+      {
+        "title": "Public-market investments",
+        "tag": "Taxable events only",
+        "metric": "€0 realised income/gain",
+        "status": "tbd",
+        "text": "Accumulating ETF NAV growth is performance, not annual taxable cash income. Distributions and realised disposals enter only when a taxable event and source are known."
+      }
+    ],
+    "sensitivity": {
+      "workIncome": [
+        100000,
+        250000,
+        500000
+      ],
+      "additionalForeignInvestmentIncome": [
+        0,
+        250000,
+        500000,
+        1000000
+      ],
+      "note": "Each cell shows the lowest-tax regime and annual tax. Foreign investment income is an additional 26%-taxable modelling variable; all other base assumptions are held constant."
+    },
+    "sources": [
+      {
+        "id": "impatriati",
+        "authority": "Agenzia delle Entrate",
+        "title": "Historical Impatriati regime",
+        "url": "https://www.agenziaentrate.gov.it/portale/lavoratori-impatriati-che-cos-%C3%A8",
+        "note": "Eligibility and historical relief for workers who transferred residence to Italy. The 2022 case must be reviewed under the rules then in force."
+      },
+      {
+        "id": "art24bis",
+        "authority": "Agenzia delle Entrate",
+        "title": "Option for new residents",
+        "url": "https://www.agenziaentrate.gov.it/portale/schede/agevolazioni/opzione-per-i-neo-residenti/modello-reg_opz_neo_residenti",
+        "note": "Official option and instructions for the foreign-income substitute tax. The model uses the historical €100k amount relevant to a 2022 entrant."
+      },
+      {
+        "id": "irpef",
+        "authority": "Gazzetta Ufficiale",
+        "title": "IRPEF rate bands",
+        "url": "https://www.gazzettaufficiale.it/atto/serie_generale/caricaArticoloDefault/originario?atto.codiceRedazionale=24G00229&atto.dataPubblicazioneGazzetta=2024-12-31&atto.tipoProvvedimento=LEGGE",
+        "note": "Modelled progressive rates: 23% to €28k, 35% from €28k to €50k and 43% above €50k."
+      },
+      {
+        "id": "ivie",
+        "authority": "Gazzetta Ufficiale",
+        "title": "IVIE rate",
+        "url": "https://www.gazzettaufficiale.it/atto/serie_generale/caricaArticoloDefault/originario?atto.codiceRedazionale=23G00223&atto.dataPubblicazioneGazzetta=2023-12-30&atto.tipoProvvedimento=LEGGE",
+        "note": "The dashboard uses a 1.06% IVIE assumption on a €1.9m proxy value for the London property."
+      },
+      {
+        "id": "isa",
+        "authority": "GOV.UK",
+        "title": "ISAs when moving abroad",
+        "url": "https://www.gov.uk/individual-savings-accounts/if-you-move-abroad",
+        "note": "A legacy ISA can generally remain open with UK tax relief, but contributions normally stop while non-UK resident. Italian treatment is separate."
+      },
+      {
+        "id": "uk-rent",
+        "authority": "GOV.UK",
+        "title": "UK rental income for non-residents",
+        "url": "https://www.gov.uk/tax-uk-income-live-abroad/rent",
+        "note": "UK rental income remains within the UK tax system, including the Non-resident Landlord Scheme."
+      },
+      {
+        "id": "uk-double-tax",
+        "authority": "GOV.UK",
+        "title": "Taxed twice on foreign income",
+        "url": "https://www.gov.uk/tax-foreign-income/taxed-twice",
+        "note": "Foreign tax relief depends on treaty rules and the income item. The dashboard credit is a model assumption, not an entitlement conclusion."
+      },
+      {
+        "id": "uk-allowance",
+        "authority": "GOV.UK",
+        "title": "Personal Allowance for non-residents",
+        "url": "https://www.gov.uk/tax-uk-income-live-abroad/personal-allowance",
+        "note": "The UK rental calculation assumes entitlement to the £12,570 Personal Allowance; this must be confirmed."
+      },
+      {
+        "id": "uk-rates",
+        "authority": "GOV.UK",
+        "title": "Income Tax rates and allowances",
+        "url": "https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past",
+        "note": "The model uses the £37,700 basic-rate band and 20% rate for the illustrated UK rental calculation."
+      },
+      {
+        "id": "financial",
+        "authority": "Case model",
+        "title": "Italian investment taxation assumptions",
+        "url": "",
+        "note": "26% for general financial income and realised gains, subject to instrument classification and transaction facts."
+      },
+      {
+        "id": "sovereign",
+        "authority": "Case model",
+        "title": "Qualifying sovereign assumption",
+        "url": "",
+        "note": "12.5% is applied to the BTP and listed foreign sovereign coupons only as a modelling assumption; eligibility requires instrument-level confirmation."
+      },
+      {
+        "id": "professional-review",
+        "authority": "Professional review",
+        "title": "Trust and structuring perimeter",
+        "url": "",
+        "note": "Future trust income is deliberately excluded until Pillar 3 identifies the settlor, beneficiaries, assets, jurisdiction and tax residence."
+      }
+    ]
+  }
 }
