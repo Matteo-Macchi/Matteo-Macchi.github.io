@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "update-market-data": "node scripts/update-market-data.mjs"
+    "update-market-data": "node scripts/update-market-data.mjs",
+    "validate-tax": "node scripts/validate-tax-crossborder.mjs"
   }
 }

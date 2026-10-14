@@ -1,12 +1,14 @@
-# Virtual Wealth — Rossi Family V4
+# Virtual Wealth — Rossi Family · Final Reconciled
 
 Pacchetto pronto per aggiornare il sito GitHub Pages.
 
 ## File e cartelle da caricare nel repository
 
 - `index.html` nella cartella principale del repository
-- `Rossi_Family_Investment_Policy_Statement_v1.1.pdf` nella cartella principale del repository
+- `Rossi_Family_Investment_Policy_Statement_v3_1_Final.pdf` nella cartella principale del repository
 - `data/portfolio.json` nella cartella `data`
+- `scripts/tax-engine.js`
+- `scripts/validate-tax-crossborder.mjs`
 - `scripts/update-market-data.mjs`
 - `.github/workflows/update-market-data.yml`
 - `package.json`
@@ -22,13 +24,21 @@ Pacchetto pronto per aggiornare il sito GitHub Pages.
 5. Nella sezione Investments verificare il riepilogo: capitale iniziale EUR 5.000.000, NAV corrente, P/L totale, P/L realizzato e cassa residua.
 6. Verificare che WQTM sia presente nel blocco Tactical e che lo storico Brent mostri acquisto 1 aprile, vendita 30 settembre e reinvestimento dei proventi.
 7. Verificare il collegamento al portfolio principale e il pulsante `Investment Policy Statement` nel profilo Rossi.
+8. Aprire `Wealth Planning` → `Tax & Cross-Border` e verificare regime selezionato, confronto fiscale, timeline, sensitivity e note legali.
 
 ## Aggiornamento interfaccia
 
 - Home e Client Directory sono state unificate in un'unica pagina;
 - il profilo Rossi presenta subito situazione patrimoniale, struttura del caso e obiettivi;
-- l'IPS v1.1 è scaricabile accanto al profilo di rischio;
+- l'IPS v3.1 finale è scaricabile accanto al profilo di rischio;
 - il collegamento in alto riporta al portfolio principale di Matteo Macchi.
+
+## Wealth Planning
+
+- Pillar 1 — Tax & Cross-Border è implementato con dati, ipotesi, valori TBD ed eventi realizzati separati;
+- il motore di calcolo è in `scripts/tax-engine.js` e i dati riconciliati sono in `data/portfolio.json` sotto `taxCrossBorder`;
+- i controlli automatici si eseguono con `npm run validate-tax`;
+- Pillar 2–4 sono predisposti nella navigazione e restano esplicitamente da sviluppare, senza dati inventati.
 
 ## Miglioramenti V2
 

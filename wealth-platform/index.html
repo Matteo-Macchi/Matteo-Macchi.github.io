@@ -2130,6 +2130,166 @@ dl>div+div {
   .tax-comparison-card { border-right:0; border-bottom:1px solid var(--line) }
   .tax-comparison-card:last-child { border-bottom:0 }
 }
+.planning-pillar-nav {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:24px
+}
+.planning-pillar-nav a,.planning-pillar-nav article {
+  display:block;
+  min-height:126px;
+  padding:18px;
+  border:1px solid var(--line);
+  background:#13202a
+}
+.planning-pillar-nav a:hover,.planning-pillar-nav a.active {
+  border-color:#6f8da3;
+  background:#182a36
+}
+.planning-pillar-nav span {
+  display:block;
+  color:var(--accent);
+  font-size:.65rem;
+  letter-spacing:.1em;
+  text-transform:uppercase
+}
+.planning-pillar-nav strong {
+  display:block;
+  margin:10px 0 4px;
+  font-family:var(--serif);
+  font-size:1.15rem;
+  font-weight:400
+}
+.planning-pillar-nav small { color:var(--muted); font-size:.68rem }
+.tax-page-path {
+  color:var(--muted);
+  font-size:.72rem;
+  letter-spacing:.04em;
+  margin-bottom:18px
+}
+.tax-page-path strong { color:var(--ink); font-weight:500 }
+.tax-milestones {
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  border-top:1px solid var(--line)
+}
+.tax-milestone {
+  position:relative;
+  padding:26px 17px 8px 0;
+  border-right:1px solid var(--line)
+}
+.tax-milestone:not(:first-child) { padding-left:17px }
+.tax-milestone:last-child { border-right:0 }
+.tax-milestone::before {
+  content:"";
+  position:absolute;
+  top:-5px;
+  left:0;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--accent)
+}
+.tax-milestone:not(:first-child)::before { left:17px }
+.tax-milestone strong { display:block; font-size:.83rem; margin:4px 0 }
+.tax-milestone p { color:var(--muted); font-size:.7rem; line-height:1.5 }
+.tax-decision-banner {
+  display:grid;
+  grid-template-columns:1.2fr repeat(3,minmax(135px,.45fr));
+  border:1px solid #6f8da3;
+  background:linear-gradient(135deg,#1a2d3a,#13212c);
+  margin-top:20px
+}
+.tax-decision-banner>div { padding:24px; border-right:1px solid #425665 }
+.tax-decision-banner>div:last-child { border-right:0 }
+.tax-decision-banner h3 { margin:5px 0 9px; font-size:1.55rem }
+.tax-decision-banner p { color:var(--muted); font-size:.76rem }
+.tax-decision-banner .decision-metric span { color:var(--muted); font-size:.67rem; text-transform:uppercase; letter-spacing:.08em }
+.tax-decision-banner .decision-metric strong { display:block; margin-top:6px; font-size:1.15rem }
+.tax-regime-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px
+}
+.tax-regime-card {
+  padding:22px;
+  border:1px solid var(--line);
+  background:var(--surface)
+}
+.tax-regime-card.selected { border-color:#6f8da3; background:linear-gradient(180deg,#192b38,#15212c) }
+.tax-regime-card h3 { min-height:55px; margin:9px 0; font-size:1.45rem }
+.tax-regime-card>p { min-height:118px; color:var(--muted); font-size:.75rem }
+.tax-regime-card .tax-regime-total { display:block; margin-top:18px; padding-top:15px; border-top:1px solid var(--line); font-size:1.15rem }
+.tax-category-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px
+}
+.tax-category {
+  padding:20px;
+  border:1px solid var(--line);
+  background:#13202a
+}
+.tax-category h3 { margin:8px 0 12px; font-size:1.25rem }
+.tax-category strong { display:block; font-size:1.05rem }
+.tax-category p { color:var(--muted); font-size:.72rem; margin-top:7px }
+.tax-bridge-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--line)
+}
+.tax-bridge-card { padding:22px; border-right:1px solid var(--line) }
+.tax-bridge-card:last-child { border-right:0 }
+.tax-bridge-card.selected { background:rgba(173,197,217,.07) }
+.tax-bridge-card h3 { min-height:44px; font-size:1.2rem }
+.tax-bridge-line { display:flex; justify-content:space-between; gap:12px; padding:9px 0; border-bottom:1px solid #30414d; font-size:.72rem }
+.tax-bridge-line span { color:var(--muted) }
+.tax-bridge-line.total { border-bottom:0; border-top:1px solid var(--accent); margin-top:7px; font-weight:600 }
+.tax-bridge-line.total span { color:var(--ink) }
+.tax-asset-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px }
+.tax-asset-detail { border:1px solid var(--line); background:var(--surface) }
+.tax-asset-detail summary { list-style:none; cursor:pointer; padding:21px; display:flex; justify-content:space-between; gap:15px; align-items:center }
+.tax-asset-detail summary::-webkit-details-marker { display:none }
+.tax-asset-detail summary::after { content:"+"; color:var(--accent); font-size:1.2rem }
+.tax-asset-detail[open] summary::after { content:"−" }
+.tax-asset-detail summary strong { font-family:var(--serif); font-size:1.25rem; font-weight:400 }
+.tax-asset-body { padding:0 21px 22px; color:var(--muted); font-size:.77rem }
+.tax-asset-facts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; margin:13px 0; background:var(--line) }
+.tax-asset-facts>div { padding:11px; background:#13202a }
+.tax-asset-facts span { display:block; font-size:.63rem; text-transform:uppercase; letter-spacing:.07em }
+.tax-asset-facts strong { display:block; color:var(--ink); margin-top:3px; font-size:.78rem }
+.tax-impact-bars { display:grid; gap:16px; margin-top:23px }
+.tax-impact-row { display:grid; grid-template-columns:150px 1fr 135px; gap:16px; align-items:center }
+.tax-impact-row>span { font-size:.78rem }
+.tax-impact-track { height:11px; background:#263641; overflow:hidden }
+.tax-impact-track i { display:block; height:100%; background:#7898ae }
+.tax-impact-row.selected .tax-impact-track i { background:#c0d3e1 }
+.tax-impact-row strong { font-size:.78rem; text-align:right }
+.tax-actions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px }
+.tax-action { padding:18px; border:1px solid var(--line) }
+.tax-action strong { display:block; margin-bottom:5px; font-size:.82rem }
+.tax-action p { color:var(--muted); font-size:.72rem }
+@media(max-width:1100px) {
+  .planning-pillar-nav,.tax-regime-grid,.tax-category-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .tax-milestones { grid-template-columns:repeat(3,minmax(0,1fr)); row-gap:18px }
+  .tax-decision-banner { grid-template-columns:1fr 1fr }
+  .tax-decision-banner>div:nth-child(2) { border-right:0 }
+  .tax-decision-banner>div:nth-child(-n+2) { border-bottom:1px solid #425665 }
+  .tax-regime-card>p { min-height:90px }
+}
+@media(max-width:760px) {
+  .planning-pillar-nav,.tax-regime-grid,.tax-category-grid,.tax-bridge-grid,.tax-asset-grid,.tax-actions { grid-template-columns:1fr }
+  .tax-milestones { grid-template-columns:1fr }
+  .tax-milestone,.tax-milestone:not(:first-child) { padding:20px 0; border-right:0; border-bottom:1px solid var(--line) }
+  .tax-milestone::before,.tax-milestone:not(:first-child)::before { left:0 }
+  .tax-decision-banner { grid-template-columns:1fr }
+  .tax-decision-banner>div { border-right:0; border-bottom:1px solid #425665 }
+  .tax-bridge-card { border-right:0; border-bottom:1px solid var(--line) }
+  .tax-regime-card>p { min-height:0 }
+  .tax-impact-row { grid-template-columns:100px 1fr; gap:10px }
+  .tax-impact-row strong { grid-column:2; text-align:left }
+}
 
 </style>
 </head>
@@ -2143,6 +2303,7 @@ dl>div+div {
   <main id="main" tabindex="-1"><div class="state" role="status"><span class="loader"></span><h1>Preparing your view</h1><p>Loading the client case collection…</p></div></main>
   <footer class="site-footer"><div><a href="#/" class="footer-brand">Virtual Wealth</a><span>HYPOTHETICAL CASES · REAL-WORLD THINKING</span></div><p>This platform contains hypothetical client cases created for educational and portfolio demonstration purposes only. It does not constitute investment, tax, legal or financial advice.</p><div class="footer-bottom"><span>© <span id="year"></span> Virtual Wealth</span><span>Public showcase · Read-only</span></div></footer>
   <noscript><p class="notice">Please enable JavaScript to view the client cases and portfolio data.</p></noscript>
+<script src="./scripts/tax-engine.js"></script>
 <script>
 (() => {
 "use strict";
@@ -2334,7 +2495,8 @@ async function loadData() {
 
 
 const main = document.querySelector('#main');
-const tabs = [['overview','Overview'],['investments','Investments'],['alternatives','Alternatives'],['tax','Tax & Cross-Border'],['planning','Wealth Planning'],['research','Research & Recommendations']];
+const tabs = [['overview','Overview'],['investments','Investments'],['alternatives','Alternatives'],['planning','Wealth Planning'],['research','Research & Recommendations']];
+const routes = [...tabs,['tax','Tax & Cross-Border']];
 let dataset, source;
 document.querySelector('#year').textContent = new Date().getFullYear();
 document.querySelector('.skip-link').addEventListener('click', event => {
@@ -2353,19 +2515,20 @@ function overview(c, related) {
   const publicMarkets = optionalNumber(c.public_markets_target) ?? optionalNumber(dataset._meta?.capitalAvailable) ?? c.investable_assets / 2;
   const alternatives = optionalNumber(c.alternatives_target) ?? Math.max(0,c.investable_assets-publicMarkets);
   const directRealEstate = optionalNumber(c.direct_real_estate) ?? (c.id==='rossi-family' ? 4661000 : 0);
+  const planningLiquidity = optionalNumber(c.planning_liquidity) ?? c.cash_value;
   const wealthPlanning = optionalNumber(c.wealth_planning_capital) ?? Math.max(0,c.net_worth-c.cash_value-directRealEstate-publicMarkets-alternatives);
   const wealthArchitecture = [
-    {label:'Liquidity reserve',amount:c.cash_value},
+    {label:'Liquidity reserve',amount:planningLiquidity},
     {label:'Net direct real estate',amount:directRealEstate},
     {label:'Public markets · investable',amount:publicMarkets},
     {label:'Alternatives & private markets · investable',amount:alternatives},
     {label:'Capital earmarked for wealth planning',amount:wealthPlanning}
   ].filter(item=>item.amount>0).map(item=>({label:item.label,value:item.amount/c.net_worth*100}));
   const modelReturn = optionalNumber(c.model_return_since_entry);
-  const liquidityShare = c.net_worth ? c.cash_value/c.net_worth*100 : 0;
+  const liquidityShare = c.net_worth ? planningLiquidity/c.net_worth*100 : 0;
   const liquidityMinimum = optionalNumber(c.liquidity_minimum_36m);
-  const liquidityCoverage = liquidityMinimum ? c.cash_value/liquidityMinimum*100 : null;
-  return `<div class="metric-grid"><div><span>Net Worth</span><strong>${money(c.net_worth,c.currency,true)}</strong></div><div><span>Investable Assets</span><strong>${money(c.investable_assets,c.currency,true)}</strong><small>${money(publicMarkets,c.currency,true)} public markets · ${money(alternatives,c.currency,true)} alternatives</small></div><div><span>Liquidity Reserve</span><strong>${money(c.cash_value,c.currency,true)}</strong><small>${percent(liquidityShare)} of net worth${liquidityCoverage===null?'':` · ${liquidityCoverage.toFixed(1)}% of 36-month requirement`}</small></div><div><span>Public Portfolio Return</span><strong>${modelReturn === null ? '—' : `${modelReturn > 0 ? '+' : ''}${modelReturn.toFixed(1)}%`}</strong><small>Model return since entry · public markets only</small></div></div><div class="overview-grid"><section class="panel">${sectionTitle('TOTAL WEALTH','Total wealth architecture','Consolidated family balance sheet')}${donut(wealthArchitecture,money(c.netWorth,c.currency,true),'NET WORTH')}<p class="panel-note">Public markets and alternatives together form the ${money(c.investable_assets,c.currency,true)} investable allocation. Liquidity, direct real estate and capital earmarked for wealth planning are shown separately.</p></section><section class="panel objectives">${sectionTitle('THE MANDATE','Key objectives')}<ol>${list(c.objectives).map(item=>`<li>${e(item)}</li>`).join('')}</ol><div class="liquidity"><p class="eyebrow">LIQUIDITY REQUIREMENT</p><p>${e(c.liquidity)}</p></div></section></div><section class="panel priorities">${sectionTitle('LOOKING AHEAD','Key planning priorities')}<div class="priority-grid">${list(c.priorities).map((p,i)=>`<div><span>${String(i+1).padStart(2,'0')}</span><h3>${e(p)}</h3></div>`).join('')}</div></section>`;
+  const liquidityCoverage = liquidityMinimum ? planningLiquidity/liquidityMinimum*100 : null;
+  return `<div class="metric-grid"><div><span>Net Worth</span><strong>${money(c.net_worth,c.currency,true)}</strong></div><div><span>Investable Assets</span><strong>${money(c.investable_assets,c.currency,true)}</strong><small>${money(publicMarkets,c.currency,true)} public markets · ${money(alternatives,c.currency,true)} alternatives</small></div><div><span>Liquidity Reserve</span><strong>${money(planningLiquidity,c.currency,true)}</strong><small>${percent(liquidityShare)} of net worth${liquidityCoverage===null?'':` · ${liquidityCoverage.toFixed(1)}% of 36-month requirement`}</small></div><div><span>Public Portfolio Return</span><strong>${modelReturn === null ? '—' : `${modelReturn > 0 ? '+' : ''}${modelReturn.toFixed(1)}%`}</strong><small>Model return since entry · public markets only</small></div></div><div class="overview-grid"><section class="panel">${sectionTitle('TOTAL WEALTH','Total wealth architecture','Consolidated family balance sheet')}${donut(wealthArchitecture,money(c.netWorth,c.currency,true),'NET WORTH')}<p class="panel-note">Public markets and alternatives together form the ${money(c.investable_assets,c.currency,true)} investable allocation. Liquidity, direct real estate and capital earmarked for wealth planning are shown separately.</p></section><section class="panel objectives">${sectionTitle('THE MANDATE','Key objectives')}<ol>${list(c.objectives).map(item=>`<li>${e(item)}</li>`).join('')}</ol><div class="liquidity"><p class="eyebrow">LIQUIDITY REQUIREMENT</p><p>${e(c.liquidity)}</p></div></section></div><section class="panel priorities">${sectionTitle('LOOKING AHEAD','Key planning priorities')}<div class="priority-grid">${list(c.priorities).map((p,i)=>`<div><span>${String(i+1).padStart(2,'0')}</span><h3>${e(p)}</h3></div>`).join('')}</div></section>`;
 }
 
 function investments(c, related) {
@@ -2483,8 +2646,107 @@ function taxAndCrossBorder(c) {
   </div>`;
 }
 
+function planningPillarNav(active='') {
+  const rows=dataset.wealthPlanningPillars || [];
+  return `<nav class="planning-pillar-nav" aria-label="Wealth planning pillars">${rows.map(row=>row.route?`<a href="${e(row.route)}" class="${active===row.id?'active':''}"><span>Pillar ${row.number} · ${e(row.status)}</span><strong>${e(row.title)}</strong><small>${e(row.description)}</small></a>`:`<article><span>Pillar ${row.number} · ${e(row.status)}</span><strong>${e(row.title)}</strong><small>${e(row.description)}</small></article>`).join('')}</nav>`;
+}
+
+function taxAndCrossBorderV2(c) {
+  const t=dataset.taxCrossBorder;
+  const engine=window.VirtualWealthTaxEngine;
+  if(!t || t.clientId!==c.id || !engine) return empty('The reconciled tax model is not available.');
+  const result=engine.calculate(t);
+  const labels=t.statusLegend;
+  const selectedId=t.taxResults.selectedRegime;
+  const recurringSelected=result.recurring[selectedId].total;
+  const currentSelected=result.current2026[selectedId].total;
+  const ordinary=result.recurring.ordinary.total;
+  const annualSaving=ordinary-recurringSelected;
+  const brent=t.realisedTaxEvents.find(row=>row.id==='brent-2026');
+  const bitcoin=t.realisedTaxEvents.find(row=>row.id==='bitcoin-2026');
+  const brentTax=brent.amount*brent.modelTaxRate;
+  const sourceIndex=new Map(t.legalSources.map(row=>[row.id,row]));
+  const status=value=>taxStatus(value,labels);
+  const basisFor=id=>{
+    const map={
+      'italian-work':['impatriati-sardinia','non-cumulability'],
+      'verona-rent':['art24bis'],
+      'tier1-interest':['financial-gains'],
+      'btp-coupon':['sovereign'],
+      'london-rent':['uk-rent','ftc'],
+      'isa-realised':['uk-isa'],
+      'foreign-sovereign-coupons':['sovereign'],
+      'alternatives-income':['art24bis'],
+      'future-trust-income':[],
+      'other-foreign':['art24bis']
+    };
+    return (map[id]||[]).map(key=>{const src=sourceIndex.get(key);return src?(src.url?`<a href="${e(src.url)}" target="_blank" rel="noopener">${e(src.title)} ↗</a>`:`<span>${e(src.title)}</span>`):'';}).join('');
+  };
+  const milestones=[
+    ['2010','UK residence','UK tax residence begins'],
+    ['2021','Sardinia home','Acquisition date assumed; verify deed'],
+    ['2022','Italy relocation','Regime decision at relocation'],
+    ['2026','Year 5','Current Impatriati period and Brent disposal'],
+    ['2027','Extension starts','50% work-income share if eligible'],
+    ['2031','Extension ends','Final modelled extension year']
+  ];
+  const primaryRegimes=['ordinary','impatriati-y1-5','impatriati-y6-10','art24bis-uk-included'];
+  const regimeCards=primaryRegimes.map(id=>{const regime=t.taxRegimes.find(row=>row.id===id);const tax=result.recurring[id].total;return `<article class="tax-regime-card ${id===selectedId?'selected':''}"><span class="eyebrow">${e(regime.period)}</span><h3>${e(regime.label)}</h3><p>${e(regime.summary)}</p><span class="tax-regime-total">${money(tax,t.currency)} recurring p.a.</span>${id===selectedId?'<span class="tax-status confirmed">Selected path</span>':id==='impatriati-y6-10'?status('legal'):id.startsWith('art24bis')?'<span class="tax-status tbd">2022 counterfactual</span>':''}</article>`;}).join('');
+  const categoryMeta={
+    'italian-recurring':['A · Italian-source recurring',t.incomeSources.filter(row=>row.category==='italian-recurring').reduce((s,row)=>s+row.amount,0),'Work, rent, interest and BTP coupon.'],
+    'foreign-recurring':['B · Foreign-source recurring',t.incomeSources.filter(row=>row.category==='foreign-recurring').reduce((s,row)=>s+row.amount,0),'London rent and sovereign coupons; ISA and Alternatives remain zero/TBD.'],
+    'realised':['C · Realised capital events',brent.amount,'Brent gain realised once in 2026; Bitcoin realised gain is zero.'],
+    'unrealised':['D · Unrealised / non-cash',null,'ETF, WQTM, gold and Bitcoin open-position performance is excluded from annual taxable income.']
+  };
+  const categoryCards=Object.values(categoryMeta).map(([title,amount,note])=>`<article class="tax-category"><span class="eyebrow">${e(title)}</span><h3>${amount===null?'Excluded':money(amount,t.currency)}</h3><p>${e(note)}</p></article>`).join('');
+  const incomeGroups=[
+    ['Italian-source recurring income',t.incomeSources.filter(row=>row.category==='italian-recurring')],
+    ['Foreign-source recurring income',t.incomeSources.filter(row=>row.category==='foreign-recurring')],
+    ['Excluded / Pillar 3',t.incomeSources.filter(row=>row.category==='excluded')]
+  ];
+  const incomeRows=incomeGroups.map(([group,rows])=>`<tr class="position-group"><th colspan="8">${e(group)}</th></tr>${rows.map(row=>`<tr><td><strong>${e(row.label)}</strong><small>${e(row.type)}</small></td><td>${e(row.jurisdiction)}</td><td class="numeric">${row.status==='tbd'&&row.amount===0?'TBD / €0 base case':row.status==='excluded'?'Excluded':money(row.amount,t.currency)}${status(row.status)}</td><td>${e(row.ordinary)}</td><td>${e(row.impatriati)}</td><td>${e(row.art24bis)}</td><td>${e(row.note)}</td><td class="tax-source-links">${basisFor(row.id)||'Professional review'}</td></tr>`).join('')}`).join('')
+    + `<tr class="position-group"><th colspan="8">Realised capital events</th></tr><tr><td><strong>${e(brent.label)}</strong><small>Closed 30 Sep 2026</small></td><td>Portfolio</td><td class="numeric">${money(brent.amount,t.currency)}${status(brent.status)}</td><td>26% conservative model rate</td><td>26% conservative model rate</td><td>26% pending source/perimeter review</td><td>${e(brent.note)}</td><td class="tax-source-links"><a href="${e(sourceIndex.get('financial-gains').url)}" target="_blank" rel="noopener">General financial gains ↗</a></td></tr><tr><td><strong>${e(bitcoin.label)}</strong><small>No 2026 sale</small></td><td>Portfolio</td><td class="numeric">${money(0,t.currency)}${status('confirmed')}</td><td>33% only if realised</td><td>33% only if realised</td><td>Source/perimeter review</td><td>${e(bitcoin.note)}</td><td class="tax-source-links"><a href="${e(sourceIndex.get('crypto-2026').url)}" target="_blank" rel="noopener">Italian crypto gains · 2026 ↗</a></td></tr>`
+    + `<tr class="position-group"><th colspan="8">Unrealised / non-cash performance</th></tr>${t.unrealisedItems.map(row=>`<tr><td><strong>${e(row.label)}</strong></td><td>Portfolio</td><td class="numeric">Not annual income${status(row.status)}</td><td colspan="3">Tax considered only when a relevant taxable event occurs</td><td>${e(row.note)}</td><td>Model boundary</td></tr>`).join('')}`;
+  const bridgeIds=['ordinary','impatriati-y1-5','art24bis-uk-included','art24bis-uk-carved-out'];
+  const bridgeCards=bridgeIds.map(id=>{const regime=t.taxRegimes.find(row=>row.id===id);const current=result.current2026[id];return `<article class="tax-bridge-card ${id===selectedId?'selected':''}"><h3>${e(regime.shortLabel)}</h3><div class="tax-bridge-line"><span>Recurring tax</span><strong>${money(current.recurring.total,t.currency)}</strong></div><div class="tax-bridge-line"><span>Brent one-off</span><strong>+${money(brentTax,t.currency)}</strong></div><div class="tax-bridge-line"><span>Bitcoin realised</span><strong>${money(0,t.currency)}</strong></div><div class="tax-bridge-line total"><span>2026 estimate</span><strong>${money(current.total,t.currency)}</strong></div></article>`;}).join('');
+  const detailIds=['ordinary','impatriati-y1-5','impatriati-y6-10','art24bis-uk-included','art24bis-uk-carved-out'];
+  const calculationDetails=detailIds.map(id=>{const regime=t.taxRegimes.find(row=>row.id===id);const b=result.recurring[id];const current=result.current2026[id];const lines=[['Taxable progressive base',b.taxableProgressiveBase],['IRPEF + 2% surcharge proxy',b.irpefAndSurcharge],['Financial / sovereign taxes',b.financialTaxes],['UK rental income tax',b.ukRentalTax],['Foreign tax credit',b.foreignTaxCredit],['IVIE / IVAFE estimate',b.ivieIvafe],['Art. 24-bis substitute tax',b.substituteTax]];return `<details ${id===selectedId?'open':''}><summary><span>${e(regime.label)}</span><strong>${money(b.total,t.currency)} recurring</strong></summary><div class="tax-accordion-body">${lines.map(([label,value])=>`<div class="tax-formula"><span>${e(label)}</span><strong>${value<0?'−':''}${money(Math.abs(value),t.currency)}</strong></div>`).join('')}<div class="tax-formula total"><span>Total recurring tax</span><strong>${money(b.total,t.currency)}</strong></div><div class="tax-formula"><span>2026 Brent realised-gain tax<small>Appears once; excluded from the 10-year recurring path</small></span><strong>+${money(brentTax,t.currency)}</strong></div><div class="tax-formula total"><span>2026 total estimate</span><strong>${money(current.total,t.currency)}</strong></div></div></details>`;}).join('');
+  const uk=engine.ukRentalTax(t);
+  const sovereignRows=t.sovereignCouponBuild.map(row=>`<div class="tax-formula"><span>${e(row.label)}<small>${money(row.nominal,t.currency)} nominal · ${percent(row.couponRate*100)}</small></span><strong>${money(row.annualCoupon,t.currency)}</strong></div>`).join('');
+  const assetDetails=`<details class="tax-asset-detail" open><summary><strong>London rental property</strong>${status('assumption')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Market value</span><strong>${money(t.clientTaxProfile.properties.london.marketValue,t.currency)}</strong></div><div><span>Mortgage</span><strong>None</strong></div><div><span>Net rent</span><strong>${money(50000,t.currency)} p.a.</strong></div><div><span>Modelled UK tax</span><strong>${money(uk.taxEur,t.currency)}</strong></div></div><p>€50,000 × 0.87 = ${money(uk.rentGbp,'GBP')} rent. Less ${money(t.taxAssumptions.ukPersonalAllowanceGbp,'GBP')} assumed Personal Allowance gives ${money(uk.taxableGbp,'GBP')} taxable income, modelled at 20%. Italian FTC is subject to treaty conditions and capped by the corresponding Italian tax attributable to the same income.</p></div></details>
+    <details class="tax-asset-detail"><summary><strong>Legacy UK Stocks &amp; Shares ISA</strong>${status('tbd')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Value</span><strong>${money(t.clientTaxProfile.legacyAssets.isaValue,t.currency)}</strong></div><div><span>Base-case realised gain</span><strong>${money(0,t.currency)}</strong></div></div><p>Established while Rossi was UK resident and retained without new contributions. UK ISA relief does not automatically create an Italian exemption. No fictional annual saving or disposal is included.</p></div></details>
+    <details class="tax-asset-detail"><summary><strong>Foreign sovereign bonds</strong>${status('legal')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Foreign nominal</span><strong>${money(550000,t.currency)}</strong></div><div><span>Annual coupons</span><strong>${money(17925,t.currency)}</strong></div><div><span>Italian BTP nominal</span><strong>${money(150000,t.currency)}</strong></div><div><span>Total direct sovereigns</span><strong>${money(700000,t.currency)}</strong></div></div>${sovereignRows}<p>12.5% is a modelling assumption where qualifying. Eligibility and source-country withholding require instrument-level validation.</p></div></details>
+    <details class="tax-asset-detail"><summary><strong>Bitcoin</strong>${status('confirmed')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Policy allocation</span><strong>1%</strong></div><div><span>Realised 2026 gain</span><strong>${money(0,t.currency)}</strong></div><div><span>Current tax</span><strong>${money(0,t.currency)}</strong></div><div><span>Rate if realised in 2026</span><strong>33%</strong></div></div><p>Unrealised appreciation is not taxed in the current model. Source and special-regime perimeter must be reviewed when a disposal occurs.</p></div></details>
+    <details class="tax-asset-detail"><summary><strong>Brent disposal → WQTM</strong>${status('confirmed')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Original cost</span><strong>${money(brent.costBasis,t.currency)}</strong></div><div><span>Sale proceeds</span><strong>${money(brent.saleProceeds,t.currency)}</strong></div><div><span>Realised gain</span><strong>${money(brent.amount,t.currency)}</strong></div><div><span>Illustrative tax</span><strong>${money(brentTax,t.currency)}</strong></div></div><p>Closed on 30 September 2026. Reinvesting the proceeds into the WisdomTree Quantum Computing UCITS ETF does not cancel the Brent tax event. WQTM remains open and its unrealised P/L is excluded.</p></div></details>
+    <details class="tax-asset-detail"><summary><strong>Sardinia residence &amp; extension</strong>${status('legal')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Gross value</span><strong>${money(1300000,t.currency)}</strong></div><div><span>Mortgage</span><strong>${money(389000,t.currency)} · 1.5% fixed</strong></div><div><span>Net equity</span><strong>${money(911000,t.currency)}</strong></div><div><span>Acquisition</span><strong>2021 assumption</strong></div></div><p>${e(t.clientTaxProfile.impatriatiExtension.note)} The mortgage belongs to Sardinia, not London. Adult children are not used for the extension.</p></div></details>`;
+  const tenYear=result.tenYear;
+  const maxTen=Math.max(...tenYear.map(row=>row.total));
+  const impactBars=tenYear.map(row=>`<div class="tax-impact-row ${row.id==='impatriati'?'selected':''}"><span>${e(row.label)}</span><div class="tax-impact-track"><i style="width:${(row.total/maxTen*100).toFixed(2)}%"></i></div><strong>${money(row.total,t.currency,true)}</strong></div>`).join('');
+  const workValues=[100000,250000,500000], foreignValues=[0,250000,500000,1000000];
+  const winnerLabel=id=>id==='impatriati-y1-5'?'Impatriati':id==='art24bis-uk-included'?'Art. 24-bis':'Ordinary';
+  const sensitivityHead=workValues.map(value=>`<th>${money(value,t.currency,true)} qualifying work income</th>`).join('');
+  const sensitivityRows=foreignValues.map(foreign=>`<tr><th>${money(foreign,t.currency,true)} additional foreign income</th>${workValues.map(work=>{const winner=engine.sensitivity(t,work,foreign);return `<td class="${e(winner.id)}"><strong>${e(winnerLabel(winner.id))}</strong><span>${money(winner.total,t.currency)} annual tax</span></td>`;}).join('')}</tr>`).join('');
+  const legal=t.legalSources.map(row=>`<div class="tax-legal-note" id="legal-${e(row.id)}"><strong>${row.url?`<a href="${e(row.url)}" target="_blank" rel="noopener">${e(row.title)} ↗</a>`:e(row.title)}</strong><small> · ${e(row.authority)}</small><p>${e(row.note)}</p></div>`).join('');
+
+  return `<div class="tax-dashboard">${planningPillarNav('tax')}<p class="tax-page-path">Virtual Wealth / Rossi Family / Wealth Planning / <strong>Tax &amp; Cross-Border</strong></p>
+    <section><div class="tax-hero"><div class="tax-hero-copy"><p class="eyebrow">PILLAR 1 · TAX &amp; CROSS-BORDER</p><h2>Tax &amp; Cross-Border Planning</h2><p>UK → Italy relocation · Italian tax resident since 2022 · Year 5 of the historical Impatriati regime. The regimes below are alternatives considered at relocation, not elections being combined in 2026.</p></div><div class="tax-hero-result"><span>Selected regime</span><strong style="font-size:2.3rem">Historical Impatriati</strong><p>Under current Rossi assumptions</p></div></div><div class="tax-kpis"><div class="tax-kpi"><span>Net worth</span><strong>${money(t.clientTaxProfile.netWorth,t.currency,true)}</strong><small>Reconciled family balance sheet</small></div><div class="tax-kpi"><span>Italian tax residence</span><strong>2022</strong><small>Sardinia · prior UK residence 12 years</small></div><div class="tax-kpi"><span>2026 estimated tax</span><strong>${money(currentSelected,t.currency)}</strong><small>Includes Brent one-off gain tax</small></div><div class="tax-kpi"><span>Recurring saving</span><strong>${money(annualSaving,t.currency)}</strong><small>Per year vs Ordinary</small></div></div><div class="tax-decision-banner"><div><span class="eyebrow">SELECTED REGIME</span><h3>Historical Impatriati</h3><p>Significant qualifying Italian work income and only ${money(67925,t.currency)} of currently defined recurring foreign income make the historical €100k Art. 24-bis charge inefficient in the base case.</p></div><div class="decision-metric"><span>Recurring annual tax</span><strong>${money(recurringSelected,t.currency)}</strong></div><div class="decision-metric"><span>2026 incl. Brent</span><strong>${money(currentSelected,t.currency)}</strong></div><div class="decision-metric"><span>10-year saving</span><strong>${money(t.taxResults.tenYearSavingVsOrdinary,t.currency)}</strong></div></div></section>
+    <div class="tax-alert"><span>!</span><div><strong>Alternative regimes — not stackable</strong><p>Impatriati and Art. 24-bis were alternative choices considered at the 2022 relocation and cannot be stacked for the same taxpayer in the same period. Art. 24-bis is shown only as a counterfactual.</p></div></div>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">RELOCATION &amp; TAX TIMELINE</p><h2>From UK residence to the conditional extension</h2></div><p>2026 is Year 5. The 2027–2031 extension depends on the historical property condition and must be legally confirmed.</p></div><div class="tax-milestones">${milestones.map(([year,title,note])=>`<article class="tax-milestone"><span class="eyebrow">${e(year)}</span><strong>${e(title)}</strong><p>${e(note)}</p></article>`).join('')}</div></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">2022 REGIME DECISION</p><h2>Recurring structural comparison</h2></div><p>Normalised annual comparison. It excludes the one-off 2026 Brent gain.</p></div><div class="tax-regime-grid">${regimeCards}</div><details class="tax-asset-detail" style="margin-top:14px"><summary><strong>Art. 24-bis · UK carve-out analysis</strong><span>${money(result.recurring['art24bis-uk-carved-out'].total,t.currency)} recurring p.a.</span></summary><div class="tax-asset-body"><p>Secondary perimeter test only. UK income and assets revert to ordinary Italian treatment while the historical €100k substitute tax remains for other covered foreign income.</p></div></details></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">INCOME &amp; TAX EVENT MAP</p><h2>Four categories, kept separate</h2></div><p>Recurring income drives the regime decision. Realised events affect the current year. Unrealised performance remains outside annual taxable cash income.</p></div><div class="tax-category-grid">${categoryCards}</div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">CLASSIFICATION DETAIL</p><h2>Income, realised events and exclusions</h2></div><p>Status badges distinguish confirmed data, assumptions, TBD inputs and legal-review items.</p></div><div class="table-scroll" role="region" aria-label="Income and tax event map. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table tax-table"><thead><tr><th>Source / event</th><th>Jurisdiction</th><th>Amount</th><th>Ordinary</th><th>Impatriati</th><th>Art. 24-bis</th><th>Model note</th><th>Legal basis</th></tr></thead><tbody>${incomeRows}</tbody></table></div></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">2026 CURRENT-YEAR BRIDGE</p><h2>Recurring tax plus one confirmed disposal</h2></div><p>The Brent gain creates approximately ${money(brentTax,t.currency)} of one-off model tax. Reinvestment into WQTM does not remove the event.</p></div><div class="tax-bridge-grid">${bridgeCards}</div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">CALCULATION DRILL-DOWN</p><h2>Open each regime</h2></div><p>IVIE, IVAFE, sovereign treatment, the UK Personal Allowance and FTC remain modelling components requiring confirmation.</p></div><div class="tax-accordion">${calculationDetails}</div></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">DETAILED CROSS-BORDER ASSETS</p><h2>Asset-level treatment and open questions</h2></div><p>Expand a card for the calculations and classification logic.</p></div><div class="tax-asset-grid">${assetDetails}</div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">10-YEAR RECURRING IMPACT</p><h2>Brent is not repeated</h2></div><p>No income growth. Impatriati uses 10% taxable qualifying work income in Years 1–5 and 50% in Years 6–10, conditional on extension eligibility.</p></div><div class="tax-impact-bars">${impactBars}</div><div class="tax-decision-banner"><div><span class="eyebrow">10-YEAR OUTCOME</span><h3>${money(t.taxResults.tenYearSavingVsOrdinary,t.currency)} indicative saving</h3><p>Impatriati versus Ordinary under unchanged recurring assumptions.</p></div><div class="decision-metric"><span>Ordinary</span><strong>${money(t.taxResults.tenYear.ordinary,t.currency,true)}</strong></div><div class="decision-metric"><span>Impatriati</span><strong>${money(t.taxResults.tenYear.impatriati,t.currency,true)}</strong></div><div class="decision-metric"><span>Art. 24-bis</span><strong>${money(t.taxResults.tenYear['art24bis-uk-included'],t.currency,true)}</strong></div></div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">SENSITIVITY</p><h2>The optimal regime changes with the income mix</h2></div><p>Columns vary qualifying Italian work income. Rows vary additional annual foreign taxable income. All other assumptions remain fixed.</p></div><div class="tax-sensitivity-scroll"><table class="tax-sensitivity"><thead><tr><th>Additional foreign taxable income</th>${sensitivityHead}</tr></thead><tbody>${sensitivityRows}</tbody></table></div><p class="panel-note">Higher qualifying Italian work income tends to favour Impatriati. Higher covered foreign investment or private-market income can make Art. 24-bis more attractive. Re-run the model once the €5m Alternatives portfolio is implemented.</p></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">LEGAL BASIS &amp; OUTSTANDING ACTIONS</p><h2>Assumptions requiring evidence</h2></div><p>Authoritative sources are kept in expandable notes so the main dashboard remains readable.</p></div><div class="tax-actions"><article class="tax-action"><strong>Confirm Impatriati extension</strong><p>Verify the 2021 Sardinia deed, ownership, timing and full historical Art. 16 eligibility.</p></article><article class="tax-action"><strong>Validate cross-border mechanics</strong><p>Confirm ISA classification, FTC cap, IVIE/IVAFE bases, UK allowance and sovereign eligibility.</p></article><article class="tax-action"><strong>Re-run after Alternatives</strong><p>Keep distributions at TBD / €0 until the €5m private-markets portfolio and jurisdictions are defined.</p></article></div><div class="tax-accordion" style="margin-top:22px"><details><summary>Legal basis and official references</summary><div class="tax-accordion-body">${legal}</div></details></div></section>
+    <p class="tax-disclaimer">Illustrative fictional case for portfolio-design and wealth-management demonstration. This model is not a tax return, legal opinion or personalised advice. Residence, sourcing, treaty relief, regime eligibility, instrument classification, loss offsets and foreign-asset taxes require review by qualified Italian and UK advisers.</p>
+  </div>`;
+}
+
 function planning(c, related) {
-  return `<div class="section-intro"><p class="eyebrow">STRUCTURE &amp; CONTINUITY</p><h2>Wealth planning</h2><p>Illustrative issues and options for discussion with appropriately qualified advisers.</p></div><div class="planning-grid">${related.planning.length ? related.planning.map((p,i)=>`<article class="panel planning-card"><div class="planning-header"><span class="case-number">${String(i+1).padStart(2,'0')}</span>${badge(p.status)}</div><h3>${e(p.category)}</h3><dl><div><dt>Current issue</dt><dd>${e(p.issue)}</dd></div><div><dt>Objective</dt><dd>${e(p.objective)}</dd></div><div><dt>Proposed solution</dt><dd>${e(p.solution)}</dd></div><div class="professional-input"><dt>Professional input required</dt><dd>${e(p.professional)}</dd></div></dl></article>`).join('') : empty('No planning items published.')}</div>`;
+  return `<div class="section-intro"><p class="eyebrow">STRUCTURE &amp; CONTINUITY</p><h2>Wealth planning</h2><p>Four workstreams organise the family-office analysis. Pillar 1 is implemented; Pillars 2–4 remain intentionally undefined until their fact patterns are developed.</p></div>${planningPillarNav('')}<section class="panel">${sectionTitle('WEALTH PLANNING ARCHITECTURE','Current workstream','Pillar 1 · Tax & Cross-Border')}<p class="panel-note">The current module covers the 2022 UK→Italy relocation, regime selection, income sourcing, the 2026 Brent tax event and the conditional 2027–2031 Impatriati extension. Governance, asset protection and succession will be added as separate workstreams without inventing trust assets or future structures.</p><a class="button" href="#/client/${e(c.id)}/tax">Open Tax &amp; Cross-Border <span aria-hidden="true">→</span></a></section>`;
 }
 
 function research(c, related) {
@@ -2494,11 +2756,11 @@ function research(c, related) {
 
 function detail(id, tab) {
   const c = dataset.clients.find(item=>item.id===id);
-  if (!c || !tabs.some(([key])=>key===tab)) return notFound();
+  if (!c || !routes.some(([key])=>key===tab)) return notFound();
   const related = Object.fromEntries(['positions','closedPositions','liquidity','alternatives','allocations','planning','research'].map(table=>[table,dataset[table].filter(r=>r.clientId===id)]));
-  document.title = `${c.name} — ${tabs.find(([key])=>key===tab)[1]} | Virtual Wealth`;
-  const content = {overview,investments,alternatives,tax:taxAndCrossBorder,planning,research}[tab](c,related);
-  return `<div class="client-heading"><a class="back-link" href="#/"><span aria-hidden="true">←</span> All client cases</a><div class="client-title-row"><div><p class="eyebrow">${e(c.type)} <span class="meta-divider">/</span> ${e(c.jurisdiction)}</p><h1>${e(c.name)}</h1></div><div class="client-actions">${badge(c.risk_profile)}<a class="ips-link" href="Rossi_Family_Investment_Policy_Statement_v1.1.pdf" target="_blank" rel="noopener">Investment Policy Statement <span aria-hidden="true">↗</span></a></div></div><p class="client-summary">${e(c.summary)}</p><div class="client-metadata"><span>Fictional client case</span><span>Base currency: ${e(c.currency)}</span><span>€20m family balance sheet</span></div></div><nav class="client-tabs" aria-label="Client sections">${tabs.map(([key,label])=>`<a href="#/client/${e(id)}${key==='overview'?'':`/${key}`}" ${tab===key?'aria-current="page"':''}>${label}</a>`).join('')}</nav><div class="client-content">${content}</div>`;
+  document.title = `${c.name} — ${routes.find(([key])=>key===tab)[1]} | Virtual Wealth`;
+  const content = {overview,investments,alternatives,tax:taxAndCrossBorderV2,planning,research}[tab](c,related);
+  return `<div class="client-heading"><a class="back-link" href="#/"><span aria-hidden="true">←</span> All client cases</a><div class="client-title-row"><div><p class="eyebrow">${e(c.type)} <span class="meta-divider">/</span> ${e(c.jurisdiction)}</p><h1>${e(c.name)}</h1></div><div class="client-actions">${badge(c.risk_profile)}<a class="ips-link" href="Rossi_Family_Investment_Policy_Statement_v3_1_Final.pdf" target="_blank" rel="noopener">Investment Policy Statement <span aria-hidden="true">↗</span></a></div></div><p class="client-summary">${e(c.summary)}</p><div class="client-metadata"><span>Fictional client case</span><span>Base currency: ${e(c.currency)}</span><span>€20m family balance sheet</span></div></div><nav class="client-tabs" aria-label="Client sections">${tabs.map(([key,label])=>`<a href="#/client/${e(id)}${key==='overview'?'':`/${key}`}" ${(tab===key||(tab==='tax'&&key==='planning'))?'aria-current="page"':''}>${label}</a>`).join('')}</nav><div class="client-content">${content}</div>`;
 }
 
 function notFound() {
