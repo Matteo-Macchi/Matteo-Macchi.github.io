@@ -1,1083 +1,2808 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matteo Macchi — Banking & Finance</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101922">
+  <meta name="description" content="Virtual Wealth — hypothetical private-client portfolios, investment research and cross-border wealth planning.">
+  <title>Virtual Wealth | Private Client Portfolio & Planning</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMxMDE5MjIiLz48cGF0aCBkPSJNMTUgMTdoN2wxMCAyOCAxMC0yOGg3TDM1IDUxaC02WiIgZmlsbD0iI2FkYmRjYyIvPjwvc3ZnPgo=" type="image/svg+xml">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #05070b;
-      --bg-surface: #0a0f17;
-      --bg-card: #0f1621;
-      --gold: #8fa6c9;
-      --gold-light: #c2d1ea;
-      --gold-dim: rgba(111, 143, 203, 0.14);
-      --gold-border: rgba(111, 143, 203, 0.18);
-      --text-primary: #f3f6fb;
-      --text-secondary: #9ca7b8;
-      --text-muted: #5d6878;
-      --border: rgba(255, 255, 255, 0.055);
-      --serif: 'Cormorant Garamond', Georgia, serif;
-      --sans: 'Jost', sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text-primary);
-      font-family: var(--sans);
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ─── NAV ─── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.5rem 4rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(6, 8, 13, 0.84);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      transition: padding 0.3s ease;
-    }
-
-    .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 400;
-      letter-spacing: 0.15em;
-      color: var(--gold);
-      text-transform: uppercase;
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--gold); }
-
-    /* ─── HERO ─── */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 8rem 4rem 6rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 58% 50% at 72% 38%, rgba(111, 143, 203, 0.08) 0%, transparent 72%),
-        radial-gradient(ellipse 42% 58% at 18% 72%, rgba(54, 84, 138, 0.08) 0%, transparent 64%),
-        radial-gradient(ellipse 34% 30% at 50% 20%, rgba(146, 173, 221, 0.035) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-line {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
-    }
-
-    .hero-content {
-      max-width: 760px;
-      width: 100%;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeUp 1s ease 0.2s forwards;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.45rem;
-      margin-bottom: 2rem;
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      white-space: nowrap;
-      line-height: 1;
-    }
-
-    .hero-tag::before {
-      content: '';
-      display: block;
-      width: 30px;
-      min-width: 30px;
-      height: 0;
-      border-top: 1px solid var(--gold);
-      flex: 0 0 30px;
-    }
-
-    h1 {
-      font-family: var(--serif);
-      font-size: clamp(3.5rem, 8vw, 7rem);
-      font-weight: 300;
-      line-height: 1.05;
-      letter-spacing: -0.01em;
-      color: var(--text-primary);
-      margin-bottom: 1.5rem;
-    }
-
-    h1 em {
-      font-style: italic;
-      color: var(--gold-light);
-    }
-
-    .hero-sub {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      font-weight: 300;
-      max-width: 780px;
-      line-height: 1.8;
-      margin-bottom: 3rem;
-    }
-
-    .hero-ctas {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      background: var(--gold);
-      color: #07101d;
-      font-family: var(--sans);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      border: 1px solid var(--gold-border);
-      color: var(--gold);
-      font-family: var(--sans);
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-secondary:hover {
-      background: var(--gold-dim);
-      transform: translateY(-1px);
-    }
-
-    /* ─── CREDENTIALS ─── */
-    .credentials {
-      padding: 0 4rem 7rem;
-      opacity: 0;
-      animation: fadeUp 1s ease 0.55s forwards;
-    }
-
-    .cred-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border: 1px solid var(--border);
-    }
-
-    .cred-item {
-      padding: 2.2rem 2rem;
-      border-right: 1px solid var(--border);
-      position: relative;
-      transition: background 0.2s;
-    }
-
-    .cred-item:last-child { border-right: none; }
-    .cred-item:hover { background: var(--bg-surface); }
-
-.cred-number {
-  font-family: var(--serif);
-  font-size: clamp(1.7rem, 2.4vw, 2.35rem);
-  font-weight: 300;
-  color: var(--gold);
-  line-height: 1;
-  margin-bottom: 0.55rem;
-  white-space: nowrap;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Libre+Caslon+Display&display=swap');
+:root {
+  color-scheme:dark;
+  --bg:#101922;
+  --surface:#15212c;
+  --surface-hover:#1a2936;
+  --line:#2c3a46;
+  --ink:#eff0eb;
+  --muted:#b0bdc8;
+  --accent:#adc5d9;
+  --serif:'Libre Caslon Display',Georgia,'Times New Roman',serif;
+  --sans:'DM Sans',Arial,sans-serif
+}
+* {
+  box-sizing:border-box
+}
+html {
+  scroll-behavior:smooth
+}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased
+}
+a {
+  color:inherit;
+  text-decoration:none
+}
+button {
+  font:inherit
+}
+a,button {
+  -webkit-tap-highlight-color:transparent
+}
+a:focus-visible,button:focus-visible,[tabindex="0"]:focus-visible {
+  outline:2px solid var(--accent);
+  outline-offset:6px
+}
+main:focus {
+  outline:none
+}
+h1,h2,h3,h4,p {
+  margin:0
+}
+h1,h2,h3 {
+  font-weight:400
+}
+h1,h2,h3,.footer-brand {
+  font-family:var(--serif)
+}
+h1 {
+  font-size:clamp(2.7rem,5.2vw,5rem);
+  line-height:1.08;
+  letter-spacing:-.025em
+}
+h2 {
+  font-size:clamp(1.8rem,2.7vw,2.65rem);
+  line-height:1.2
+}
+h3 {
+  font-size:2rem;
+  line-height:1.2
+}
+small {
+  font-size:.8125rem
+}
+button,.button {
+  cursor:pointer
+}
+.site-header,main,.site-footer {
+  width:min(1320px,calc(100% - 112px));
+  margin-inline:auto
+}
+.site-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  padding:29px 0;
+  border-bottom:1px solid var(--line)
+}
+.brand-stack {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px
+}
+.return-site {
+  color:var(--muted);
+  font-size:.6875rem;
+  letter-spacing:.13em;
+  line-height:1.4
+}
+.return-site:hover {
+  color:var(--accent)
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:17px;
+  font-size:.875rem;
+  letter-spacing:.18em;
+  line-height:1.4;
+  font-weight:500
+}
+.brand small {
+  display:block;
+  font-size:.75rem;
+  letter-spacing:.16em;
+  color:var(--muted);
+  margin-top:6px
+}
+.monogram {
+  position:relative;
+  display:block;
+  font-family:Georgia,serif;
+  font-size:2.8rem;
+  font-weight:400;
+  line-height:1;
+  color:var(--accent);
+  letter-spacing:-.22em;
+  width:50px
+}
+.monogram span {
+  font-size:1.8rem;
+  position:relative;
+  left:-4px;
+  top:4px
+}
+.site-header nav {
+  display:flex;
+  gap:36px;
+  font-size:.875rem
+}
+.site-header nav a {
+  color:var(--muted);
+  padding:10px 0;
+  border-bottom:1px solid transparent
+}
+.site-header nav a:hover,.site-header nav a[aria-current] {
+  color:var(--ink);
+  border-color:var(--accent)
+}
+.site-header nav a span {
+  margin-left:8px
+}
+.header-note {
+  font-size:.8125rem;
+  line-height:1.5;
+  color:var(--muted);
+  text-align:right
+}
+.eyebrow {
+  color:var(--accent);
+  font-size:.75rem;
+  font-weight:500;
+  letter-spacing:.16em;
+  line-height:1.5
+}
+.hero {
+  padding-top:47px
+}
+.hero-top {
+  display:flex;
+  justify-content:space-between;
+  gap:20px
+}
+.edition {
+  font-size:.75rem;
+  letter-spacing:.15em;
+  color:#93a3b1
+}
+.hero-body {
+  display:grid;
+  grid-template-columns:1.25fr 1fr;
+  gap:80px;
+  align-items:end;
+  padding:48px 0 58px
+}
+.hero h1 {
+  font-size:clamp(5rem,8.5vw,8.5rem);
+  line-height:.89;
+  letter-spacing:-.035em
+}
+.hero h1 em {
+  font-weight:400;
+  font-style:normal;
+  color:var(--accent)
+}
+.hero-subtitle {
+  margin-top:28px;
+  color:#c9d2db;
+  font-size:1rem;
+  letter-spacing:.005em
+}
+.hero-description {
+  padding-bottom:5px;
+  max-width:430px;
+  justify-self:end
+}
+.fine-line {
+  display:block;
+  background:var(--accent);
+  height:1px;
+  width:47px;
+  margin-bottom:24px
+}
+.hero-description p {
+  font-size:1.08rem;
+  line-height:1.85;
+  color:var(--muted)
+}
+.text-link {
+  display:inline-flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  border-bottom:1px solid #6c8192;
+  padding:20px 0 9px;
+  font-size:.875rem;
+  color:var(--ink)
+}
+.text-link:hover {
+  color:var(--accent)
+}
+.text-link span {
+  font-size:1.25rem
+}
+.hero-bottom {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  border-block:1px solid var(--line);
+  padding:20px 0;
+  color:var(--muted);
+  font-size:.8125rem;
+  letter-spacing:.03em
+}
+.directory {
+  padding-top:60px
+}
+.section-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:22px;
+  margin-bottom:26px
+}
+.section-heading .eyebrow {
+  margin-bottom:10px
+}
+.section-aside {
+  font-size:.8125rem;
+  color:var(--muted);
+  text-align:right;
+  flex-shrink:0
+}
+.source-pill {
+  display:block;
+  font-size:.75rem;
+  color:#97a9b8;
+  margin-top:3px
+}
+.case-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px
+}
+.case-card {
+  display:block;
+  background:linear-gradient(120deg,#192735,#15212c);
+  padding:29px 31px 0;
+  border:1px solid #344451;
+  transition:background .2s,border-color .2s,transform .2s
+}
+.case-card:hover {
+  background:var(--surface-hover);
+  border-color:#718ca2;
+  transform:translateY(-3px)
+}
+.card-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:31px
+}
+.case-number {
+  font-size:.75rem;
+  letter-spacing:.14em;
+  color:#a5b5c3
+}
+.badge {
+  display:inline-block;
+  border:1px solid #475b6d;
+  background:#aec6da08;
+  color:#c4d5e2;
+  padding:4px 11px;
+  border-radius:2px;
+  font-size:.75rem;
+  line-height:1.5;
+  white-space:normal
+}
+.case-type {
+  font-size:.75rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#a5b9c9;
+  margin-bottom:9px
+}
+.case-card h3 {
+  font-size:clamp(1.85rem,2.55vw,2.6rem)
+}
+.jurisdiction {
+  font-size:.875rem;
+  color:var(--muted);
+  margin-top:9px
+}
+.card-value {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:35px;
+  padding-bottom:24px;
+  gap:15px
+}
+.card-value>span {
+  font-size:.8125rem;
+  color:var(--muted)
+}
+.card-value strong {
+  font-size:1.8rem;
+  font-family:var(--serif);
+  font-weight:400;
+  line-height:1
+}
+.card-bottom {
+  border-top:1px solid #354452;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:18px 0
+}
+.card-bottom p {
+  font-size:.8125rem;
+  color:#bdc9d3;
+  line-height:1.65;
+  max-width:85%
+}
+.card-arrow {
+  font-size:1.5rem;
+  color:var(--accent)
+}
+.collection-note {
+  display:flex;
+  align-items:start;
+  gap:14px;
+  max-width:850px;
+  margin:29px 0 68px;
+  color:#a5b4c1;
+  font-size:.8125rem;
+  line-height:1.8
+}
+.note-symbol {
+  border:1px solid #63798c;
+  border-radius:50%;
+  font-family:Georgia,serif;
+  font-size:.75rem;
+  line-height:17px;
+  width:19px;
+  flex-shrink:0;
+  text-align:center;
+  margin-top:4px
+}
+.site-footer {
+  padding:35px 0 24px;
+  border-top:1px solid var(--line)
+}
+.site-footer>div:first-child {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px
+}
+.footer-brand {
+  font-size:1.8rem
+}
+.site-footer>div>span {
+  font-size:.75rem;
+  letter-spacing:.14em;
+  color:#a3b4c2
+}
+.site-footer>p {
+  max-width:870px;
+  color:#a3b2c0;
+  font-size:.8125rem;
+  line-height:1.85;
+  margin:23px 0 30px
+}
+.footer-bottom {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  border-top:1px solid #253441;
+  padding-top:19px
+}
+.footer-bottom>span {
+  font-size:.75rem!important;
+  letter-spacing:0!important
+}
+.directory-intro {
+  padding:64px 0 10px
+}
+.directory-intro h1 {
+  margin:18px 0
+}
+.directory-intro h1>span {
+  color:var(--accent)
+}
+.directory-intro>p:last-child {
+  color:var(--muted)
+}
+.client-heading {
+  padding-top:29px
+}
+.back-link {
+  color:var(--muted);
+  font-size:.8125rem;
+  display:inline-flex;
+  gap:10px;
+  align-items:center
+}
+.back-link:hover {
+  color:var(--ink)
+}
+.client-title-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:25px;
+  margin-top:35px
+}
+.client-title-row .eyebrow {
+  margin-bottom:15px
+}
+.client-actions {
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  gap:12px
+}
+.client-actions>.badge {
+  padding:7px 16px;
+  font-size:.8125rem;
+  flex-shrink:0
+}
+.ips-link {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 14px;
+  border:1px solid #40576a;
+  color:var(--ink);
+  font-size:.75rem;
+  white-space:nowrap
+}
+.ips-link:hover {
+  color:var(--accent);
+  border-color:var(--accent)
+}
+.meta-divider {
+  color:#61788b;
+  margin-inline:10px
+}
+.client-summary {
+  color:var(--muted);
+  max-width:820px;
+  margin-top:22px;
+  font-size:1rem;
+  line-height:1.8
+}
+.client-metadata {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 22px;
+  color:#a4b4c1;
+  font-size:.75rem;
+  margin:23px 0 31px
+}
+.client-metadata>span+span {
+  border-left:1px solid #435465;
+  padding-left:22px
+}
+.client-tabs {
+  display:flex;
+  border-bottom:1px solid #405263;
+  gap:30px;
+  overflow-x:auto;
+  padding-top:4px;
+  scrollbar-width:thin
+}
+.client-tabs a {
+  flex-shrink:0;
+  white-space:nowrap;
+  font-size:.875rem;
+  padding:14px 0 17px;
+  border-bottom:2px solid transparent;
+  color:var(--muted)
+}
+.client-tabs a[aria-current] {
+  border-bottom-color:var(--accent);
+  color:var(--ink)
+}
+.client-tabs a:hover {
+  color:var(--ink)
+}
+.client-content {
+  padding:31px 0 60px
+}
+.metric-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--line);
+  background:var(--surface);
+  margin-bottom:26px
+}
+.metric-grid>div {
+  padding:25px;
+  border-right:1px solid var(--line)
+}
+.metric-grid>div:last-child {
+  border-right:0
+}
+.metric-grid span {
+  display:block;
+  font-size:.8125rem;
+  color:var(--muted)
+}
+.metric-grid strong {
+  display:block;
+  font-family:var(--serif);
+  font-size:2.8rem;
+  font-weight:400;
+  margin:7px 0;
+  line-height:1.3
+}
+.metric-grid .text-metric {
+  font-size:2rem;
+  padding-top:10px;
+  padding-bottom:7px
+}
+.metric-grid small {
+  display:block;
+  color:#a4b4c1;
+  font-size:.75rem
+}
+.panel {
+  border:1px solid var(--line);
+  background:#14202a;
+  padding:29px;
+  min-width:0
+}
+.panel .section-heading h2 {
+  font-size:1.9rem
+}
+.panel .section-heading .eyebrow {
+  font-size:.75rem
+}
+.panel .section-aside {
+  font-size:.75rem;
+  white-space:normal;
+  flex-shrink:1
+}
+.overview-grid {
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:26px
+}
+.allocation-display {
+  display:flex;
+  align-items:center;
+  gap:32px;
+  padding-top:12px
+}
+.donut {
+  position:relative;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  flex-shrink:0;
+  display:grid;
+  place-items:center
+}
+.donut>div {
+  border-radius:50%;
+  width:145px;
+  height:145px;
+  background:#14202a;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:1px
+}
+.donut strong {
+  font-size:2.2rem;
+  font-family:var(--serif);
+  font-weight:400
+}
+.donut span {
+  font-size:.75rem;
+  letter-spacing:.08em;
+  color:var(--muted)
+}
+.bars {
+  flex:1;
+  min-width:0
+}
+.bar-row+.bar-row {
+  margin-top:15px
+}
+.bar-row>div:first-child {
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:15px;
+  font-size:.8125rem;
+  margin-bottom:7px
+}
+.bar-row>div>span {
+  color:#cad4dd
+}
+.bar-row strong {
+  font-size:.8125rem;
+  font-weight:500;
+  white-space:nowrap
+}
+.bar-row i {
+  display:inline-block;
+  width:6px;
+  height:6px;
+  margin-right:9px;
+  vertical-align:middle
+}
+.bar-track {
+  height:3px;
+  background:#2b3b48
+}
+.bar-track span {
+  height:100%;
+  display:block
+}
+.allocation-display .bar-track {
+  display:none
+}
+.panel-note {
+  font-size:.75rem;
+  color:#9fafbd;
+  margin-top:24px;
+  line-height:1.75
+}
+.objectives ol {
+  list-style:none;
+  counter-reset:objective;
+  padding:0;
+  margin:0
+}
+.objectives li {
+  counter-increment:objective;
+  display:flex;
+  gap:16px;
+  padding:10px 0;
+  border-bottom:1px solid #2d3d49;
+  font-size:.875rem;
+  line-height:1.6
+}
+.objectives li::before {
+  content:'0' counter(objective);
+  color:#8ca3b6;
+  font-size:.75rem;
+  margin-top:3px
+}
+.liquidity {
+  margin-top:22px
+}
+.liquidity>.eyebrow {
+  font-size:.75rem
+}
+.liquidity>p:last-child {
+  font-size:.875rem;
+  color:var(--muted);
+  margin-top:8px
+}
+.priorities {
+  margin-top:26px
+}
+.priority-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:25px
+}
+.priority-grid>div {
+  border-top:1px solid #405465;
+  padding-top:18px
+}
+.priority-grid span {
+  color:#90a9be;
+  font-size:.75rem
+}
+.priority-grid h3 {
+  font-family:var(--sans);
+  font-size:.9375rem;
+  margin-top:10px;
+  line-height:1.6;
+  color:#ced8df
+}
+.before-table {
+  margin:-8px 0 25px
+}
+.portfolio-summary {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  margin:22px 0 28px
+}
+.portfolio-summary>div {
+  background:#111d26;
+  padding:18px 20px;
+  min-width:0
+}
+.portfolio-summary span {
+  display:block;
+  color:#91a6b7;
+  font-size:.7rem;
+  line-height:1.45
+}
+.portfolio-summary strong {
+  display:block;
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:1.55rem;
+  font-weight:400;
+  margin-top:7px;
+  white-space:nowrap
+}
+.table-scroll {
+  overflow-x:auto;
+  width:100%;
+  scrollbar-width:thin;
+  border-block:1px solid #3b4c59
+}
+table {
+  border-collapse:collapse;
+  width:100%;
+  font-size:.8125rem;
+  min-width:980px;
+  text-align:left
+}
+th {
+  font-weight:500;
+  color:#b2c2cf;
+  font-size:.75rem;
+  padding:15px 12px;
+  border-block:1px solid #3b4c59
+}
+.portfolio-table {
+  min-width:1680px
+}
+.portfolio-table thead th {
+  position:sticky;
+  top:0;
+  z-index:3;
+  background:#14202a;
+  white-space:nowrap
+}
+.portfolio-table th:first-child,
+.portfolio-table td:first-child {
+  position:sticky;
+  left:0;
+  z-index:2;
+  background:#14202a;
+  min-width:310px
+}
+.portfolio-table thead th:first-child {
+  z-index:4
+}
+.portfolio-table .position-group th {
+  background:#111d26
+}
+.portfolio-table .position-group th:first-child {
+  z-index:2
+}
+.position-facts {
+  color:#8fa6b8;
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px 14px;
+  font-size:.7rem;
+  line-height:1.5;
+  margin-top:9px
+}
+.position-facts span {
+  white-space:nowrap
+}
+td {
+  padding:21px 12px;
+  border-bottom:1px solid #2f414f;
+  vertical-align:top;
+  color:#c1ced8
+}
+td strong {
+  font-size:.875rem;
+  color:var(--ink);
+  font-weight:500;
+  display:block;
+  min-width:160px
+}
+td small {
+  display:block;
+  color:#90a7b9;
+  margin-top:5px;
+  letter-spacing:.06em;
+  font-size:.75rem
+}
+td.thesis {
+  min-width:240px;
+  max-width:360px;
+  font-size:.8125rem;
+  line-height:1.7
+}
+.numeric {
+  text-align:right;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums
+}
+tfoot th,tfoot td {
+  border-bottom:0;
+  padding-top:19px;
+  font-weight:500
+}
+.chart-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:26px;
+  margin-top:26px
+}
+@media (max-width:1050px) {
+  .portfolio-summary { grid-template-columns:repeat(2,minmax(0,1fr)) }
+}
+.chart-grid .bars {
+  padding-top:5px
+}
+.chart-grid .bar-row+.bar-row {
+  margin-top:19px
+}
+.liquidity-panel {
+  margin-bottom:26px
+}
+.liquidity-summary {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  border-block:1px solid var(--line);
+  margin-bottom:25px
+}
+.liquidity-summary>div {
+  padding:18px 20px;
+  border-right:1px solid var(--line)
+}
+.liquidity-summary>div:first-child {
+  padding-left:0
+}
+.liquidity-summary>div:last-child {
+  border-right:0
+}
+.liquidity-summary span,.tier-card>p {
+  display:block;
+  color:#9fafbd;
+  font-size:.75rem
+}
+.liquidity-summary strong {
+  display:block;
+  font-family:var(--serif);
+  font-size:1.85rem;
+  font-weight:400;
+  line-height:1.25;
+  margin-top:5px
+}
+.tier-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px
+}
+.tier-card {
+  border:1px solid var(--line);
+  background:#111c25;
+  padding:20px;
+  min-width:0
+}
+.tier-heading {
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:start
+}
+.tier-heading h3 {
+  font-family:var(--sans);
+  font-size:.9rem;
+  font-weight:600;
+  line-height:1.4
+}
+.tier-heading strong {
+  font-size:.875rem;
+  font-weight:500;
+  white-space:nowrap
+}
+.tier-card>p {
+  line-height:1.65;
+  margin:8px 0 16px
+}
+.tier-list {
+  list-style:none;
+  padding:0;
+  margin:0
+}
+.tier-list li {
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:12px;
+  padding:10px 0;
+  border-top:1px solid #2b3b48;
+  font-size:.75rem
+}
+.tier-list span {
+  color:#c4d0d9;
+  min-width:0
+}
+.tier-list span small {
+  display:block;
+  color:#8399aa;
+  margin-top:2px
+}
+.tier-list .tier-metric {
+  color:#adc5d9;
+  margin-top:4px
+}
+.tier-list strong {
+  font-weight:500;
+  white-space:nowrap
+}
+.chart-heading {
+  display:flex;
+  align-items:start;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:24px
+}
+.chart-heading .section-heading {
+  margin-bottom:0
+}
+.chart-toggle {
+  display:flex;
+  flex-shrink:0;
+  border:1px solid #415363
+}
+.chart-toggle button {
+  border:0;
+  background:transparent;
+  color:#94a8b8;
+  padding:6px 10px;
+  font-size:.7rem
+}
+.chart-toggle button+button {
+  border-left:1px solid #415363
+}
+.chart-toggle button[aria-pressed="true"] {
+  color:var(--ink);
+  background:#21313e
+}
+.chart-grid .allocation-display {
+  padding-top:0
+}
+.position-group th {
+  background:#111c25;
+  color:var(--accent);
+  letter-spacing:.12em;
+  font-size:.68rem;
+  padding-top:12px;
+  padding-bottom:12px
+}
+.position-group .group-total {
+  text-align:right;
+  letter-spacing:0;
+  white-space:nowrap
+}
+.performance {
+  font-weight:500
+}
+.performance.positive {
+  color:#8fc6a4
+}
+.performance.negative {
+  color:#d69a9a
+}
+.transaction-history {
+  margin-top:30px
+}
+.transaction-history h3 {
+  font-family:var(--serif);
+  font-size:1.55rem;
+  font-weight:400;
+  margin-bottom:6px
+}
+.transaction-history>p {
+  color:#9fafbd;
+  font-size:.78rem;
+  line-height:1.7;
+  margin-bottom:14px
+}
+.position-detail {
+  margin-top:8px
+}
+.position-detail summary {
+  color:#8fa7b9;
+  cursor:pointer;
+  font-size:.7rem
+}
+.position-detail p {
+  color:#aebdca;
+  font-size:.75rem;
+  line-height:1.6;
+  margin-top:8px;
+  max-width:360px
+}
+.method-note {
+  font-size:.8125rem;
+  line-height:1.9;
+  color:#a5b5c3;
+  margin-top:25px;
+  max-width:1000px
+}
+.section-intro {
+  margin:5px 0 29px
+}
+.section-intro h2 {
+  margin:9px 0 13px
+}
+.section-intro>p:last-child {
+  color:var(--muted);
+  font-size:.9375rem
+}
+.alternative-grid,.planning-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px
+}
+.alternative-heading {
+  display:flex;
+  gap:16px;
+  align-items:center;
+  border-bottom:1px solid #354754;
+  padding-bottom:20px
+}
+.alternative-heading h3 {
+  font-size:2rem
+}
+.alternative-holding {
+  padding-top:23px
+}
+.alternative-holding+.alternative-holding {
+  border-top:1px solid var(--line);
+  margin-top:23px
+}
+.holding-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:start;
+  gap:15px
+}
+.holding-heading h4 {
+  font-weight:500;
+  font-size:1rem;
+  line-height:1.7
+}
+.alternative-value {
+  font-family:var(--serif);
+  font-size:2.3rem;
+  font-weight:400;
+  display:block;
+  margin-top:16px
+}
+.alternative-value small {
+  font-family:var(--sans);
+  font-size:.75rem;
+  color:var(--muted);
+  margin-left:9px
+}
+.alternative-holding>p {
+  font-size:.875rem;
+  color:var(--muted);
+  line-height:1.8;
+  margin-top:9px
+}
+dl {
+  margin:22px 0 0
+}
+dt {
+  color:#9eb5c8;
+  font-size:.75rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:6px
+}
+dd {
+  margin:0;
+  font-size:.875rem;
+  color:#cad5de;
+  line-height:1.8
+}
+dl>div+div {
+  margin-top:20px
+}
+.planning-header {
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:center;
+  margin-bottom:21px
+}
+.planning-card h3 {
+  font-size:2rem
+}
+.professional-input {
+  border-top:1px solid #3b4d5a;
+  padding-top:18px
+}
+.research-card {
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:30px;
+  border-top:1px solid #3b4c5b;
+  padding:31px 0
+}
+.research-card:last-child {
+  border-bottom:1px solid #3b4c5b
+}
+.research-date time {
+  font-size:.875rem;
+  color:#d2dce4;
+  display:block
+}
+.research-date>span {
+  font-size:.75rem;
+  color:#99b0c2;
+  display:block;
+  margin-top:7px
+}
+.research-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:start;
+  gap:20px
+}
+.research-heading h3 {
+  font-size:2rem
+}
+.research-heading>.badge {
+  flex-shrink:0
+}
+.research-body>p {
+  font-size:.9375rem;
+  color:#b6c5d0;
+  margin-top:16px;
+  line-height:1.9
+}
+.rationale {
+  margin-top:22px;
+  border-left:2px solid #5f7a91;
+  padding:2px 0 2px 18px
+}
+.rationale .eyebrow {
+  font-size:.75rem
+}
+.rationale>p:last-child {
+  color:#aebfcd;
+  font-size:.875rem;
+  line-height:1.85;
+  margin-top:7px
+}
+.empty {
+  padding:27px 0;
+  color:var(--muted);
+  font-size:.875rem
+}
+.empty>span {
+  display:block;
+  color:#708aa0;
+  margin-bottom:10px
+}
+.state {
+  min-height:55vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:60px 15px;
+  gap:20px
+}
+.state h1 {
+  font-size:3rem
+}
+.state>p:not(.eyebrow) {
+  color:var(--muted);
+  max-width:540px
+}
+.button {
+  display:inline-flex;
+  gap:30px;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--accent);
+  color:#101b25;
+  border:0;
+  padding:13px 21px;
+  font-size:.875rem;
+  margin-top:5px
+}
+.button:hover {
+  background:#d0e0eb
+}
+.loader {
+  width:28px;
+  height:28px;
+  border:1px solid #465c6d;
+  border-top-color:#d7e4ed;
+  border-radius:50%;
+  animation:spin 1s linear infinite
+}
+.skip-link {
+  position:fixed;
+  left:20px;
+  top:-70px;
+  z-index:10;
+  padding:12px 20px;
+  background:var(--accent);
+  color:var(--bg)
+}
+.skip-link:focus {
+  top:20px
+}
+.notice {
+  padding:20px;
+  color:var(--muted)
+}
+@keyframes spin {
+  to {
+    transform:rotate(360deg)
+  }
+}
+@media(min-width:1600px) {
+  .hero-body {
+    padding-block:65px
+  }
+  .hero {
+    padding-top:55px
+  }
+  .directory {
+    padding-top:65px
+  }
+}
+@media(max-width:1150px) {
+  .site-header,main,.site-footer {
+    width:calc(100% - 64px)
+  }
+  .hero-body {
+    gap:45px
+  }
+  .header-note {
+    display:none
+  }
+  .allocation-display {
+    flex-direction:column;
+    align-items:stretch;
+    gap:25px
+  }
+  .donut {
+    align-self:center
+  }
+  .allocation-display .bars {
+    width:100%
+  }
+  .metric-grid>div {
+    padding:20px
+  }
+  .client-tabs {
+    gap:23px
+  }
+  .panel {
+    padding:24px
+  }
+  .research-card {
+    grid-template-columns:145px 1fr
+  }
+  .metric-grid .text-metric {
+    font-size:1.7rem
+  }
+  .hero-subtitle {
+    max-width:340px
+  }
+}
+@media(max-width:760px) {
+  .site-header,main,.site-footer {
+    width:calc(100% - 40px)
+  }
+  .site-header {
+    padding:23px 0;
+    gap:15px
+  }
+  .brand {
+    font-size:.75rem;
+    gap:12px;
+    letter-spacing:.12em
+  }
+  .brand small {
+    font-size:.75rem
+  }
+  .monogram {
+    font-size:2.3rem;
+    width:37px
+  }
+  .monogram span {
+    font-size:1.4rem
+  }
+  .site-header nav {
+    gap:18px;
+    font-size:.75rem
+  }
+  .site-header nav a span {
+    display:none
+  }
+  .hero {
+    padding-top:28px
+  }
+  .hero-top .eyebrow {
+    font-size:.75rem
+  }
+  .edition {
+    display:none
+  }
+  .hero-body {
+    grid-template-columns:1fr;
+    gap:34px;
+    padding:37px 0 33px
+  }
+  .hero h1 {
+    font-size:6.3rem
+  }
+  .hero-subtitle {
+    font-size:.875rem;
+    max-width:none;
+    margin-top:23px
+  }
+  .hero-description {
+    justify-self:start;
+    max-width:100%
+  }
+  .hero-description p {
+    font-size:.9375rem;
+    line-height:1.85
+  }
+  .fine-line {
+    display:none
+  }
+  .text-link {
+    padding-top:18px
+  }
+  .hero-bottom {
+    flex-direction:column;
+    gap:10px;
+    padding:18px 0;
+    font-size:.75rem
+  }
+  .directory {
+    padding-top:38px
+  }
+  .section-heading {
+    align-items:start;
+    gap:15px
+  }
+  .section-heading h2 {
+    font-size:2rem
+  }
+  .section-heading .eyebrow {
+    font-size:.75rem
+  }
+  .section-aside {
+    font-size:.75rem;
+    max-width:120px
+  }
+  .source-pill {
+    font-size:.75rem
+  }
+  .case-grid {
+    gap:17px;
+    grid-template-columns:1fr
+  }
+  .case-card {
+    padding:25px 24px 0
+  }
+  .case-card h3 {
+    font-size:2.2rem
+  }
+  .card-top {
+    margin-bottom:25px
+  }
+  .card-value {
+    margin-top:25px
+  }
+  .collection-note {
+    margin-bottom:39px
+  }
+  .site-footer {
+    padding-top:25px
+  }
+  .site-footer>div:first-child {
+    align-items:start;
+    flex-direction:column;
+    gap:8px
+  }
+  .site-footer>div>span {
+    font-size:.75rem
+  }
+  .site-footer>p {
+    margin-top:20px;
+    font-size:.75rem
+  }
+  .footer-bottom {
+    font-size:.75rem
+  }
+  .directory-intro {
+    padding:37px 0 0
+  }
+  .directory-intro>p:last-child {
+    font-size:.875rem
+  }
+  .client-title-row {
+    align-items:start;
+    flex-direction:column;
+    gap:15px;
+    margin-top:28px
+  }
+  .client-title-row h1 {
+    font-size:3rem
+  }
+  .client-title-row .eyebrow {
+    font-size:.75rem;
+    line-height:1.9
+  }
+  .client-actions {
+    justify-content:flex-start
+  }
+  .client-actions>.badge {
+    padding:4px 11px;
+    font-size:.75rem
+  }
+  .client-summary {
+    font-size:.875rem;
+    margin-top:19px
+  }
+  .client-metadata {
+    gap:7px 14px;
+    font-size:.75rem
+  }
+  .client-metadata>span+span {
+    padding-left:0;
+    border:0
+  }
+  .client-tabs {
+    gap:25px
+  }
+  .client-tabs a {
+    font-size:.8125rem
+  }
+  .client-content {
+    padding-top:22px;
+    padding-bottom:40px
+  }
+  .metric-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    margin-bottom:20px
+  }
+  .metric-grid>div {
+    padding:19px 16px;
+    border-bottom:1px solid var(--line)
+  }
+  .metric-grid>div:nth-child(2) {
+    border-right:0
+  }
+  .metric-grid>div:nth-child(n+3) {
+    border-bottom:0
+  }
+  .metric-grid strong {
+    font-size:2.4rem
+  }
+  .metric-grid .text-metric {
+    font-size:1.7rem;
+    overflow-wrap:anywhere
+  }
+  .metric-grid span {
+    font-size:.75rem
+  }
+  .metric-grid small {
+    font-size:.75rem
+  }
+  .overview-grid,.chart-grid,.alternative-grid,.planning-grid {
+    grid-template-columns:1fr;
+    gap:20px
+  }
+  .liquidity-summary {
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+  .liquidity-summary>div:nth-child(2) {
+    border-right:0
+  }
+  .liquidity-summary>div:nth-child(-n+4) {
+    border-bottom:1px solid var(--line)
+  }
+  .liquidity-summary>div:nth-child(3),
+  .liquidity-summary>div:nth-child(5) {
+    padding-left:0
+  }
+  .liquidity-summary>div:nth-child(4) {
+    border-right:0
+  }
+  .liquidity-summary>div:nth-child(5) {
+    grid-column:1 / -1;
+    border-right:0
+  }
+  .tier-grid {
+    grid-template-columns:1fr
+  }
+  .chart-heading {
+    flex-wrap:wrap
+  }
+  .panel {
+    padding:22px 20px
+  }
+  .panel .section-heading {
+    flex-wrap:wrap;
+    margin-bottom:23px
+  }
+  .panel .section-heading h2 {
+    font-size:1.9rem
+  }
+  .panel .section-aside {
+    text-align:left;
+    max-width:none
+  }
+  .allocation-display {
+    flex-direction:row;
+    align-items:center;
+    gap:22px
+  }
+  .donut {
+    width:136px;
+    height:136px
+  }
+  .donut>div {
+    width:109px;
+    height:109px
+  }
+  .donut strong {
+    font-size:1.7rem
+  }
+  .donut span {
+    font-size:.75rem
+  }
+  .bar-row>div:first-child {
+    font-size:.75rem;
+    gap:8px
+  }
+  .bar-row strong {
+    font-size:.75rem
+  }
+  .bar-row i {
+    margin-right:6px
+  }
+  .priority-grid {
+    grid-template-columns:1fr;
+    gap:18px
+  }
+  .priorities {
+    margin-top:20px
+  }
+  .research-card {
+    grid-template-columns:1fr;
+    gap:16px;
+    padding:25px 0
+  }
+  .research-date {
+    display:flex;
+    gap:16px;
+    align-items:center
+  }
+  .research-date>span {
+    margin-top:0
+  }
+  .research-heading {
+    flex-direction:column;
+    gap:12px
+  }
+  .research-heading h3 {
+    font-size:1.85rem
+  }
+  .research-body>p {
+    font-size:.875rem
+  }
+  .section-intro>p:last-child {
+    font-size:.875rem
+  }
+  .alternative-value small {
+    display:block;
+    margin-left:0
+  }
+  .state h1 {
+    font-size:2.4rem
+  }
+}
+@media(max-width:390px) {
+  .site-header nav {
+    gap:12px
+  }
+  .site-header nav a:first-child {
+    display:none
+  }
+  .allocation-display {
+    flex-direction:column
+  }
+  .hero h1 {
+    font-size:5.8rem
+  }
+  .holding-heading {
+    flex-direction:column
+  }
+  .client-title-row h1 {
+    font-size:2.7rem
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html {
+    scroll-behavior:auto
+  }
+  *,*::before,*::after {
+    animation:none!important;
+    transition:none!important
+  }
+  .case-card:hover {
+    transform:none
+  }
+}
+/* Keep secondary labels readable and let navigation wrap on small screens. */ @media(max-width:760px) {
+  .site-header {
+    flex-wrap:wrap
+  }
+  .site-header nav {
+    width:100%;
+    justify-content:space-between;
+    border-top:1px solid var(--line);
+    padding-top:8px
+  }
+  .brand small {
+    letter-spacing:.08em
+  }
+  .hero-top .eyebrow {
+    letter-spacing:.1em
+  }
+  .site-footer>div>span {
+    letter-spacing:.08em
+  }
+  .donut {
+    width:150px;
+    height:150px
+  }
+  .donut>div {
+    width:123px;
+    height:123px
+  }
+  .donut span {
+    letter-spacing:.025em
+  }
+  .allocation-display {
+    flex-direction:column
+  }
+  .metric-grid .text-metric {
+    font-size:1.6rem
+  }
+}
+@media(max-width:390px) {
+  .site-header nav a:first-child {
+    display:block
+  }
 }
 
-    .cred-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 0.3rem;
-  white-space: nowrap;
+/* Homepage-only compact introduction; all case surfaces retain their styles. */
+.hero-simplified .hero-body {
+  display: block;
+  padding: 28px 0 12px;
+}
+.hero-simplified .hero-description {
+  width: 75%;
+  max-width: none;
+  padding-bottom: 0;
+}
+@media (max-width: 760px) {
+  .hero-simplified .hero-body { padding: 24px 0 8px; }
+  .hero-simplified .hero-description { width: 100%; }
 }
 
-    .cred-desc {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      font-weight: 300;
-    }
-
-    /* ─── SECTION SHARED ─── */
-    section {
-      padding: 6rem 4rem;
-    }
-
-    .section-tag {
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-
-    .section-tag::after {
-      content: '';
-      display: block;
-      flex: 1;
-      max-width: 60px;
-      height: 1px;
-      background: var(--gold-border);
-    }
-
-    h2 {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 300;
-      line-height: 1.15;
-      margin-bottom: 3rem;
-    }
-
-    /* ─── ABOUT ─── */
-    .about {
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .about-inner {
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 6rem;
-      align-items: start;
-    }
-
-    .about-left { position: sticky; top: 7rem; }
-
-    .about-photo {
-      width: 100%;
-      aspect-ratio: 3/4;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .about-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .photo-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .photo-placeholder svg {
-      width: 40px;
-      height: 40px;
-      opacity: 0.4;
-    }
-
-    .photo-placeholder span {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .about-right p {
-      font-size: 1.05rem;
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-      line-height: 1.9;
-    }
-
-    .about-right p strong {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-      margin-top: 2rem;
-    }
-
-    .skill-tag {
-      padding: 0.5rem 0.9rem;
-      border: 1px solid var(--border);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .skill-tag::before {
-      content: '';
-      width: 4px;
-      height: 4px;
-      background: var(--gold);
-      flex-shrink: 0;
-    }
-
-    /* ─── EXPERIENCE ─── */
-    .exp-subtitle {
-  font-size: 0.9rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 500;
-  margin: 2.5rem 0 1.2rem;
+/* Align the introduction with the section labels and retain its short rule. */
+.hero-simplified .hero-description {
+  justify-self: start;
+  margin-inline: 0 auto;
+  text-align: left;
 }
-    .exp-list {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .exp-item {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 2rem;
-      padding: 2.5rem 0;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.2s;
-    }
-
-    .exp-item:first-child { border-top: 1px solid var(--border); }
-
-    .exp-date {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      padding-top: 0.25rem;
-    }
-
-    .exp-role {
-      font-family: var(--serif);
-      font-size: 1.25rem;
-      font-weight: 400;
-      color: var(--text-primary);
-      margin-bottom: 0.15rem;
-    }
-
-    .exp-company {
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.8rem;
-    }
-
-    .exp-desc {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-    }
-
-    .exp-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.9rem;
-    }
-
-    .exp-tag {
-      font-size: 0.63rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.65rem;
-      border: 1px solid var(--gold-border);
-      color: var(--gold);
-    }
-/* ─── LANGUAGES ─── */
-
-.languages-section {
-  padding-top: 2.5rem;
-  padding-bottom: 4rem;
+.hero-simplified .fine-line {
+  display: block;
 }
 
-.languages-inline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2.5rem;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+/* Tax & Cross-Border dashboard */
+.tax-dashboard {
+  display:grid;
+  gap:24px
+}
+.tax-hero {
+  display:grid;
+  grid-template-columns:minmax(0,1.45fr) minmax(320px,.75fr);
+  gap:0;
+  border:1px solid #425565;
+  background:linear-gradient(135deg,#172632 0%,#13202a 56%,#101922 100%);
+  overflow:hidden
+}
+.tax-hero-copy {
+  padding:42px 44px
+}
+.tax-hero-copy h2 {
+  max-width:760px;
+  margin:11px 0 17px
+}
+.tax-hero-copy>p:last-of-type {
+  max-width:760px;
+  color:var(--muted)
+}
+.tax-hero-result {
+  padding:38px 34px;
+  border-left:1px solid #425565;
+  background:rgba(173,197,217,.045);
+  display:flex;
+  flex-direction:column;
+  justify-content:center
+}
+.tax-hero-result>span,.tax-kpi span,.tax-source-total span,.tax-comparison-stat span {
+  color:var(--muted);
+  font-size:.72rem;
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+.tax-hero-result>strong {
+  display:block;
+  margin:4px 0 7px;
+  font-family:var(--serif);
+  font-size:3.45rem;
+  font-weight:400;
+  line-height:1
+}
+.tax-hero-result p {
+  color:var(--accent);
+  font-size:.84rem
+}
+.tax-kpis {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--line);
+  border-top:0
+}
+.tax-kpi {
+  padding:19px 22px;
+  border-right:1px solid var(--line)
+}
+.tax-kpi:last-child { border-right:0 }
+.tax-kpi strong {
+  display:block;
+  margin-top:4px;
+  font-size:1.14rem;
+  font-weight:550
+}
+.tax-kpi small {
+  display:block;
+  color:var(--muted);
+  margin-top:2px
+}
+.tax-alert {
+  display:flex;
+  align-items:flex-start;
+  gap:15px;
+  padding:18px 21px;
+  border:1px solid #4b6274;
+  background:#172631
+}
+.tax-alert>span {
+  display:grid;
+  place-items:center;
+  width:27px;
+  height:27px;
+  flex:0 0 27px;
+  border:1px solid var(--accent);
+  border-radius:50%;
+  color:var(--accent)
+}
+.tax-alert strong { display:block; margin-bottom:2px }
+.tax-alert p { color:var(--muted); font-size:.85rem }
+.tax-section-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:24px;
+  margin-bottom:25px
+}
+.tax-section-head h2 { margin-top:7px }
+.tax-section-head>p {
+  max-width:520px;
+  color:var(--muted);
+  font-size:.84rem;
+  text-align:right
+}
+.tax-timeline {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--line)
+}
+.tax-time-item {
+  padding:23px 24px 5px 0;
+  border-right:1px solid var(--line)
+}
+.tax-time-item:not(:first-child) { padding-left:24px }
+.tax-time-item:last-child { border-right:0 }
+.tax-time-item>span:first-child {
+  color:var(--accent);
+  font-size:.74rem;
+  letter-spacing:.08em
+}
+.tax-time-item h3 {
+  margin:8px 0 4px;
+  font-family:var(--sans);
+  font-size:1rem;
+  font-weight:600
+}
+.tax-time-item p { color:var(--muted); font-size:.8rem }
+.tax-status {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  width:max-content;
+  margin-top:12px;
+  padding:4px 8px;
+  border:1px solid #405363;
+  color:#c8d5df;
+  font-size:.62rem;
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+.tax-status::before {
+  content:"";
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#8aa8be
+}
+.tax-status.assumption::before { background:#d4b56c }
+.tax-status.tbd::before,.tax-status.not-taxable-income::before { background:#8a96a0 }
+.tax-scenario-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px
+}
+.tax-scenario {
+  position:relative;
+  padding:27px 25px;
+  border:1px solid var(--line);
+  background:var(--surface)
+}
+.tax-scenario.recommended {
+  border-color:#6f8da3;
+  background:linear-gradient(180deg,#192b38,#15212c)
+}
+.tax-scenario .recommended-label {
+  position:absolute;
+  top:0;
+  right:0;
+  padding:7px 10px;
+  background:var(--accent);
+  color:#101922;
+  font-size:.61rem;
+  font-weight:700;
+  letter-spacing:.09em
+}
+.tax-scenario h3 {
+  min-height:54px;
+  margin:7px 0 13px;
+  font-size:1.65rem
+}
+.tax-scenario>p { min-height:116px; color:var(--muted); font-size:.81rem }
+.tax-scenario-metric {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:21px;
+  padding-top:18px;
+  border-top:1px solid var(--line)
+}
+.tax-scenario-metric strong { font-size:1.35rem }
+.tax-scenario-metric span { color:var(--muted); font-size:.72rem; text-align:right }
+.tax-source-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px
+}
+.tax-source-total {
+  padding:25px;
+  border:1px solid var(--line);
+  background:var(--surface)
+}
+.tax-source-total strong {
+  display:block;
+  margin:6px 0 8px;
+  font-family:var(--serif);
+  font-size:2.25rem;
+  font-weight:400
+}
+.tax-source-total p { color:var(--muted); font-size:.82rem }
+.tax-income-types {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--line)
+}
+.tax-income-types>div {
+  padding:19px;
+  border-right:1px solid var(--line)
+}
+.tax-income-types>div:last-child { border-right:0 }
+.tax-income-types strong { display:block; margin:5px 0 3px }
+.tax-income-types p { color:var(--muted); font-size:.73rem }
+.tax-feature-grid {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px
+}
+.tax-feature {
+  min-height:245px;
+  padding:20px 18px;
+  border:1px solid var(--line);
+  background:#13202a
+}
+.tax-feature>span:first-child { color:var(--accent); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase }
+.tax-feature h3 { margin:12px 0 14px; font-size:1.35rem }
+.tax-feature strong { display:block; margin-bottom:11px; font-size:.85rem }
+.tax-feature p { color:var(--muted); font-size:.76rem; line-height:1.65 }
+.tax-table { min-width:1500px }
+.tax-table td,.tax-table th { vertical-align:top }
+.tax-table td { font-size:.76rem; line-height:1.5 }
+.tax-table td strong { font-size:.8rem }
+.tax-table .tax-amount { white-space:nowrap }
+.tax-table .tax-amount small { display:block; color:var(--muted); margin-top:4px }
+.tax-source-links a {
+  display:block;
+  width:max-content;
+  color:var(--accent);
+  border-bottom:1px solid #61788a;
+  margin-bottom:4px
+}
+.tax-accordion {
+  border-top:1px solid var(--line)
+}
+.tax-accordion details { border-bottom:1px solid var(--line) }
+.tax-accordion summary {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  list-style:none;
+  cursor:pointer;
+  padding:20px 2px;
+  font-weight:550
+}
+.tax-accordion summary::-webkit-details-marker { display:none }
+.tax-accordion summary::after { content:"+"; color:var(--accent); font-size:1.25rem; font-weight:400 }
+.tax-accordion details[open] summary::after { content:"−" }
+.tax-accordion-body { padding:0 2px 22px }
+.tax-formula {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:8px 20px;
+  padding:10px 0;
+  border-bottom:1px dotted #334551
+}
+.tax-formula:last-child { border-bottom:0 }
+.tax-formula span { font-size:.8rem }
+.tax-formula small { display:block; color:var(--muted) }
+.tax-formula strong { font-size:.84rem }
+.tax-formula.total { margin-top:7px; border-top:1px solid var(--accent); border-bottom:0 }
+.tax-legal-note {
+  padding:13px 0;
+  border-bottom:1px dotted #334551
+}
+.tax-legal-note:last-child { border-bottom:0 }
+.tax-legal-note a { color:var(--accent); border-bottom:1px solid #61788a }
+.tax-legal-note p { color:var(--muted); font-size:.78rem; margin-top:4px }
+.tax-sensitivity-scroll { overflow-x:auto }
+.tax-sensitivity {
+  width:100%;
+  min-width:760px;
+  border-collapse:collapse
+}
+.tax-sensitivity th,.tax-sensitivity td {
+  padding:15px;
+  border:1px solid var(--line);
+  text-align:left
+}
+.tax-sensitivity th { color:var(--muted); font-size:.72rem; font-weight:500 }
+.tax-sensitivity td strong { display:block; font-size:.8rem }
+.tax-sensitivity td span { color:var(--muted); font-size:.71rem }
+.tax-sensitivity td.impatriati { background:rgba(97,139,166,.12) }
+.tax-sensitivity td.art24bis { background:rgba(173,197,217,.06) }
+.tax-comparison {
+  border:1px solid #526a7c;
+  background:linear-gradient(135deg,#172733,#121e28);
+  padding:34px
+}
+.tax-comparison-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  margin-top:27px;
+  border:1px solid var(--line)
+}
+.tax-comparison-card {
+  position:relative;
+  padding:25px 23px;
+  border-right:1px solid var(--line)
+}
+.tax-comparison-card:last-child { border-right:0 }
+.tax-comparison-card.recommended { background:rgba(173,197,217,.07) }
+.tax-comparison-card h3 { min-height:48px; font-size:1.45rem }
+.tax-comparison-card>strong {
+  display:block;
+  margin:14px 0 19px;
+  font-family:var(--serif);
+  font-size:2rem;
+  font-weight:400
+}
+.tax-comparison-stats {
+  display:grid;
+  gap:10px
+}
+.tax-comparison-stat {
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  padding-top:8px;
+  border-top:1px solid #30424f
+}
+.tax-comparison-stat strong { font-size:.78rem; text-align:right }
+.tax-rationale {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:35px;
+  margin-top:28px;
+  padding-top:25px;
+  border-top:1px solid #526a7c
+}
+.tax-rationale h3 { font-size:1.35rem; margin-bottom:8px }
+.tax-rationale p { color:var(--muted); font-size:.82rem }
+.tax-disclaimer {
+  color:#94a5b2;
+  font-size:.72rem;
+  line-height:1.7
+}
+@media(max-width:1100px) {
+  .tax-feature-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .tax-feature:last-child { grid-column:1 / -1; min-height:auto }
+  .tax-income-types { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .tax-income-types>div:nth-child(2) { border-right:0 }
+  .tax-income-types>div:nth-child(-n+2) { border-bottom:1px solid var(--line) }
+  .tax-scenario>p { min-height:155px }
+}
+@media(max-width:760px) {
+  .tax-hero,.tax-source-grid,.tax-rationale { grid-template-columns:1fr }
+  .tax-hero-copy { padding:28px 22px }
+  .tax-hero-result { border-left:0; border-top:1px solid #425565; padding:27px 22px }
+  .tax-hero-result>strong { font-size:2.7rem }
+  .tax-kpis { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .tax-kpi:nth-child(2) { border-right:0 }
+  .tax-kpi:nth-child(-n+2) { border-bottom:1px solid var(--line) }
+  .tax-timeline,.tax-scenario-grid,.tax-comparison-grid { grid-template-columns:1fr }
+  .tax-time-item,.tax-time-item:not(:first-child) { padding:19px 0; border-right:0; border-bottom:1px solid var(--line) }
+  .tax-time-item:last-child { border-bottom:0 }
+  .tax-scenario>p { min-height:0 }
+  .tax-section-head { align-items:flex-start; flex-direction:column }
+  .tax-section-head>p { text-align:left }
+  .tax-feature-grid { grid-template-columns:1fr }
+  .tax-feature,.tax-feature:last-child { grid-column:auto; min-height:auto }
+  .tax-comparison { padding:23px 18px }
+  .tax-comparison-card { border-right:0; border-bottom:1px solid var(--line) }
+  .tax-comparison-card:last-child { border-bottom:0 }
+}
+.planning-pillar-nav {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:24px
+}
+.planning-pillar-nav a,.planning-pillar-nav article {
+  display:block;
+  min-height:126px;
+  padding:18px;
+  border:1px solid var(--line);
+  background:#13202a
+}
+.planning-pillar-nav a:hover,.planning-pillar-nav a.active {
+  border-color:#6f8da3;
+  background:#182a36
+}
+.planning-pillar-nav span {
+  display:block;
+  color:var(--accent);
+  font-size:.65rem;
+  letter-spacing:.1em;
+  text-transform:uppercase
+}
+.planning-pillar-nav strong {
+  display:block;
+  margin:10px 0 4px;
+  font-family:var(--serif);
+  font-size:1.15rem;
+  font-weight:400
+}
+.planning-pillar-nav small { color:var(--muted); font-size:.68rem }
+.tax-page-path {
+  color:var(--muted);
+  font-size:.72rem;
+  letter-spacing:.04em;
+  margin-bottom:18px
+}
+.tax-page-path strong { color:var(--ink); font-weight:500 }
+.tax-milestones {
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  border-top:1px solid var(--line)
+}
+.tax-milestone {
+  position:relative;
+  padding:26px 17px 8px 0;
+  border-right:1px solid var(--line)
+}
+.tax-milestone:not(:first-child) { padding-left:17px }
+.tax-milestone:last-child { border-right:0 }
+.tax-milestone::before {
+  content:"";
+  position:absolute;
+  top:-5px;
+  left:0;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--accent)
+}
+.tax-milestone:not(:first-child)::before { left:17px }
+.tax-milestone strong { display:block; font-size:.83rem; margin:4px 0 }
+.tax-milestone p { color:var(--muted); font-size:.7rem; line-height:1.5 }
+.tax-decision-banner {
+  display:grid;
+  grid-template-columns:1.2fr repeat(3,minmax(135px,.45fr));
+  border:1px solid #6f8da3;
+  background:linear-gradient(135deg,#1a2d3a,#13212c);
+  margin-top:20px
+}
+.tax-decision-banner>div { padding:24px; border-right:1px solid #425665 }
+.tax-decision-banner>div:last-child { border-right:0 }
+.tax-decision-banner h3 { margin:5px 0 9px; font-size:1.55rem }
+.tax-decision-banner p { color:var(--muted); font-size:.76rem }
+.tax-decision-banner .decision-metric span { color:var(--muted); font-size:.67rem; text-transform:uppercase; letter-spacing:.08em }
+.tax-decision-banner .decision-metric strong { display:block; margin-top:6px; font-size:1.15rem }
+.tax-regime-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px
+}
+.tax-regime-card {
+  padding:22px;
+  border:1px solid var(--line);
+  background:var(--surface)
+}
+.tax-regime-card.selected { border-color:#6f8da3; background:linear-gradient(180deg,#192b38,#15212c) }
+.tax-regime-card h3 { min-height:55px; margin:9px 0; font-size:1.45rem }
+.tax-regime-card>p { min-height:118px; color:var(--muted); font-size:.75rem }
+.tax-regime-card .tax-regime-total { display:block; margin-top:18px; padding-top:15px; border-top:1px solid var(--line); font-size:1.15rem }
+.tax-category-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px
+}
+.tax-category {
+  padding:20px;
+  border:1px solid var(--line);
+  background:#13202a
+}
+.tax-category h3 { margin:8px 0 12px; font-size:1.25rem }
+.tax-category strong { display:block; font-size:1.05rem }
+.tax-category p { color:var(--muted); font-size:.72rem; margin-top:7px }
+.tax-bridge-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--line)
+}
+.tax-bridge-card { padding:22px; border-right:1px solid var(--line) }
+.tax-bridge-card:last-child { border-right:0 }
+.tax-bridge-card.selected { background:rgba(173,197,217,.07) }
+.tax-bridge-card h3 { min-height:44px; font-size:1.2rem }
+.tax-bridge-line { display:flex; justify-content:space-between; gap:12px; padding:9px 0; border-bottom:1px solid #30414d; font-size:.72rem }
+.tax-bridge-line span { color:var(--muted) }
+.tax-bridge-line.total { border-bottom:0; border-top:1px solid var(--accent); margin-top:7px; font-weight:600 }
+.tax-bridge-line.total span { color:var(--ink) }
+.tax-asset-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px }
+.tax-asset-detail { border:1px solid var(--line); background:var(--surface) }
+.tax-asset-detail summary { list-style:none; cursor:pointer; padding:21px; display:flex; justify-content:space-between; gap:15px; align-items:center }
+.tax-asset-detail summary::-webkit-details-marker { display:none }
+.tax-asset-detail summary::after { content:"+"; color:var(--accent); font-size:1.2rem }
+.tax-asset-detail[open] summary::after { content:"−" }
+.tax-asset-detail summary strong { font-family:var(--serif); font-size:1.25rem; font-weight:400 }
+.tax-asset-body { padding:0 21px 22px; color:var(--muted); font-size:.77rem }
+.tax-asset-facts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; margin:13px 0; background:var(--line) }
+.tax-asset-facts>div { padding:11px; background:#13202a }
+.tax-asset-facts span { display:block; font-size:.63rem; text-transform:uppercase; letter-spacing:.07em }
+.tax-asset-facts strong { display:block; color:var(--ink); margin-top:3px; font-size:.78rem }
+.tax-impact-bars { display:grid; gap:16px; margin-top:23px }
+.tax-impact-row { display:grid; grid-template-columns:150px 1fr 135px; gap:16px; align-items:center }
+.tax-impact-row>span { font-size:.78rem }
+.tax-impact-track { height:11px; background:#263641; overflow:hidden }
+.tax-impact-track i { display:block; height:100%; background:#7898ae }
+.tax-impact-row.selected .tax-impact-track i { background:#c0d3e1 }
+.tax-impact-row strong { font-size:.78rem; text-align:right }
+.tax-actions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px }
+.tax-action { padding:18px; border:1px solid var(--line) }
+.tax-action strong { display:block; margin-bottom:5px; font-size:.82rem }
+.tax-action p { color:var(--muted); font-size:.72rem }
+@media(max-width:1100px) {
+  .planning-pillar-nav,.tax-regime-grid,.tax-category-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .tax-milestones { grid-template-columns:repeat(3,minmax(0,1fr)); row-gap:18px }
+  .tax-decision-banner { grid-template-columns:1fr 1fr }
+  .tax-decision-banner>div:nth-child(2) { border-right:0 }
+  .tax-decision-banner>div:nth-child(-n+2) { border-bottom:1px solid #425665 }
+  .tax-regime-card>p { min-height:90px }
+}
+@media(max-width:760px) {
+  .planning-pillar-nav,.tax-regime-grid,.tax-category-grid,.tax-bridge-grid,.tax-asset-grid,.tax-actions { grid-template-columns:1fr }
+  .tax-milestones { grid-template-columns:1fr }
+  .tax-milestone,.tax-milestone:not(:first-child) { padding:20px 0; border-right:0; border-bottom:1px solid var(--line) }
+  .tax-milestone::before,.tax-milestone:not(:first-child)::before { left:0 }
+  .tax-decision-banner { grid-template-columns:1fr }
+  .tax-decision-banner>div { border-right:0; border-bottom:1px solid #425665 }
+  .tax-bridge-card { border-right:0; border-bottom:1px solid var(--line) }
+  .tax-regime-card>p { min-height:0 }
+  .tax-impact-row { grid-template-columns:100px 1fr; gap:10px }
+  .tax-impact-row strong { grid-column:2; text-align:left }
 }
 
-.languages-inline strong {
-  color: var(--text-primary);
-  font-weight: 500;
-}
-    /* ─── PORTFOLIO ─── */
-    .portfolio { background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .portfolio-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 2.2rem;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.25s, transform 0.2s;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      cursor: default;
-    }
-
-    .portfolio-card.active {
-      cursor: pointer;
-    }
-    .portfolio-card.featured {
-  border-color: rgba(143, 166, 201, 0.42);
-  background:
-    linear-gradient(135deg, rgba(143, 166, 201, 0.07), transparent 55%),
-    var(--bg-card);
-}
-
-.portfolio-card.featured::before {
-  opacity: 1;
-}
-
-.portfolio-card.featured .card-area {
-  color: var(--gold-light);
-}
-
-    .portfolio-card:hover {
-      border-color: var(--gold-border);
-      transform: translateY(-3px);
-    }
-
-    .portfolio-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--gold), transparent);
-      opacity: 0;
-      transition: opacity 0.25s;
-    }
-
-    .portfolio-card:hover::before { opacity: 1; }
-
-    .card-area {
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.2rem;
-    }
-
-    .card-title {
-      font-family: var(--serif);
-      font-size: 1.35rem;
-      font-weight: 400;
-      color: var(--text-primary);
-      line-height: 1.25;
-      margin-bottom: 0.9rem;
-    }
-
-    .card-desc {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      margin-bottom: 1.4rem;
-    }
-
-    .card-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .status-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-    }
-
-    .status-available .status-dot { background: #4caf7d; }
-    .status-available { color: #4caf7d; }
-    .status-soon .status-dot { background: var(--text-muted); }
-    .status-soon { color: var(--text-muted); }
-
-    /* ─── CONTACT ─── */
-    .contact {
-      text-align: center;
-      padding: 7rem 4rem;
-    }
-
-    .contact h2 {
-      margin-bottom: 1rem;
-    }
-
-    .contact-sub {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      margin-bottom: 3rem;
-      max-width: 440px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .contact-links {
-      display: flex;
-      gap: 1.2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      padding: 2rem 4rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    footer p {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-    }
-
-    .footer-lang {
-      display: flex;
-      gap: 0.6rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-
-    .footer-lang span { color: var(--gold); }
-
-    /* ─── DIVIDER ─── */
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--gold-border);
-      margin: 2.5rem 0;
-    }
-
-    /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      nav { padding: 1.2rem 2rem; }
-      .nav-links { gap: 1.5rem; }
-      .hero { padding: 7rem 2rem 5rem; }
-      .credentials { padding: 0 2rem 5rem; }
-      .cred-grid { grid-template-columns: repeat(2, 1fr); }
-      .cred-item:nth-child(2) { border-right: none; }
-      .cred-item:nth-child(1), .cred-item:nth-child(2) { border-bottom: 1px solid var(--border); }
-      section { padding: 4rem 2rem; }
-      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .about-left { position: static; }
-      .about-photo { max-width: 280px; }
-      .portfolio-grid { grid-template-columns: 1fr; }
-      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
-    }
-
-    @media (max-width: 600px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      h1 { font-size: 3rem; }
-      .hero { padding: 6rem 1.5rem 4rem; }
-      .credentials { padding: 0 1.5rem 4rem; }
-      .cred-grid { grid-template-columns: 1fr 1fr; }
-      section { padding: 3rem 1.5rem; }
-      footer { padding: 1.5rem; }
-    }
-  </style>
+</style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="brand-stack"><a class="return-site" href="https://matteo-macchi.github.io/#portfolio" aria-label="Back to Matteo Macchi portfolio"><span aria-hidden="true">←</span> MATTEO MACCHI · PORTFOLIO</a><a class="brand" href="#/" aria-label="Virtual Wealth home"><span class="monogram" aria-hidden="true">V<span>W</span></span><span>VIRTUAL WEALTH<small>PRIVATE CLIENT CASE STUDIES</small></span></a></div>
+    <nav aria-label="Main navigation"><a href="#/" data-nav="home">Home</a></nav>
+    <span class="header-note">Independent thinking.<br>Long-term perspective.</span>
+  </header>
+  <main id="main" tabindex="-1"><div class="state" role="status"><span class="loader"></span><h1>Preparing your view</h1><p>Loading the client case collection…</p></div></main>
+  <footer class="site-footer"><div><a href="#/" class="footer-brand">Virtual Wealth</a><span>HYPOTHETICAL CASES · REAL-WORLD THINKING</span></div><p>This platform contains hypothetical client cases created for educational and portfolio demonstration purposes only. It does not constitute investment, tax, legal or financial advice.</p><div class="footer-bottom"><span>© <span id="year"></span> Virtual Wealth</span><span>Public showcase · Read-only</span></div></footer>
+  <noscript><p class="notice">Please enable JavaScript to view the client cases and portfolio data.</p></noscript>
+<script src="./scripts/tax-engine.js"></script>
+<script>
+(() => {
+"use strict";
+const COLUMNS = {
+  clients: ['id','name','type','jurisdiction','risk_profile','currency','net_worth','investable_assets','current_investable_assets','cash_value','cash_weight','portfolio_return_12m','model_return_since_entry','horizon','liquidity','objectives','priorities','summary','asOf'],
+  positions: ['clientId','asset','ticker','assetClass','marketValue','targetWeight','currency','geography','sector','thesis'],
+  closedPositions: ['clientId','asset','ticker','assetClass','quantity','purchaseDate','purchasePrice','saleDate','salePrice','initialCost','saleProceeds','realizedPL','realizedReturn','status'],
+  liquidity: ['clientId','asset','ticker','tier','marketValue','currency','geography','sector','thesis'],
+  alternatives: ['clientId','name','category','marketValue','currency','geography','sector','liquidity','thesis','status'],
+  allocations: ['clientId','assetClass','targetWeight'],
+  planning: ['clientId','category','issue','objective','solution','professional','status'],
+  research: ['clientId','date','type','title','summary','rationale','status'],
+};
 
-  <!-- NAV -->
-  <nav>
-    <a class="nav-logo" href="#">MM</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+function validateData(data) {
+  // Canonical Sheets fields; retain aliases for existing portfolio views and older feeds.
+  for (const c of data.clients || []) {
+    c.risk_profile ??= c.risk;
+    c.net_worth ??= c.netWorth;
+    c.investable_assets ??= c.investableAssets;
+    c.current_investable_assets ??= c.currentInvestableAssets ?? c.investable_assets;
+    if (c.cash_value === undefined || c.cash_value === '') c.cash_value = (data.liquidity || []).filter(r => r.clientId === c.id).reduce((sum,r) => sum + Number(r.marketValue), 0);
+    if (c.cash_weight === undefined || c.cash_weight === '') c.cash_weight = Number(c.cash_value) / Number(c.investable_assets) * 100;
+    if (c.portfolio_return_12m === undefined || c.portfolio_return_12m === '') c.portfolio_return_12m = null;
+    for (const [alias, field] of [['risk','risk_profile'],['netWorth','net_worth'],['investableAssets','investable_assets'],['currentInvestableAssets','current_investable_assets']]) {
+      Object.defineProperty(c, alias, { configurable: true, enumerable: false, get() { return this[field]; } });
+    }
+  }
+  for (const [table, fields] of Object.entries(COLUMNS)) {
+    if (!Array.isArray(data[table])) throw new Error(`Missing ${table} data.`);
+    for (const row of data[table]) {
+      for (const field of fields) if (!(field in row)) throw new Error(`Missing ${table}.${field}.`);
+    }
+  }
+  const ids = new Set();
+  for (const c of data.clients) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(c.id) || ids.has(c.id)) throw new Error('Invalid or duplicate client ID.');
+    ids.add(c.id);
+    if (!c.name || !String(c.risk_profile || '').trim() || !/^[A-Z]{3}$/.test(c.currency)) throw new Error('Client name, risk profile or currency is invalid.');
+    try { new Intl.NumberFormat('en-GB', { style: 'currency', currency: c.currency }); } catch { throw new Error('Unsupported currency.'); }
+  }
+  for (const table of Object.keys(COLUMNS).filter(t => t !== 'clients')) {
+    for (const row of data[table]) if (!ids.has(row.clientId)) throw new Error(`Unknown client ID in ${table}.`);
+  }
+  const numeric = { clients: ['net_worth','investable_assets','current_investable_assets','cash_value','cash_weight'], positions: ['marketValue','targetWeight'], closedPositions: ['quantity','purchasePrice','salePrice','initialCost','saleProceeds','realizedPL','realizedReturn'], liquidity: ['tier','marketValue'], alternatives: ['marketValue'], allocations: ['targetWeight'] };
+  const signedNumeric = new Set(['closedPositions.realizedPL','closedPositions.realizedReturn']);
+  for (const [table, fields] of Object.entries(numeric)) for (const row of data[table]) for (const field of fields) {
+    if (String(row[field]).trim() === '' || !Number.isFinite(Number(row[field])) || (Number(row[field]) < 0 && !signedNumeric.has(`${table}.${field}`))) throw new Error(`Invalid number in ${table}.${field}.`);
+    row[field] = Number(row[field]);
+    if (field === 'targetWeight' && row[field] > 100) throw new Error('Target weights must be percentages from 0 to 100.');
+  }
+  for (const c of data.clients) {
+    if (c.investableAssets <= 0 || c.netWorth < c.investableAssets) throw new Error('Client wealth totals are inconsistent.');
+    if (c.cash_value > c.investable_assets || c.cash_weight > 100 || Math.abs(c.cash_weight - c.cash_value / c.investable_assets * 100) > .051) throw new Error(`Cash value and weight are inconsistent for ${c.name}.`);
+    if (c.portfolio_return_12m !== null) {
+      const value = Number(c.portfolio_return_12m);
+      if (!Number.isFinite(value) || value < -100) throw new Error(`Invalid 12-month return for ${c.name}.`);
+      c.portfolio_return_12m = value;
+    }
+    const holdings = [...data.positions, ...data.alternatives].filter(r => r.clientId === c.id);
+    if (holdings.length && Math.abs(holdings.reduce((sum, r) => sum + r.marketValue, 0) - c.currentInvestableAssets) > 1) throw new Error(`Current holdings do not reconcile for ${c.name}.`);
+    const liquidityRows = data.liquidity.filter(r => r.clientId === c.id);
+    if (liquidityRows.length && Math.abs(liquidityRows.reduce((sum, r) => sum + r.marketValue, 0) - c.cash_value) > 1) throw new Error(`Liquidity reserve does not reconcile for ${c.name}.`);
+    const allocations = data.allocations.filter(r => r.clientId === c.id);
+    if (allocations.length && (new Set(allocations.map(r => r.assetClass)).size !== allocations.length || Math.abs(allocations.reduce((sum, r) => sum + r.targetWeight, 0) - 100) > .01)) throw new Error(`Strategic allocation is invalid for ${c.name}.`);
+  }
+  return data;
+}
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="hero-line"></div>
-    <div class="hero-content">
-      <div class="hero-tags">
-        <div class="hero-tag">Banking &amp; Finance · London</div>
-        <div class="hero-tag">Economics &amp; Management · Milan</div>
-      </div>
-      <h1>Matteo<br /><em>Macchi</em></h1>
- <div class="hero-sub">
-  <p>
-    MSc Banking &amp; Finance graduate with experience across wealth management, private banking and HNW advisory, supporting portfolio monitoring, asset allocation and client reporting. Alongside this, I have developed AI-enabled tools for investment workflows and led strategic partnerships across an international network of 11,000+ students.
-  </p>
-</div>
-      <div class="hero-ctas">
-        <a href="https://www.linkedin.com/in/matteo-macchi02" target="_blank" class="btn-primary">
-          LinkedIn Profile
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-        <a href="#portfolio" class="btn-secondary">View Portfolio</a>
-        <a href="#contact" class="btn-secondary">Get in Touch</a>
-      </div>
-    </div>
-  </section>
+// All remote content passes through escapeHTML before entering markup.
+const escapeHTML = (value = '') => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const money = (value, currency, compact = false) => new Intl.NumberFormat('en-GB', { style: 'currency', currency, notation: compact ? 'compact' : 'standard', maximumFractionDigits: compact ? 1 : 0 }).format(value);
+const moneyPrecise = (value, currency, min = 2, max = 4) => new Intl.NumberFormat('en-GB', { style:'currency', currency, minimumFractionDigits:min, maximumFractionDigits:max }).format(value);
+const percent = value => `${Number(value).toFixed(1).replace(/\.0$/, '')}%`;
+const list = value => String(value || '').split('|').map(s => s.trim()).filter(Boolean);
+const dateLabel = value => /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value)) ? new Intl.DateTimeFormat('en-GB', {day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(value)) : 'Date not supplied';
+const badge = value => `<span class="badge">${escapeHTML(value)}</span>`;
+const empty = label => `<div class="empty"><span aria-hidden="true">—</span><p>${escapeHTML(label)}</p></div>`;
+const sectionTitle = (eyebrow, title, aside = '') => `<div class="section-heading"><div><p class="eyebrow">${escapeHTML(eyebrow)}</p><h2>${escapeHTML(title)}</h2></div>${aside ? `<span class="section-aside">${escapeHTML(aside)}</span>` : ''}</div>`;
+const palette = ['#adc5d9','#7d98b1','#56758e','#c5c8bb','#8b8c9e','#486175','#93a5a7','#657683'];
+const fixedColours = { EUR:'#adc5d9', GBP:'#c5c8bb', USD:'#7d98b1', CHF:'#8b8c9e', JPY:'#56758e' };
+const chartModes = Object.create(null);
+const colourFor = label => fixedColours[label] || palette[[...String(label || '')].reduce((sum,ch)=>sum+ch.charCodeAt(0),0) % palette.length];
 
-<!-- CREDENTIALS -->
-<div class="credentials">
-  <div class="cred-grid">
-    <div class="cred-item">
-      <div class="cred-number">Distinction</div>
-      <div class="cred-label">MSc Banking &amp; Finance</div>
-      <div class="cred-desc">Queen Mary University of London · 2026</div>
-    </div>
+function caseCard(client, index) {
+  const c = client;
+  return `<a class="case-card" href="#/client/${escapeHTML(c.id)}"><div class="card-top"><span class="case-number">CASE ${String(index + 1).padStart(2, '0')}</span>${badge(c.risk)}</div><p class="case-type">${escapeHTML(c.type)}</p><h3>${escapeHTML(c.name)}</h3><p class="jurisdiction">${escapeHTML(c.jurisdiction)}</p><div class="card-value"><span>Net worth</span><strong>${money(c.netWorth, c.currency, true)}</strong></div><div class="card-bottom"><p>${list(c.objectives).slice(0,2).map(escapeHTML).join(' · ')}</p><span class="card-arrow" aria-hidden="true">↗</span></div></a>`;
+}
 
-    <div class="cred-item">
-      <div class="cred-number">Banor Capital</div>
-      <div class="cred-label">Wealth Management Intern Analyst</div>
-      <div class="cred-desc">Private client · portfolios · London</div>
-    </div>
+function bars(items, { suffix = '%', total = 100 } = {}) {
+  if (!items.length) return empty('No allocation data available.');
+  return `<div class="bars">${items.map(item => `<div class="bar-row"><div><span><i style="background:${colourFor(item.label)}"></i>${escapeHTML(item.label)}</span><strong>${suffix === '%' ? percent(item.value) : escapeHTML(item.value)}</strong></div><div class="bar-track"><span style="width:${Math.max(0,Math.min(100, item.value / total * 100))}%;background:${colourFor(item.label)}"></span></div></div>`).join('')}</div>`;
+}
 
-    <div class="cred-item">
-      <div class="cred-number">UIS</div>
-      <div class="cred-label">Head of Sponsorships</div>
-      <div class="cred-desc">11,000+ student network · partnerships</div>
-    </div>
+function donut(items, center, sublabel) {
+  if (!items.length) return empty('No allocation data available.');
+  let running = 0;
+  const slices = items.map(item => { const start = running; running += item.value; return `${colourFor(item.label)} ${start}% ${running}%`; });
+  return `<div class="allocation-display"><div class="donut" role="img" aria-label="${escapeHTML(items.map(i => `${i.label}: ${percent(i.value)}`).join('; '))}" style="background:conic-gradient(${slices.join(',')})"><div><strong>${escapeHTML(center)}</strong><span>${escapeHTML(sublabel)}</span></div></div>${bars(items)}</div>`;
+}
 
-    <div class="cred-item">
-      <div class="cred-number">Applied AI</div>
-      <div class="cred-label">Wealth &amp; Investment Projects</div>
-      <div class="cred-desc">Portfolio tools · workflow automation</div>
-    </div>
-  </div>
-</div>
+function chartPanel(clientId, key, title, items) {
+  const stateKey = `${clientId}:${key}`;
+  const mode = chartModes[stateKey] || 'bars';
+  const controls = `<div class="chart-toggle" aria-label="${e(title)} chart style"><button type="button" data-chart-key="${e(stateKey)}" data-chart-mode="bars" aria-pressed="${mode === 'bars'}">Bars</button><button type="button" data-chart-key="${e(stateKey)}" data-chart-mode="donut" aria-pressed="${mode === 'donut'}">Donut</button></div>`;
+  const visual = mode === 'donut' ? donut(items,'100%','EXPOSURE') : bars(items);
+  return `<section class="panel"><div class="chart-heading">${sectionTitle('CURRENT FINANCIAL PORTFOLIO',title)}${controls}</div>${visual}</section>`;
+}
 
-  <!-- ABOUT -->
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="about-inner">
-    <div class="about-left reveal">
-      <div class="about-photo" id="photo-container">
-        <img src="profile.jpeg" alt="Matteo Macchi" />
-      </div>
-    </div>
-    <div class="about-right">
-      <div class="section-tag">About</div>
-      <h2>Finance graduate<br /><em>wealth & investment</em></h2>
+function exposure(rows, field, total) {
+  const result = new Map();
+  rows.forEach(row => result.set(row[field] || 'Unclassified', (result.get(row[field] || 'Unclassified') || 0) + row.marketValue));
+  return [...result].map(([label, value]) => ({ label, value: value / total * 100 })).sort((a,b) => b.value - a.value);
+}
 
-<p>
-  I am an Italian finance graduate based between London, Verona and Milan, holding a <strong>Distinction MSc in Banking &amp; Finance</strong> from Queen Mary University of London. I previously studied Economics &amp; Management at Università Cattolica del Sacro Cuore and completed a summer programme in Finance &amp; Financial Markets at King’s College London.
-</p>
+function lookThroughExposure(rows) {
+  const equityRows = rows.filter(row => positionGroup(row) === 'Equities');
+  const equityTotal = equityRows.reduce((sum,row)=>sum+row.marketValue,0) || 1;
+  const result = new Map();
+  equityRows.forEach(row => {
+    const breakdown = Array.isArray(row.lookThroughGeography) && row.lookThroughGeography.length
+      ? row.lookThroughGeography
+      : [{label:row.geography || 'Unclassified',weight:100}];
+    breakdown.forEach(item => result.set(item.label,(result.get(item.label)||0)+row.marketValue*Number(item.weight)/100));
+  });
+  return [...result].map(([label,value])=>({label,value:value/equityTotal*100})).sort((a,b)=>b.value-a.value);
+}
 
-<p>
-  I currently work with <strong>Banor Capital in London</strong>, supporting wealth management activities across private client, institutional and trust portfolios. My work includes portfolio monitoring, rebalancing analysis, client review preparation and investment reporting, giving me practical exposure to how portfolio decisions are translated into long-term client outcomes.
-</p>
+const optionalNumber = value => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
+const quantityLabel = row => positionGroup(row) === 'Fixed Income' && !row.ongoingCost ? 'Nominal' : 'Units';
+const priceLabel = (value, currency, isBond = false) => {
+  const number = optionalNumber(value);
+  if (number === null) return '—';
+  return isBond ? `${number.toFixed(3).replace(/0+$/,'').replace(/\.$/,'')}%` : moneyPrecise(number,currency,number < 10 ? 3 : 2,number < 10 ? 4 : 3);
+};
+const performance = value => {
+  const number = optionalNumber(value);
+  if (number === null) return '<span class="performance">—</span>';
+  return `<span class="performance ${number > 0 ? 'positive' : number < 0 ? 'negative' : ''}">${number > 0 ? '+' : ''}${percent(number)}</span>`;
+};
 
-<p>
-  Alongside my core responsibilities, I have developed <strong>AI and automation tools</strong> for wealth-management workflows, including risk reporting, investment research retrieval and private-client onboarding. This has strengthened my interest in using technology to make complex financial information more efficient, structured and useful for advisers and clients.
-</p>
+function liquidityTier(row) {
+  const explicit = String(row.tier || row.liquidityTier || row.liquidity_tier || '').match(/[123]/)?.[0];
+  if (explicit) return Number(explicit);
+  const assetClass = String(row.assetClass || '').toLowerCase();
+  const sector = String(row.sector || '').toLowerCase();
+  if (sector.includes('money market') || sector.includes('overnight')) return 2;
+  if (assetClass === 'cash' || assetClass.includes('deposit')) return 1;
+  return null;
+}
 
-<p>
-  Previously, at <strong>Fideuram – Intesa Sanpaolo Private Banking</strong>, I supported a Private Banker managing a €50M+ HNW client book, working on portfolio reviews, asset allocation, rebalancing proposals and suitability documentation. Earlier experience in tax and accounting also gave me exposure to the fiscal and structural side of private and entrepreneurial wealth.
-</p>
+function liquidityPanel(c, rows) {
+  const tiers = [1,2,3].map(number => ({ number, rows:rows.filter(row=>liquidityTier(row)===number) }));
+  const tierTotal = tier => tier.rows.reduce((sum,row)=>sum+row.marketValue,0);
+  const total = tiers.reduce((sum,tier)=>sum+tierTotal(tier),0);
+  const annualNeed = optionalNumber(c.annual_spending ?? c.annualLiquidityNeed ?? c.annual_liquidity_need);
+  const targetMonths = optionalNumber(c.liquidity_target_months ?? c.liquidityTargetMonths) || 36;
+  const explicitMinimum = optionalNumber(c.liquidity_minimum_36m ?? c.liquidityMinimum36m);
+  const minimum = explicitMinimum ?? (annualNeed === null ? null : annualNeed * targetMonths / 12);
+  const coverage = minimum && total ? total / minimum : null;
+  const surplus = minimum === null ? null : total - minimum;
+  const tierMeta = {
+    1:['Operational cash','Immediately accessible cash and deposits · 0–12 months'],
+    2:['Immediate liquidity','XEON · EUR overnight-rate exposure · 12–24 months'],
+    3:['Strategic liquidity','CSBGE3 · EUR government bonds 1–3yr · 24–36+ months']
+  };
+  const summaryValue = (value, suffix='') => value === null ? '—' : `${suffix}${money(value,c.currency,true)}`;
+  return `<section class="panel liquidity-panel">${sectionTitle('LIQUIDITY FRAMEWORK','Cash & liquidity reserve',total ? `${money(total,c.currency,true)} across three liquidity tiers` : 'Structure ready for client data')}<p class="panel-note before-table">Liquidity is classified by time horizon and accessibility. Tier 1 bank interest is modelled gross before tax; Tier 2 and Tier 3 are shown again in the investment table for transparency but are excluded from the €5m financial-portfolio total.</p><div class="liquidity-summary"><div><span>Total liquidity reserve</span><strong>${summaryValue(total)}</strong></div><div><span>12-month requirement</span><strong>${summaryValue(annualNeed)}</strong></div><div><span>Minimum reserve</span><strong>${minimum === null ? '—' : money(minimum,c.currency,true)}</strong><span>${targetMonths}-month requirement</span></div><div><span>Surplus liquidity buffer</span><strong>${surplus === null ? '—' : `${surplus >= 0 ? '+' : '−'}${money(Math.abs(surplus),c.currency,true)}`}</strong></div><div><span>36-month coverage</span><strong>${coverage === null ? '—' : `${(coverage*100).toFixed(1)}%`}</strong><span>${coverage === null ? 'Requirement not yet set' : `${coverage.toFixed(2)}x minimum`}</span></div></div><div class="tier-grid">${tiers.map(tier=>{const [title,description]=tierMeta[tier.number];const tierValue=tierTotal(tier);return `<article class="tier-card"><div class="tier-heading"><h3>Tier ${tier.number} · ${e(title)}</h3><strong>${tier.rows.length ? money(tierValue,c.currency,true) : '—'}</strong></div><p>${e(description)}</p>${tier.rows.length ? `<ul class="tier-list">${tier.rows.map(row=>{const rate=optionalNumber(row.annualRate);const earned=optionalNumber(row.interestEarned);const ytm=optionalNumber(row.currentYTM);const metric=earned!==null?`Gross interest ${money(earned,c.currency)} · ${percent(row.performanceSincePurchase)}`:ytm!==null?`YTM ${percent(ytm)} · duration ${Number(row.duration).toFixed(2)}y`:rate!==null&&rate>0?`Gross rate ${percent(rate)}`:'';return `<li><span>${e(row.asset)}<small>${e(row.ticker || row.currency)}</small>${metric?`<small class="tier-metric">${e(metric)}</small>`:''}</span><strong>${money(row.marketValue,c.currency)}</strong></li>`;}).join('')}</ul>` : '<div class="empty"><span aria-hidden="true">—</span><p>Not yet configured.</p></div>'}</article>`;}).join('')}</div></section>`;
+}
 
-<p>
-  My profile is complemented by investment and leadership experience through <strong>QUMMIF</strong>, where I developed and defended a buy-side equity thesis, and the <strong>United Italian Societies</strong>, where I lead sponsorship and institutional partnerships. My long-term focus is on <strong>wealth management, private client strategy and cross-border advisory</strong>.
-</p>
-      <div class="divider"></div>
-      <div class="skills-grid">
-        <div class="skill-tag">Wealth Structuring</div>
-        <div class="skill-tag">Equity Research &amp; Valuation</div>
-        <div class="skill-tag">Cross-Border Planning</div>
-        <div class="skill-tag">Corporate Finance &amp; Accounting</div>
-        <div class="skill-tag">Trust &amp; Estate Planning</div>
-        <div class="skill-tag">Portfolio &amp; Asset Allocation</div>
-        <div class="skill-tag">Client Reporting &amp; Suitability</div>
-        <div class="skill-tag">AI Workflow Automation</div>
-      </div>
-    </div>
-  </div>
-</section>
+function positionGroup(row) {
+  const value = String(row.assetClass || 'Other');
+  if (/portfolio liquidity/i.test(value)) return 'Opportunity Reserve';
+  if (/cash|liquid|money market/i.test(value)) return 'Liquidity';
+  if (/equit|stock/i.test(value)) return 'Equities';
+  if (/fixed|bond|credit/i.test(value)) return 'Fixed Income';
+  return value;
+}
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-tag">Experience</div>
-  <h2>Experience &amp; <em>Projects</em></h2>
-  <div class="exp-list">
+const e = escapeHTML;
+async function loadData() {
+  const url = new URL('./data/portfolio.json', window.location.href.split('#')[0]);
+  url.searchParams.set('v', Date.now().toString());
+  const response = await fetch(url, { cache: 'no-store' });
+  if (!response.ok) throw new Error(`Portfolio data unavailable (${response.status})`);
+  const payload = await response.json();
+  return { data: validateData(payload), source: `Updated ${payload._meta?.generatedAt || 'recently'}` };
+}
 
-    <div class="exp-subsection">
-      <div class="exp-subtitle">Experience</div>
 
-      <div class="exp-item reveal">
-        <div class="exp-date">Jun 2026 – Present</div>
-        <div>
-          <div class="exp-role">Wealth Management Intern Analyst</div>
-          <div class="exp-company">Banor Capital · London</div>
-          <div class="exp-desc">
-            Assist across private client, institutional and trust portfolios, supporting portfolio monitoring, rebalancing analysis, client review preparation and investment reporting. Built AI and automation tools for wealth management workflows, including risk reporting, fund-manager meeting notes and private client onboarding support.
-          </div>
-          <div class="exp-tags">
-            <span class="exp-tag">Private Client</span>
-            <span class="exp-tag">Portfolio Monitoring</span>
-            <span class="exp-tag">Client Reporting</span>
-            <span class="exp-tag">AI Workflow Automation</span>
-          </div>
-        </div>
-      </div>
+const main = document.querySelector('#main');
+const tabs = [['overview','Overview'],['investments','Investments'],['alternatives','Alternatives'],['planning','Wealth Planning'],['research','Research & Recommendations']];
+const routes = [...tabs,['tax','Tax & Cross-Border']];
+let dataset, source;
+document.querySelector('#year').textContent = new Date().getFullYear();
+document.querySelector('.skip-link').addEventListener('click', event => {
+  event.preventDefault();
+  main.focus();
+  main.scrollIntoView({ block: 'start' });
+});
 
-      <div class="exp-item reveal">
-        <div class="exp-date">Apr 2024 – Sep 2024</div>
-        <div>
-          <div class="exp-role">Private Banking Intern</div>
-          <div class="exp-company">Fideuram – Intesa Sanpaolo Private Banking · Verona</div>
-          <div class="exp-desc">
-            Supported a Private Banker in the day-to-day management of a €50M+ AUM book of HNW private clients and families, preparing portfolio reviews, rebalancing proposals, advisory materials and MiFID II suitability documentation. Gained exposure to asset allocation, tax-aware advisory and wealth protection structures including fiduciary mandates and trusts.
-          </div>
-          <div class="exp-tags">
-            <span class="exp-tag">HNW Advisory</span>
-            <span class="exp-tag">Asset Allocation</span>
-            <span class="exp-tag">Wealth Protection</span>
-            <span class="exp-tag">Client Review</span>
-          </div>
-        </div>
-      </div>
+function home() {
+  const cases = dataset.clients;
+  return `<section class="hero hero-simplified"><div class="hero-top"><p class="eyebrow">A PRIVATE WEALTH CASE COLLECTION</p><span class="edition">EDUCATIONAL PORTFOLIO / 01</span></div><div class="hero-body"><div class="hero-description"><span class="fine-line" aria-hidden="true"></span><p>A collection of hypothetical private-client cases combining investment portfolio construction, alternative investments, cross-border planning and intergenerational wealth strategy.</p><a class="text-link" href="#/client/rossi-family">Open the Rossi Family case <span aria-hidden="true">↗</span></a></div></div></section>
+  <section class="directory" aria-labelledby="directory-title"><div class="section-heading"><div><p class="eyebrow">THE CASE COLLECTION</p><h2 id="directory-title">Client Cases</h2></div><span class="section-aside">${cases.length} client case${cases.length===1?'':'s'} <span class="source-pill">${e(source)}</span></span></div><div class="case-grid">${cases.length ? cases.map(caseCard).join('') : empty('No client cases have been published yet.')}</div></section><div class="collection-note"><span class="note-symbol" aria-hidden="true">i</span><p>Every profile is fictional. Figures, holdings and proposed strategies are illustrative, not live market data or personalised recommendations.</p></div>`;
+}
 
-      <div class="exp-item reveal">
-        <div class="exp-date">Apr 2023 – Jun 2023</div>
-        <div>
-          <div class="exp-role">Tax &amp; Accounting Intern</div>
-          <div class="exp-company">Studio Commercialista Andrea Marzolo · Verona</div>
-          <div class="exp-desc">
-            Assisted with financial statement preparation and tax compliance filings for family-owned SMEs, working with private business accounts, corporate documentation and statutory deadlines. Built a practical foundation in accounting, tax and the fiscal dimension of private and entrepreneurial wealth.
-          </div>
-          <div class="exp-tags">
-            <span class="exp-tag">Tax Compliance</span>
-            <span class="exp-tag">Financial Statements</span>
-            <span class="exp-tag">Private Business</span>
-            <span class="exp-tag">Corporate Documentation</span>
-          </div>
-        </div>
-      </div>
-    </div>
+function overview(c, related) {
+  const publicMarkets = optionalNumber(c.public_markets_target) ?? optionalNumber(dataset._meta?.capitalAvailable) ?? c.investable_assets / 2;
+  const alternatives = optionalNumber(c.alternatives_target) ?? Math.max(0,c.investable_assets-publicMarkets);
+  const directRealEstate = optionalNumber(c.direct_real_estate) ?? (c.id==='rossi-family' ? 4661000 : 0);
+  const planningLiquidity = optionalNumber(c.planning_liquidity) ?? c.cash_value;
+  const wealthPlanning = optionalNumber(c.wealth_planning_capital) ?? Math.max(0,c.net_worth-c.cash_value-directRealEstate-publicMarkets-alternatives);
+  const wealthArchitecture = [
+    {label:'Liquidity reserve',amount:planningLiquidity},
+    {label:'Net direct real estate',amount:directRealEstate},
+    {label:'Public markets · investable',amount:publicMarkets},
+    {label:'Alternatives & private markets · investable',amount:alternatives},
+    {label:'Capital earmarked for wealth planning',amount:wealthPlanning}
+  ].filter(item=>item.amount>0).map(item=>({label:item.label,value:item.amount/c.net_worth*100}));
+  const modelReturn = optionalNumber(c.model_return_since_entry);
+  const liquidityShare = c.net_worth ? planningLiquidity/c.net_worth*100 : 0;
+  const liquidityMinimum = optionalNumber(c.liquidity_minimum_36m);
+  const liquidityCoverage = liquidityMinimum ? planningLiquidity/liquidityMinimum*100 : null;
+  return `<div class="metric-grid"><div><span>Net Worth</span><strong>${money(c.net_worth,c.currency,true)}</strong></div><div><span>Investable Assets</span><strong>${money(c.investable_assets,c.currency,true)}</strong><small>${money(publicMarkets,c.currency,true)} public markets · ${money(alternatives,c.currency,true)} alternatives</small></div><div><span>Liquidity Reserve</span><strong>${money(planningLiquidity,c.currency,true)}</strong><small>${percent(liquidityShare)} of net worth${liquidityCoverage===null?'':` · ${liquidityCoverage.toFixed(1)}% of 36-month requirement`}</small></div><div><span>Public Portfolio Return</span><strong>${modelReturn === null ? '—' : `${modelReturn > 0 ? '+' : ''}${modelReturn.toFixed(1)}%`}</strong><small>Model return since entry · public markets only</small></div></div><div class="overview-grid"><section class="panel">${sectionTitle('TOTAL WEALTH','Total wealth architecture','Consolidated family balance sheet')}${donut(wealthArchitecture,money(c.netWorth,c.currency,true),'NET WORTH')}<p class="panel-note">Public markets and alternatives together form the ${money(c.investable_assets,c.currency,true)} investable allocation. Liquidity, direct real estate and capital earmarked for wealth planning are shown separately.</p></section><section class="panel objectives">${sectionTitle('THE MANDATE','Key objectives')}<ol>${list(c.objectives).map(item=>`<li>${e(item)}</li>`).join('')}</ol><div class="liquidity"><p class="eyebrow">LIQUIDITY REQUIREMENT</p><p>${e(c.liquidity)}</p></div></section></div><section class="panel priorities">${sectionTitle('LOOKING AHEAD','Key planning priorities')}<div class="priority-grid">${list(c.priorities).map((p,i)=>`<div><span>${String(i+1).padStart(2,'0')}</span><h3>${e(p)}</h3></div>`).join('')}</div></section>`;
+}
 
-    <div class="exp-subsection">
-      <div class="exp-subtitle">Projects</div>
+function investments(c, related) {
+  const rows = related.positions;
+  const investedValue = rows.reduce((sum,r)=>sum+r.marketValue,0);
+  const portfolioCash = optionalNumber(dataset._meta?.portfolioCash) || 0;
+  const publicTotal = optionalNumber(dataset._meta?.publicCurrentValue) || investedValue + portfolioCash;
+  const denominator = publicTotal || 1;
+  const initialCapital = optionalNumber(dataset._meta?.capitalAvailable) || 5000000;
+  const openCost = rows.reduce((sum,r)=>sum+(optionalNumber(r.initialCost)||0),0);
+  const totalPL = optionalNumber(dataset._meta?.publicPL) ?? publicTotal-initialCapital;
+  const realizedPL = optionalNumber(dataset._meta?.realizedPL) || 0;
+  const unrealizedPL = optionalNumber(dataset._meta?.unrealizedPL) ?? rows.reduce((sum,r)=>sum+(optionalNumber(r.totalPL)||0),0);
+  const modelReturn = initialCapital ? totalPL/initialCapital*100 : null;
+  const valuationDate = dataset._meta?.valuationDate || c.asOf;
+  const analyticsRows = portfolioCash > 0 ? [...rows,{marketValue:portfolioCash,assetClass:'Portfolio Cash',economicCurrency:'EUR',sector:'Residual cash'}] : rows;
+  const allocation = exposure(analyticsRows.map(r=>({...r,assetClass:positionGroup(r)})), 'assetClass', denominator);
+  const geography = lookThroughExposure(rows);
+  const equityTotal = rows.filter(r=>positionGroup(r)==='Equities').reduce((sum,r)=>sum+r.marketValue,0);
+  const usaEquity = geography.find(item=>item.label==='USA')?.value ?? null;
+  const usaPortfolio = usaEquity === null ? null : usaEquity/100*equityTotal/denominator*100;
+  const groupOrder = ['Equities','Fixed Income','Gold','Digital Assets','Tactical','Opportunity Reserve','Commodities'];
+  const groups = [...new Set(rows.map(positionGroup))].sort((a,b)=>{
+    const ai = groupOrder.indexOf(a), bi = groupOrder.indexOf(b);
+    return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi) || a.localeCompare(b);
+  });
+  const reserveRows = related.liquidity.filter(row=>[2,3].includes(liquidityTier(row)));
+  const reserveTotal = related.liquidity.reduce((sum,row)=>sum+row.marketValue,0) || 1;
+  const reserveInvested = reserveRows.reduce((sum,row)=>sum+row.marketValue,0);
+  const liquidityTableRows = reserveRows.length ? `<tr class="position-group"><th colspan="7" scope="rowgroup">Liquidity <small>Tier 2 &amp; Tier 3 · outside financial portfolio</small></th><th class="group-total" colspan="4">${money(reserveInvested,c.currency)} · ${percent(reserveInvested/reserveTotal*100)} of reserve</th></tr>${reserveRows.map(r=>{const quantity=optionalNumber(r.quantity);const facts=[optionalNumber(r.ongoingCost)===null?null:`Ongoing cost ${percent(r.ongoingCost)}`,optionalNumber(r.currentYTM)===null?null:`YTM ${percent(r.currentYTM)}`,optionalNumber(r.duration)===null?null:`Duration ${Number(r.duration).toFixed(2)}y`,r.horizon].filter(Boolean);const priceDate=String(r.priceTimestamp||valuationDate).slice(0,10);return `<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker)}</small><div class="position-facts">${facts.map(f=>`<span>${e(f)}</span>`).join('')}</div><details class="position-detail"><summary>Liquidity role</summary><p>${e(r.thesis)}</p></details></td><td>${e(dateLabel(r.purchaseDate))}</td><td class="numeric">${quantity===null?'—':new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}<small>Model units</small></td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${priceLabel(r.price,r.priceCurrency||r.currency)}<small>${e(dateLabel(priceDate))}</small></td><td class="numeric">${money(r.marketValue,c.currency)}</td><td>${e(r.currency)}</td><td class="numeric">${percent(r.marketValue/reserveTotal*100)}<small>of reserve</small></td><td class="numeric">${performance(r.performance1M)}</td><td class="numeric">${performance(r.performanceYTD)}</td><td class="numeric">${performance(r.performanceSincePurchase)}</td></tr>`;}).join('')}` : '';
+  const tableRows = liquidityTableRows + groups.map(group=>{
+    const members = rows.filter(row=>positionGroup(row)===group);
+    const subtotal = members.reduce((sum,row)=>sum+row.marketValue,0);
+    return `<tr class="position-group"><th colspan="7" scope="rowgroup">${e(group)}</th><th class="group-total" colspan="4">${money(subtotal,c.currency)} · ${percent(subtotal/denominator*100)}</th></tr>${members.map(r=>{const quantity=optionalNumber(r.quantity);const oneMonth=r.performance1M ?? r.performance_1m ?? r.return_1m;const ytd=r.performanceYTD ?? r.performance_ytd ?? r.return_ytd;const since=r.performanceSincePurchase ?? r.performance_since_purchase ?? r.total_return;const directBond=optionalNumber(r.coupon)!==null;const facts=directBond?[`Coupon ${percent(r.coupon)}`,`Maturity ${dateLabel(r.maturity)}`,optionalNumber(r.currentYTM)===null?'YTM unavailable':`YTM ${percent(r.currentYTM)}`,optionalNumber(r.duration)===null?'Duration unavailable':`Duration ${Number(r.duration).toFixed(2)}y`]:[optionalNumber(r.ongoingCost)===null?null:`Ongoing cost ${percent(r.ongoingCost)}`,optionalNumber(r.otherOngoingCost)===null?null:`Additional cost ${percent(r.otherOngoingCost)}`,r.incomeTreatment].filter(Boolean);const priceDate=String(r.priceTimestamp||valuationDate).slice(0,10);return `<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker || r.isin)}</small><div class="position-facts">${facts.map(f=>`<span>${e(f)}</span>`).join('')}</div>${r.thesis ? `<details class="position-detail"><summary>Investment rationale</summary><p>${e(r.thesis)}</p></details>` : ''}</td><td>${e(dateLabel(r.purchaseDate))}</td><td class="numeric">${quantity === null ? '—' : new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}<small>${quantityLabel(r)}</small></td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency,directBond)}</td><td class="numeric">${priceLabel(r.price,r.priceCurrency||r.currency,directBond)}<small>${e(dateLabel(priceDate))}</small></td><td class="numeric">${money(r.marketValue,c.currency)}</td><td>${e(r.currency)}</td><td class="numeric">${percent(r.marketValue/denominator*100)}</td><td class="numeric">${performance(oneMonth)}</td><td class="numeric">${performance(ytd)}</td><td class="numeric">${performance(since)}</td></tr>`;}).join('')}`;
+  }).join('');
+  const analytics = `<div class="chart-grid">${chartPanel(c.id,'asset','Current asset allocation',allocation)}${chartPanel(c.id,'geography','Equity geography · look-through',geography)}${chartPanel(c.id,'currency','Economic currency exposure',exposure(analyticsRows,'economicCurrency',denominator))}${chartPanel(c.id,'sector','Strategy exposure',exposure(analyticsRows,'sector',denominator))}</div>`;
+  const summary = `<div class="portfolio-summary"><div><span>Starting capital</span><strong>${money(initialCapital,c.currency)}</strong></div><div><span>Current NAV</span><strong>${money(publicTotal,c.currency)}</strong></div><div><span>Total model P/L</span><strong>${totalPL>=0?'+':''}${money(totalPL,c.currency)}</strong></div><div><span>Return since inception</span><strong>${modelReturn===null?'—':`${modelReturn>=0?'+':''}${percent(modelReturn)}`}</strong></div><div><span>Realised P/L</span><strong>${realizedPL>=0?'+':''}${money(realizedPL,c.currency)}</strong></div><div><span>Portfolio cash</span><strong>${money(portfolioCash,c.currency)}</strong></div></div>`;
+  const closedRows = related.closedPositions || [];
+  const transactionHistory = closedRows.length ? `<div class="transaction-history"><h3>Closed positions &amp; realised performance</h3><p>Realised proceeds remain inside the model portfolio. The Brent disposal funded the WQTM purchase, so the gain is preserved in portfolio NAV without being counted twice.</p><div class="table-scroll" role="region" aria-label="Closed portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Bought</th><th scope="col">Sold</th><th scope="col" class="numeric">Units</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Sale price</th><th scope="col" class="numeric">Cost basis</th><th scope="col" class="numeric">Sale proceeds</th><th scope="col" class="numeric">Realised P/L</th><th scope="col" class="numeric">Return</th></tr></thead><tbody>${closedRows.map(r=>`<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker || r.isin)}</small><div class="position-facts"><span>${e(r.exitReason || r.status)}</span></div></td><td>${e(dateLabel(r.purchaseDate))}</td><td>${e(dateLabel(r.saleDate))}</td><td class="numeric">${new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(r.quantity)}</td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${priceLabel(r.salePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${money(r.initialCost,c.currency)}</td><td class="numeric">${money(r.saleProceeds,c.currency)}</td><td class="numeric">${r.realizedPL>=0?'+':''}${money(r.realizedPL,c.currency)}</td><td class="numeric">${performance(r.realizedReturn)}</td></tr>`).join('')}</tbody></table></div></div>` : '';
+  const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`Prices as of ${dateLabel(valuationDate)}`)}${summary}<p class="panel-note before-table">The liquidity reserve appears first for visibility: XEON and CSBGE3 total ${money(reserveInvested,c.currency)} and sit outside the €5m financial portfolio. Exchange-traded prices, FX and 1M/YTD performance are refreshed after market close by the automated feed. Direct sovereign bonds remain manual clean-price instruments until a reliable institutional bond feed is connected. Open-position cost basis is ${money(openCost,c.currency)} because realised Brent proceeds were reinvested into WQTM; total performance is calculated from the original ${money(initialCapital,c.currency)} starting capital.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Liquidity and financial portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Model entry date</th><th scope="col" class="numeric">Units / nominal</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Market value (${e(c.currency)})</th><th scope="col">Trading currency</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since entry</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><th scope="row" colspan="5">Financial portfolio NAV <small>includes ${money(portfolioCash,c.currency)} residual cash; excludes family liquidity reserve</small></th><td class="numeric">${money(publicTotal,c.currency)}</td><td></td><td class="numeric">100%</td><td colspan="3"></td></tr></tfoot></table></div>` : empty('No financial-market positions published.')}${transactionHistory}</section>`;
+  const geographyNote = usaEquity === null ? '' : ` USA exposure is approximately ${percent(usaPortfolio)} of the financial portfolio and ${percent(usaEquity)} of the equity sleeve.`;
+  return `${liquidityPanel(c,related.liquidity)}${analytics}<p class="method-note">The geographic chart applies holdings/index look-through to the equity sleeve and uses equity as its denominator.${geographyNote} Residual countries are grouped where complete provider detail is unavailable. Other analytics cover the current financial portfolio; private-market and real assets are excluded.</p>${portfolio}`;
+}
 
-      <div class="exp-item reveal">
-        <div class="exp-date">Feb 2025 – Jan 2026</div>
-        <div>
-          <div class="exp-role">Equity Analyst — Top 5 Ranked</div>
-          <div class="exp-company">QUMMIF – Queen Mary University Investment Fund · London</div>
-          <div class="exp-desc">
-            Ranked Top 5 among 200+ candidates in Queen Mary’s student-managed investment fund. Authored and defended a buy-side equity thesis on Cerillion PLC using DCF and relative valuation, contributing to capital allocation decisions within the fund’s £40,000 live portfolio.
-          </div>
-          <div class="exp-tags">
-            <span class="exp-tag">Equity Research</span>
-            <span class="exp-tag">DCF Valuation</span>
-            <span class="exp-tag">Investment Pitching</span>
-            <span class="exp-tag">Live Portfolio</span>
-          </div>
-        </div>
-      </div>
+function alternatives(c, related) {
+  const categories = ['Real estate','Private equity','Private credit','Infrastructure','Other alternatives'];
+  const extra = related.alternatives.map(r=>r.category).filter(x=>!categories.includes(x));
+  return `<div class="section-intro"><p class="eyebrow">BEYOND PUBLIC MARKETS</p><h2>Alternative investments</h2><p>Longer-term capital, considered alongside liquidity and concentration.</p></div><div class="alternative-grid">${[...new Set([...categories,...extra])].map((category,index)=>{const rows = related.alternatives.filter(r=>r.category===category);return `<section class="panel alternative-card"><div class="alternative-heading"><span class="case-number">${String(index+1).padStart(2,'0')}</span><h3>${e(category)}</h3></div>${rows.length ? rows.map(r=>`<div class="alternative-holding"><div class="holding-heading"><h4>${e(r.name)}</h4>${badge(r.status)}</div><strong class="alternative-value">${money(r.marketValue,c.currency,true)} <small>${percent(r.marketValue/c.investableAssets*100)} of portfolio</small></strong><p>${e(r.thesis)}</p><dl><div><dt>Liquidity</dt><dd>${e(r.liquidity)}</dd></div><div><dt>Geography / denomination</dt><dd>${e(r.geography)} / ${e(r.currency)}</dd></div></dl></div>`).join('') : empty('No allocation in this case.')}</section>`;}).join('')}</div><p class="method-note">All vehicles are fictional. Values are illustrative and expressed in ${e(c.currency)}. Capital calls, valuation uncertainty, leverage and limited exit options require assessment before any real-world allocation.</p>`;
+}
 
-      <div class="exp-item reveal">
-        <div class="exp-date">Sep 2025 – Present</div>
-        <div>
-          <div class="exp-role">Head of Sponsorships</div>
-          <div class="exp-company">United Italian Societies (UIS) · London</div>
-          <div class="exp-desc">
-            Manage sponsorship and partnership relationships with financial institutions and private companies for a student network of 60+ societies and approximately 11,000 students. Support funding strategy, external engagement, budget planning and institutional partnership development.
-          </div>
-          <div class="exp-tags">
-            <span class="exp-tag">Partnership Strategy</span>
-            <span class="exp-tag">Business Development</span>
-            <span class="exp-tag">Stakeholder Management</span>
-            <span class="exp-tag">Budget Planning</span>
-          </div>
-        </div>
-      </div>
+function taxStatus(value, labels) {
+  const key = String(value || 'tbd').toLowerCase();
+  const label = labels[key] || (key === 'mixed' ? 'Confirmed + assumptions' : key === 'not-taxable-income' ? 'Not annual taxable income' : value);
+  return `<span class="tax-status ${e(key)}">${e(label)}</span>`;
+}
 
-      <div class="exp-item reveal">
-        <div class="exp-date">Jul 2025</div>
-        <div>
-          <div class="exp-role">UBS Banking Academy — Top 10 Globally</div>
-          <div class="exp-company">AmplifyME · London</div>
-          <div class="exp-desc">
-            Ranked Top 10 globally in the UBS Banking Academy private markets programme, completing a finance simulation focused on investment decision-making, market judgment and client-style analytical communication.
-          </div>
-          <div class="exp-tags">
-            <span class="exp-tag">Private Markets</span>
-            <span class="exp-tag">Banking Simulation</span>
-            <span class="exp-tag">Investment Analysis</span>
-            <span class="exp-tag">Commercial Judgment</span>
-          </div>
-        </div>
-      </div>
-    </div>
+function taxAndCrossBorder(c) {
+  const t = dataset.taxCrossBorder;
+  if (!t || t.clientId !== c.id) return empty('The tax and cross-border model has not yet been published for this case.');
+  const labels = t.statusLegend || {};
+  const sourceIndex = new Map(t.sources.map(item=>[item.id,item]));
+  const byScenario = id => t.scenarios.find(item=>item.id===id);
+  const ordinary = byScenario('ordinary');
+  const impatriati = byScenario('impatriati');
+  const art24bis = byScenario('art24bis');
+  const signedMoney = value => `${Number(value) > 0 ? '+' : Number(value) < 0 ? '−' : ''}${money(Math.abs(Number(value)),t.currency)}`;
+  const valueOrTbd = item => item.amount === null || item.amount === undefined
+    ? (item.amountStatus === 'not-taxable-income' ? 'Not annual income' : 'TBD')
+    : money(item.amount,t.currency);
+  const legalLinks = ids => `<div class="tax-source-links">${ids.map(id=>{const source=sourceIndex.get(id);return source ? `<a href="#tax-source-${e(id)}">${e(source.title)}</a>` : '';}).join('')}</div>`;
 
-  </div>
-</section>
- <!-- LANGUAGES -->
-<section class="languages-section">
-  <div class="section-tag">Languages</div>
+  const scenarioCards = t.scenarios.map(s=>`<article class="tax-scenario ${s.recommended?'recommended':''}">${s.recommended?'<span class="recommended-label">CURRENT LEAD</span>':''}<p class="eyebrow">${e(s.shortName)}</p><h3>${e(s.name)}</h3><p>${e(s.description)}</p><div class="tax-scenario-metric"><strong>${money(s.annualTax,t.currency)}</strong><span>${percent(s.effectiveRate)} effective rate</span></div></article>`).join('');
 
-  <div class="languages-inline">
-    <span><strong>Italian</strong> · Native</span>
-    <span><strong>English</strong> · Fluent</span>
-    <span><strong>French</strong> · Basic</span>
-  </div>
-</section> 
+  const featureCards = t.featureCards.map(card=>`<article class="tax-feature"><span>${e(card.tag)}</span><h3>${e(card.title)}</h3><strong>${e(card.metric)}</strong><p>${e(card.text)}</p>${taxStatus(card.status,labels)}</article>`).join('');
 
-<!-- PORTFOLIO -->
-<section class="portfolio" id="portfolio">
-  <div class="section-tag">Portfolio</div>
-  <h2>Portfolio<br /><em>projects, research &amp; case studies</em></h2>
+  const incomeRows = t.incomeSources.map(item=>`<tr><td><strong>${e(item.asset)}</strong><small>${e(item.incomeType)}</small></td><td>${e(item.jurisdiction)}<small>${e(item.source)}</small></td><td class="tax-amount"><strong>${e(valueOrTbd(item))}</strong>${taxStatus(item.amountStatus,labels)}</td><td>${e(item.sourceCountryTax)}</td><td>${e(item.ordinary)}</td><td>${e(item.impatriati)}</td><td>${e(item.art24bis)}</td><td>${legalLinks(item.legalBasis)}</td></tr>`).join('');
 
-  <div class="portfolio-grid">
+  const calculationDetails = t.scenarios.map(s=>`<details ${s.recommended?'open':''}><summary><span>${e(s.name)}</span><strong>${money(s.annualTax,t.currency)}</strong></summary><div class="tax-accordion-body">${s.components.map(row=>`<div class="tax-formula"><span>${e(row.label)}<small>${e(row.formula)}</small></span><strong>${signedMoney(row.amount)}</strong></div>`).join('')}<div class="tax-formula total"><span>Modelled annual tax<small>Before professional validation and excluding all TBD income</small></span><strong>${money(s.annualTax,t.currency)}</strong></div>${s.extension?`<div class="tax-alert"><span>i</span><div><strong>Years 6–10 extension is conditional</strong><p>${e(s.extension.note)} Modelled annual tax: ${money(s.extension.annualTaxYears6to10,t.currency)}.</p></div></div>`:''}${s.carveOut?`<div class="tax-alert"><span>i</span><div><strong>${e(s.carveOut.name)} · ${money(s.carveOut.annualTax,t.currency)}</strong><p>${e(s.carveOut.note)}</p></div></div>`:''}</div></details>`).join('');
 
-<!-- VIRTUAL WEALTH -->
-<a href="wealth-platform/#/" class="portfolio-card featured active">
-  <div class="card-area">Private Wealth Platform</div>
-  <div class="card-title">Virtual Wealth</div>
-  <div class="card-desc">
-    Interactive private-client wealth management platform combining portfolio construction, liquidity planning, public markets, cross-border considerations and intergenerational wealth strategy across hypothetical client cases.
-  </div>
-  <div class="card-status status-available">
-    <span class="status-dot"></span>
-    Explore platform
-  </div>
-</a>
+  const progressiveTax = base => Math.min(base,28000)*.23 + Math.max(Math.min(base,50000)-28000,0)*.35 + Math.max(base-50000,0)*.43 + base*.02;
+  const sensitivityCell = (workIncome,foreignIncome) => {
+    const fixedInvestTax = 3146.25 + 2240.625;
+    const wealthTaxes = 20940;
+    const ukTax = 7110.3448;
+    const values = {
+      ordinary: progressiveTax(workIncome+16100+50000)+fixedInvestTax+foreignIncome*.26+wealthTaxes,
+      impatriati: progressiveTax(workIncome*.10+16100+50000)+fixedInvestTax+foreignIncome*.26+wealthTaxes,
+      art24bis: progressiveTax(workIncome+16100)+3146.25+100000+ukTax
+    };
+    const winner = Object.entries(values).sort((a,b)=>a[1]-b[1])[0];
+    const label = winner[0] === 'art24bis' ? 'Art. 24-bis' : winner[0] === 'impatriati' ? 'Impatriati' : 'Ordinary';
+    return `<td class="${e(winner[0])}"><strong>${e(label)}</strong><span>${money(winner[1],t.currency)} annual tax</span></td>`;
+  };
+  const sensitivityHead = t.sensitivity.additionalForeignInvestmentIncome.map(value=>`<th scope="col">${money(value,t.currency,true)} foreign investment income</th>`).join('');
+  const sensitivityRows = t.sensitivity.workIncome.map(work=>`<tr><th scope="row">${money(work,t.currency,true)} qualifying work income</th>${t.sensitivity.additionalForeignInvestmentIncome.map(foreign=>sensitivityCell(work,foreign)).join('')}</tr>`).join('');
 
-    <!-- CAPGEMINI -->
-    <a href="Matteo_Macchi_Capgemini_Valuation_Dissertation.pdf"
-       target="_blank"
-       class="portfolio-card active">
-      <div class="card-area">Equity Valuation</div>
-      <div class="card-title">Capgemini SE Valuation Dissertation</div>
-      <div class="card-desc">
-        MSc dissertation applying DCF, relative valuation and sensitivity analysis to estimate Capgemini SE’s intrinsic value and support an investment recommendation.
-      </div>
-      <div class="card-status status-available">
-        <span class="status-dot"></span>
-        Available
-      </div>
-    </a>
+  const legalNotes = t.sources.map(source=>`<div class="tax-legal-note" id="tax-source-${e(source.id)}"><strong>${source.url?`<a href="${e(source.url)}" target="_blank" rel="noopener">${e(source.title)} ↗</a>`:e(source.title)}</strong><small> · ${e(source.authority)}</small><p>${e(source.note)}</p></div>`).join('');
 
-    <!-- CERILLION -->
-    <a href="Matteo_Macchi_Cerillion_Equity_Research.pdf"
-       target="_blank"
-       class="portfolio-card active">
-      <div class="card-area">Equity Research</div>
-      <div class="card-title">Cerillion PLC — Investment Thesis</div>
-      <div class="card-desc">
-        Investment thesis on Cerillion PLC, developed as part of QUMMIF live fund analysis, covering fundamental research, DCF valuation, scenario modelling, catalyst identification and key risk assessment.
-      </div>
-      <div class="card-status status-available">
-        <span class="status-dot"></span>
-        Available
-      </div>
-    </a>
+  const comparisonCards = t.scenarios.map(s=>`<article class="tax-comparison-card ${s.recommended?'recommended':''}"><h3>${e(s.shortName)}${s.recommended?' · Recommended':''}</h3><strong>${money(s.annualTax,t.currency)} / year</strong><div class="tax-comparison-stats"><div class="tax-comparison-stat"><span>Effective rate</span><strong>${percent(s.effectiveRate)}</strong></div><div class="tax-comparison-stat"><span>Saving vs ordinary</span><strong>${s.savingVsOrdinary===0?'Baseline':signedMoney(s.savingVsOrdinary)}</strong></div><div class="tax-comparison-stat"><span>5-year saving</span><strong>${s.fiveYearSaving===0?'Baseline':signedMoney(s.fiveYearSaving)}</strong></div><div class="tax-comparison-stat"><span>10-year saving</span><strong>${s.tenYearSaving===0?'Baseline':signedMoney(s.tenYearSaving)}</strong></div></div></article>`).join('');
 
-    <!-- UK-ITALY WEALTH PLANNING -->
-    <a href="Matteo_Macchi_UK_Italy_Wealth_Planning.pdf"
-       target="_blank"
-       class="portfolio-card active">
-      <div class="card-area">Cross-Border Wealth Planning</div>
-      <div class="card-title">UK–Italy Wealth Transfer &amp; Estate Planning</div>
-      <div class="card-desc">
-        Comparative private-client study on UK–Italy wealth transfer, estate planning and cross-border taxation, including trusts, succession structures, relocation analysis and Article 24-bis break-even modelling.
-      </div>
-      <div class="card-status status-available">
-        <span class="status-dot"></span>
-        Available
-      </div>
-    </a>
+  return `<div class="tax-dashboard">
+    <section><div class="tax-hero"><div class="tax-hero-copy"><p class="eyebrow">ROSSI FAMILY · CROSS-BORDER TAX MODEL</p><h2>Historical Impatriati currently produces the lowest modelled tax burden.</h2><p>The conclusion is driven by the assumed ${money(t.assumptions.italianProfessionalIncome,t.currency)} of qualifying Italian work income. It is not a blanket recommendation: eligibility and every TBD value require professional confirmation.</p></div><div class="tax-hero-result"><span>Modelled annual tax</span><strong>${money(t.headline.annualTax,t.currency)}</strong><p>${signedMoney(t.headline.annualSavingVsOrdinary)} vs ordinary taxation</p></div></div><div class="tax-kpis"><div class="tax-kpi"><span>Effective tax rate</span><strong>${percent(t.headline.effectiveRate)}</strong><small>On ${money(t.assumptions.totalModelledIncome,t.currency)} modelled income</small></div><div class="tax-kpi"><span>5-year saving</span><strong>${money(t.headline.fiveYearSaving,t.currency)}</strong><small>Years 1–5 vs ordinary</small></div><div class="tax-kpi"><span>10-year saving</span><strong>${money(t.headline.tenYearSaving,t.currency)}</strong><small>Conditional extension assumed</small></div><div class="tax-kpi"><span>Model date</span><strong>${e(dateLabel(t.asOf))}</strong><small>Illustrative · not tax advice</small></div></div></section>
+    <div class="tax-alert"><span>!</span><div><strong>Alternative regimes — never combined in this model</strong><p>The Rossi case compares Ordinary taxation, historical Impatriati and Art. 24-bis as three separate paths. Impatriati relief is not stacked with the Art. 24-bis substitute tax.</p></div></div>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">RESIDENCE HISTORY</p><h2>From the United Kingdom to Sardinia</h2></div><p>Residence history determines which historical rules are tested. The dashboard treats the move date as confirmed case data, while regime eligibility remains a professional-review point.</p></div><div class="tax-timeline">${t.residenceHistory.map(item=>`<article class="tax-time-item"><span>${e(item.period)}</span><h3>${e(item.jurisdiction)} · ${e(item.years)}</h3><p>${e(item.note)}</p>${taxStatus(item.status,labels)}</article>`).join('')}</div></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">THREE SEPARATE PATHS</p><h2>The regimes in plain language</h2></div><p>Each card shows the same income facts under a different legal framework. No regime is selected automatically.</p></div><div class="tax-scenario-grid">${scenarioCards}</div></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">SOURCE OF INCOME</p><h2>Italian and foreign income kept separate</h2></div><p>Only contractual or realised income enters the annual tax base. Market performance is tracked separately.</p></div><div class="tax-source-grid">${t.sourceTotals.map(item=>`<article class="tax-source-total"><span>${e(item.source)}</span><strong>${money(item.amount,t.currency)}</strong><p>${e(item.note)}</p></article>`).join('')}</div></section>
+    <section class="tax-income-types">${t.incomeTypeTotals.map(item=>`<div><span class="eyebrow">${e(item.type)}</span><strong>${item.amount===null?'Not included':money(item.amount,t.currency)}</strong><p>${item.status==='not-taxable-income'?'Tracked as performance, not annual taxable cash income.':item.status==='tbd'?'No realised amount supplied.':'Included in the current model.'}</p></div>`).join('')}</section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">MATERIAL ASSETS</p><h2>What matters, at a glance</h2></div><p>Five focused views explain the items most likely to be misunderstood in a cross-border case.</p></div><div class="tax-feature-grid">${featureCards}</div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">INCOME &amp; TREATMENT MAP</p><h2>Every material source, one consistent framework</h2></div><p>Scroll horizontally for the complete comparison. Legal links lead to the expandable source notes below.</p></div><div class="table-scroll" role="region" aria-label="Tax treatment by material income source. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table tax-table"><thead><tr><th>Asset / income type</th><th>Jurisdiction / source</th><th>Taxable or realised income</th><th>Source-country tax</th><th>Ordinary Italian treatment</th><th>Historical Impatriati</th><th>Art. 24-bis</th><th>Legal basis / source</th></tr></thead><tbody>${incomeRows}</tbody></table></div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">TRANSPARENT CALCULATION</p><h2>Open a regime to inspect the bridge</h2></div><p>Negative lines are tax credits. The UK rental calculation assumes Personal Allowance eligibility and the modelled FX rate.</p></div><div class="tax-accordion">${calculationDetails}</div></section>
+    <section class="panel" id="tax-legal-notes"><div class="tax-section-head"><div><p class="eyebrow">LEGAL &amp; TAX SOURCES</p><h2>Authoritative notes, kept out of the main view</h2></div><p>Expand only when the legal basis is needed. Sources support the model; they do not replace client-specific advice.</p></div><div class="tax-accordion"><details><summary>Italian regimes, IRPEF and foreign-asset taxes</summary><div class="tax-accordion-body">${legalNotes}</div></details></div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">SENSITIVITY</p><h2>The winner changes with the income mix</h2></div><p>${e(t.sensitivity.note)}</p></div><div class="tax-sensitivity-scroll"><table class="tax-sensitivity"><thead><tr><th>Qualifying Italian work income</th>${sensitivityHead}</tr></thead><tbody>${sensitivityRows}</tbody></table></div><p class="panel-note">At the current ${money(t.assumptions.italianProfessionalIncome,t.currency)} work-income assumption and no additional foreign investment income, Impatriati wins. As covered foreign investment income rises, the fixed Art. 24-bis charge can become more efficient. Conversely, higher qualifying Italian work income generally strengthens Impatriati.</p></section>
+    <section class="tax-comparison"><div class="tax-section-head"><div><p class="eyebrow">FINAL COMPARISON</p><h2>Decision view under current assumptions</h2></div><p>All savings are measured against Ordinary Italian taxation. Negative savings mean an additional tax cost.</p></div><div class="tax-comparison-grid">${comparisonCards}</div><div class="tax-rationale"><div><h3>Why Impatriati wins today</h3><p>The current model contains substantial qualifying Italian work income and comparatively modest foreign investment income. The historical Sardinia relief sharply reduces the progressive-tax base, while the €100k Art. 24-bis fixed charge is too large for the present foreign-income mix.</p></div><div><h3>What could change the answer</h3><p>The recommendation can move to Art. 24-bis if covered foreign investment income increases materially, or if Impatriati eligibility/extension fails. Alternatives income, future trust assets, ISA realisations, source-country withholding and the final Italian/foreign income mix must be updated before implementation.</p></div></div></section>
+    <p class="tax-disclaimer">Illustrative educational case only. Confirmed case facts, assumptions and TBD values are labelled separately. The model is not a tax return, legal opinion or personalised advice; tax residence, sourcing, treaty relief, regime eligibility, investment classification and foreign-asset taxes require review by qualified Italian and UK advisers.</p>
+  </div>`;
+}
 
-    <!-- FINANCIAL MODEL -->
-    <div class="portfolio-card">
-      <div class="card-area">Investment Banking</div>
-      <div class="card-title">Financial Model — DCF &amp; LBO</div>
-      <div class="card-desc">
-        Integrated Excel model covering discounted cash flow analysis and leveraged buyout structure for a target company. Includes sensitivity tables and returns analysis.
-      </div>
-      <div class="card-status status-soon">
-        <span class="status-dot"></span>
-        In preparation
-      </div>
-    </div>
+function planningPillarNav(active='') {
+  const rows=dataset.wealthPlanningPillars || [];
+  return `<nav class="planning-pillar-nav" aria-label="Wealth planning pillars">${rows.map(row=>row.route?`<a href="${e(row.route)}" class="${active===row.id?'active':''}"><span>Pillar ${row.number} · ${e(row.status)}</span><strong>${e(row.title)}</strong><small>${e(row.description)}</small></a>`:`<article><span>Pillar ${row.number} · ${e(row.status)}</span><strong>${e(row.title)}</strong><small>${e(row.description)}</small></article>`).join('')}</nav>`;
+}
 
-    <!-- INTERGENERATIONAL WEALTH PLANNING -->
-    <div class="portfolio-card">
-      <div class="card-area">Wealth Structuring</div>
-      <div class="card-title">Intergenerational Wealth Planning</div>
-      <div class="card-desc">
-        Comprehensive memo on succession planning, family governance structures, and cross-border estate considerations for a multi-generational UHNW family.
-      </div>
-      <div class="card-status status-soon">
-        <span class="status-dot"></span>
-        In preparation
-      </div>
-    </div>
+function taxAndCrossBorderV2(c) {
+  const t=dataset.taxCrossBorder;
+  const engine=window.VirtualWealthTaxEngine;
+  if(!t || t.clientId!==c.id || !engine) return empty('The reconciled tax model is not available.');
+  const result=engine.calculate(t);
+  const labels=t.statusLegend;
+  const selectedId=t.taxResults.selectedRegime;
+  const recurringSelected=result.recurring[selectedId].total;
+  const currentSelected=result.current2026[selectedId].total;
+  const ordinary=result.recurring.ordinary.total;
+  const annualSaving=ordinary-recurringSelected;
+  const brent=t.realisedTaxEvents.find(row=>row.id==='brent-2026');
+  const bitcoin=t.realisedTaxEvents.find(row=>row.id==='bitcoin-2026');
+  const brentTax=brent.amount*brent.modelTaxRate;
+  const sourceIndex=new Map(t.legalSources.map(row=>[row.id,row]));
+  const status=value=>taxStatus(value,labels);
+  const basisFor=id=>{
+    const map={
+      'italian-work':['impatriati-sardinia','non-cumulability'],
+      'verona-rent':['art24bis'],
+      'tier1-interest':['financial-gains'],
+      'btp-coupon':['sovereign'],
+      'london-rent':['uk-rent','ftc'],
+      'isa-realised':['uk-isa'],
+      'foreign-sovereign-coupons':['sovereign'],
+      'alternatives-income':['art24bis'],
+      'future-trust-income':[],
+      'other-foreign':['art24bis']
+    };
+    return (map[id]||[]).map(key=>{const src=sourceIndex.get(key);return src?(src.url?`<a href="${e(src.url)}" target="_blank" rel="noopener">${e(src.title)} ↗</a>`:`<span>${e(src.title)}</span>`):'';}).join('');
+  };
+  const milestones=[
+    ['2010','UK residence','UK tax residence begins'],
+    ['2021','Sardinia home','Acquisition date assumed; verify deed'],
+    ['2022','Italy relocation','Regime decision at relocation'],
+    ['2026','Year 5','Current Impatriati period and Brent disposal'],
+    ['2027','Extension starts','50% work-income share if eligible'],
+    ['2031','Extension ends','Final modelled extension year']
+  ];
+  const primaryRegimes=['ordinary','impatriati-y1-5','impatriati-y6-10','art24bis-uk-included'];
+  const regimeCards=primaryRegimes.map(id=>{const regime=t.taxRegimes.find(row=>row.id===id);const tax=result.recurring[id].total;return `<article class="tax-regime-card ${id===selectedId?'selected':''}"><span class="eyebrow">${e(regime.period)}</span><h3>${e(regime.label)}</h3><p>${e(regime.summary)}</p><span class="tax-regime-total">${money(tax,t.currency)} recurring p.a.</span>${id===selectedId?'<span class="tax-status confirmed">Selected path</span>':id==='impatriati-y6-10'?status('legal'):id.startsWith('art24bis')?'<span class="tax-status tbd">2022 counterfactual</span>':''}</article>`;}).join('');
+  const categoryMeta={
+    'italian-recurring':['A · Italian-source recurring',t.incomeSources.filter(row=>row.category==='italian-recurring').reduce((s,row)=>s+row.amount,0),'Work, rent, interest and BTP coupon.'],
+    'foreign-recurring':['B · Foreign-source recurring',t.incomeSources.filter(row=>row.category==='foreign-recurring').reduce((s,row)=>s+row.amount,0),'London rent and sovereign coupons; ISA and Alternatives remain zero/TBD.'],
+    'realised':['C · Realised capital events',brent.amount,'Brent gain realised once in 2026; Bitcoin realised gain is zero.'],
+    'unrealised':['D · Unrealised / non-cash',null,'ETF, WQTM, gold and Bitcoin open-position performance is excluded from annual taxable income.']
+  };
+  const categoryCards=Object.values(categoryMeta).map(([title,amount,note])=>`<article class="tax-category"><span class="eyebrow">${e(title)}</span><h3>${amount===null?'Excluded':money(amount,t.currency)}</h3><p>${e(note)}</p></article>`).join('');
+  const incomeGroups=[
+    ['Italian-source recurring income',t.incomeSources.filter(row=>row.category==='italian-recurring')],
+    ['Foreign-source recurring income',t.incomeSources.filter(row=>row.category==='foreign-recurring')],
+    ['Excluded / Pillar 3',t.incomeSources.filter(row=>row.category==='excluded')]
+  ];
+  const incomeRows=incomeGroups.map(([group,rows])=>`<tr class="position-group"><th colspan="8">${e(group)}</th></tr>${rows.map(row=>`<tr><td><strong>${e(row.label)}</strong><small>${e(row.type)}</small></td><td>${e(row.jurisdiction)}</td><td class="numeric">${row.status==='tbd'&&row.amount===0?'TBD / €0 base case':row.status==='excluded'?'Excluded':money(row.amount,t.currency)}${status(row.status)}</td><td>${e(row.ordinary)}</td><td>${e(row.impatriati)}</td><td>${e(row.art24bis)}</td><td>${e(row.note)}</td><td class="tax-source-links">${basisFor(row.id)||'Professional review'}</td></tr>`).join('')}`).join('')
+    + `<tr class="position-group"><th colspan="8">Realised capital events</th></tr><tr><td><strong>${e(brent.label)}</strong><small>Closed 30 Sep 2026</small></td><td>Portfolio</td><td class="numeric">${money(brent.amount,t.currency)}${status(brent.status)}</td><td>26% conservative model rate</td><td>26% conservative model rate</td><td>26% pending source/perimeter review</td><td>${e(brent.note)}</td><td class="tax-source-links"><a href="${e(sourceIndex.get('financial-gains').url)}" target="_blank" rel="noopener">General financial gains ↗</a></td></tr><tr><td><strong>${e(bitcoin.label)}</strong><small>No 2026 sale</small></td><td>Portfolio</td><td class="numeric">${money(0,t.currency)}${status('confirmed')}</td><td>33% only if realised</td><td>33% only if realised</td><td>Source/perimeter review</td><td>${e(bitcoin.note)}</td><td class="tax-source-links"><a href="${e(sourceIndex.get('crypto-2026').url)}" target="_blank" rel="noopener">Italian crypto gains · 2026 ↗</a></td></tr>`
+    + `<tr class="position-group"><th colspan="8">Unrealised / non-cash performance</th></tr>${t.unrealisedItems.map(row=>`<tr><td><strong>${e(row.label)}</strong></td><td>Portfolio</td><td class="numeric">Not annual income${status(row.status)}</td><td colspan="3">Tax considered only when a relevant taxable event occurs</td><td>${e(row.note)}</td><td>Model boundary</td></tr>`).join('')}`;
+  const bridgeIds=['ordinary','impatriati-y1-5','art24bis-uk-included','art24bis-uk-carved-out'];
+  const bridgeCards=bridgeIds.map(id=>{const regime=t.taxRegimes.find(row=>row.id===id);const current=result.current2026[id];return `<article class="tax-bridge-card ${id===selectedId?'selected':''}"><h3>${e(regime.shortLabel)}</h3><div class="tax-bridge-line"><span>Recurring tax</span><strong>${money(current.recurring.total,t.currency)}</strong></div><div class="tax-bridge-line"><span>Brent one-off</span><strong>+${money(brentTax,t.currency)}</strong></div><div class="tax-bridge-line"><span>Bitcoin realised</span><strong>${money(0,t.currency)}</strong></div><div class="tax-bridge-line total"><span>2026 estimate</span><strong>${money(current.total,t.currency)}</strong></div></article>`;}).join('');
+  const detailIds=['ordinary','impatriati-y1-5','impatriati-y6-10','art24bis-uk-included','art24bis-uk-carved-out'];
+  const calculationDetails=detailIds.map(id=>{const regime=t.taxRegimes.find(row=>row.id===id);const b=result.recurring[id];const current=result.current2026[id];const lines=[['Taxable progressive base',b.taxableProgressiveBase],['IRPEF + 2% surcharge proxy',b.irpefAndSurcharge],['Financial / sovereign taxes',b.financialTaxes],['UK rental income tax',b.ukRentalTax],['Foreign tax credit',b.foreignTaxCredit],['IVIE / IVAFE estimate',b.ivieIvafe],['Art. 24-bis substitute tax',b.substituteTax]];return `<details ${id===selectedId?'open':''}><summary><span>${e(regime.label)}</span><strong>${money(b.total,t.currency)} recurring</strong></summary><div class="tax-accordion-body">${lines.map(([label,value])=>`<div class="tax-formula"><span>${e(label)}</span><strong>${value<0?'−':''}${money(Math.abs(value),t.currency)}</strong></div>`).join('')}<div class="tax-formula total"><span>Total recurring tax</span><strong>${money(b.total,t.currency)}</strong></div><div class="tax-formula"><span>2026 Brent realised-gain tax<small>Appears once; excluded from the 10-year recurring path</small></span><strong>+${money(brentTax,t.currency)}</strong></div><div class="tax-formula total"><span>2026 total estimate</span><strong>${money(current.total,t.currency)}</strong></div></div></details>`;}).join('');
+  const uk=engine.ukRentalTax(t);
+  const sovereignRows=t.sovereignCouponBuild.map(row=>`<div class="tax-formula"><span>${e(row.label)}<small>${money(row.nominal,t.currency)} nominal · ${percent(row.couponRate*100)}</small></span><strong>${money(row.annualCoupon,t.currency)}</strong></div>`).join('');
+  const assetDetails=`<details class="tax-asset-detail" open><summary><strong>London rental property</strong>${status('assumption')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Market value</span><strong>${money(t.clientTaxProfile.properties.london.marketValue,t.currency)}</strong></div><div><span>Mortgage</span><strong>None</strong></div><div><span>Net rent</span><strong>${money(50000,t.currency)} p.a.</strong></div><div><span>Modelled UK tax</span><strong>${money(uk.taxEur,t.currency)}</strong></div></div><p>€50,000 × 0.87 = ${money(uk.rentGbp,'GBP')} rent. Less ${money(t.taxAssumptions.ukPersonalAllowanceGbp,'GBP')} assumed Personal Allowance gives ${money(uk.taxableGbp,'GBP')} taxable income, modelled at 20%. Italian FTC is subject to treaty conditions and capped by the corresponding Italian tax attributable to the same income.</p></div></details>
+    <details class="tax-asset-detail"><summary><strong>Legacy UK Stocks &amp; Shares ISA</strong>${status('tbd')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Value</span><strong>${money(t.clientTaxProfile.legacyAssets.isaValue,t.currency)}</strong></div><div><span>Base-case realised gain</span><strong>${money(0,t.currency)}</strong></div></div><p>Established while Rossi was UK resident and retained without new contributions. UK ISA relief does not automatically create an Italian exemption. No fictional annual saving or disposal is included.</p></div></details>
+    <details class="tax-asset-detail"><summary><strong>Foreign sovereign bonds</strong>${status('legal')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Foreign nominal</span><strong>${money(550000,t.currency)}</strong></div><div><span>Annual coupons</span><strong>${money(17925,t.currency)}</strong></div><div><span>Italian BTP nominal</span><strong>${money(150000,t.currency)}</strong></div><div><span>Total direct sovereigns</span><strong>${money(700000,t.currency)}</strong></div></div>${sovereignRows}<p>12.5% is a modelling assumption where qualifying. Eligibility and source-country withholding require instrument-level validation.</p></div></details>
+    <details class="tax-asset-detail"><summary><strong>Bitcoin</strong>${status('confirmed')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Policy allocation</span><strong>1%</strong></div><div><span>Realised 2026 gain</span><strong>${money(0,t.currency)}</strong></div><div><span>Current tax</span><strong>${money(0,t.currency)}</strong></div><div><span>Rate if realised in 2026</span><strong>33%</strong></div></div><p>Unrealised appreciation is not taxed in the current model. Source and special-regime perimeter must be reviewed when a disposal occurs.</p></div></details>
+    <details class="tax-asset-detail"><summary><strong>Brent disposal → WQTM</strong>${status('confirmed')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Original cost</span><strong>${money(brent.costBasis,t.currency)}</strong></div><div><span>Sale proceeds</span><strong>${money(brent.saleProceeds,t.currency)}</strong></div><div><span>Realised gain</span><strong>${money(brent.amount,t.currency)}</strong></div><div><span>Illustrative tax</span><strong>${money(brentTax,t.currency)}</strong></div></div><p>Closed on 30 September 2026. Reinvesting the proceeds into the WisdomTree Quantum Computing UCITS ETF does not cancel the Brent tax event. WQTM remains open and its unrealised P/L is excluded.</p></div></details>
+    <details class="tax-asset-detail"><summary><strong>Sardinia residence &amp; extension</strong>${status('legal')}</summary><div class="tax-asset-body"><div class="tax-asset-facts"><div><span>Gross value</span><strong>${money(1300000,t.currency)}</strong></div><div><span>Mortgage</span><strong>${money(389000,t.currency)} · 1.5% fixed</strong></div><div><span>Net equity</span><strong>${money(911000,t.currency)}</strong></div><div><span>Acquisition</span><strong>2021 assumption</strong></div></div><p>${e(t.clientTaxProfile.impatriatiExtension.note)} The mortgage belongs to Sardinia, not London. Adult children are not used for the extension.</p></div></details>`;
+  const tenYear=result.tenYear;
+  const maxTen=Math.max(...tenYear.map(row=>row.total));
+  const impactBars=tenYear.map(row=>`<div class="tax-impact-row ${row.id==='impatriati'?'selected':''}"><span>${e(row.label)}</span><div class="tax-impact-track"><i style="width:${(row.total/maxTen*100).toFixed(2)}%"></i></div><strong>${money(row.total,t.currency,true)}</strong></div>`).join('');
+  const workValues=[100000,250000,500000], foreignValues=[0,250000,500000,1000000];
+  const winnerLabel=id=>id==='impatriati-y1-5'?'Impatriati':id==='art24bis-uk-included'?'Art. 24-bis':'Ordinary';
+  const sensitivityHead=workValues.map(value=>`<th>${money(value,t.currency,true)} qualifying work income</th>`).join('');
+  const sensitivityRows=foreignValues.map(foreign=>`<tr><th>${money(foreign,t.currency,true)} additional foreign income</th>${workValues.map(work=>{const winner=engine.sensitivity(t,work,foreign);return `<td class="${e(winner.id)}"><strong>${e(winnerLabel(winner.id))}</strong><span>${money(winner.total,t.currency)} annual tax</span></td>`;}).join('')}</tr>`).join('');
+  const legal=t.legalSources.map(row=>`<div class="tax-legal-note" id="legal-${e(row.id)}"><strong>${row.url?`<a href="${e(row.url)}" target="_blank" rel="noopener">${e(row.title)} ↗</a>`:e(row.title)}</strong><small> · ${e(row.authority)}</small><p>${e(row.note)}</p></div>`).join('');
 
-  </div>
-</section>
+  return `<div class="tax-dashboard">${planningPillarNav('tax')}<p class="tax-page-path">Virtual Wealth / Rossi Family / Wealth Planning / <strong>Tax &amp; Cross-Border</strong></p>
+    <section><div class="tax-hero"><div class="tax-hero-copy"><p class="eyebrow">PILLAR 1 · TAX &amp; CROSS-BORDER</p><h2>Tax &amp; Cross-Border Planning</h2><p>UK → Italy relocation · Italian tax resident since 2022 · Year 5 of the historical Impatriati regime. The regimes below are alternatives considered at relocation, not elections being combined in 2026.</p></div><div class="tax-hero-result"><span>Selected regime</span><strong style="font-size:2.3rem">Historical Impatriati</strong><p>Under current Rossi assumptions</p></div></div><div class="tax-kpis"><div class="tax-kpi"><span>Net worth</span><strong>${money(t.clientTaxProfile.netWorth,t.currency,true)}</strong><small>Reconciled family balance sheet</small></div><div class="tax-kpi"><span>Italian tax residence</span><strong>2022</strong><small>Sardinia · prior UK residence 12 years</small></div><div class="tax-kpi"><span>2026 estimated tax</span><strong>${money(currentSelected,t.currency)}</strong><small>Includes Brent one-off gain tax</small></div><div class="tax-kpi"><span>Recurring saving</span><strong>${money(annualSaving,t.currency)}</strong><small>Per year vs Ordinary</small></div></div><div class="tax-decision-banner"><div><span class="eyebrow">SELECTED REGIME</span><h3>Historical Impatriati</h3><p>Significant qualifying Italian work income and only ${money(67925,t.currency)} of currently defined recurring foreign income make the historical €100k Art. 24-bis charge inefficient in the base case.</p></div><div class="decision-metric"><span>Recurring annual tax</span><strong>${money(recurringSelected,t.currency)}</strong></div><div class="decision-metric"><span>2026 incl. Brent</span><strong>${money(currentSelected,t.currency)}</strong></div><div class="decision-metric"><span>10-year saving</span><strong>${money(t.taxResults.tenYearSavingVsOrdinary,t.currency)}</strong></div></div></section>
+    <div class="tax-alert"><span>!</span><div><strong>Alternative regimes — not stackable</strong><p>Impatriati and Art. 24-bis were alternative choices considered at the 2022 relocation and cannot be stacked for the same taxpayer in the same period. Art. 24-bis is shown only as a counterfactual.</p></div></div>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">RELOCATION &amp; TAX TIMELINE</p><h2>From UK residence to the conditional extension</h2></div><p>2026 is Year 5. The 2027–2031 extension depends on the historical property condition and must be legally confirmed.</p></div><div class="tax-milestones">${milestones.map(([year,title,note])=>`<article class="tax-milestone"><span class="eyebrow">${e(year)}</span><strong>${e(title)}</strong><p>${e(note)}</p></article>`).join('')}</div></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">2022 REGIME DECISION</p><h2>Recurring structural comparison</h2></div><p>Normalised annual comparison. It excludes the one-off 2026 Brent gain.</p></div><div class="tax-regime-grid">${regimeCards}</div><details class="tax-asset-detail" style="margin-top:14px"><summary><strong>Art. 24-bis · UK carve-out analysis</strong><span>${money(result.recurring['art24bis-uk-carved-out'].total,t.currency)} recurring p.a.</span></summary><div class="tax-asset-body"><p>Secondary perimeter test only. UK income and assets revert to ordinary Italian treatment while the historical €100k substitute tax remains for other covered foreign income.</p></div></details></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">INCOME &amp; TAX EVENT MAP</p><h2>Four categories, kept separate</h2></div><p>Recurring income drives the regime decision. Realised events affect the current year. Unrealised performance remains outside annual taxable cash income.</p></div><div class="tax-category-grid">${categoryCards}</div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">CLASSIFICATION DETAIL</p><h2>Income, realised events and exclusions</h2></div><p>Status badges distinguish confirmed data, assumptions, TBD inputs and legal-review items.</p></div><div class="table-scroll" role="region" aria-label="Income and tax event map. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table tax-table"><thead><tr><th>Source / event</th><th>Jurisdiction</th><th>Amount</th><th>Ordinary</th><th>Impatriati</th><th>Art. 24-bis</th><th>Model note</th><th>Legal basis</th></tr></thead><tbody>${incomeRows}</tbody></table></div></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">2026 CURRENT-YEAR BRIDGE</p><h2>Recurring tax plus one confirmed disposal</h2></div><p>The Brent gain creates approximately ${money(brentTax,t.currency)} of one-off model tax. Reinvestment into WQTM does not remove the event.</p></div><div class="tax-bridge-grid">${bridgeCards}</div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">CALCULATION DRILL-DOWN</p><h2>Open each regime</h2></div><p>IVIE, IVAFE, sovereign treatment, the UK Personal Allowance and FTC remain modelling components requiring confirmation.</p></div><div class="tax-accordion">${calculationDetails}</div></section>
+    <section><div class="tax-section-head"><div><p class="eyebrow">DETAILED CROSS-BORDER ASSETS</p><h2>Asset-level treatment and open questions</h2></div><p>Expand a card for the calculations and classification logic.</p></div><div class="tax-asset-grid">${assetDetails}</div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">10-YEAR RECURRING IMPACT</p><h2>Brent is not repeated</h2></div><p>No income growth. Impatriati uses 10% taxable qualifying work income in Years 1–5 and 50% in Years 6–10, conditional on extension eligibility.</p></div><div class="tax-impact-bars">${impactBars}</div><div class="tax-decision-banner"><div><span class="eyebrow">10-YEAR OUTCOME</span><h3>${money(t.taxResults.tenYearSavingVsOrdinary,t.currency)} indicative saving</h3><p>Impatriati versus Ordinary under unchanged recurring assumptions.</p></div><div class="decision-metric"><span>Ordinary</span><strong>${money(t.taxResults.tenYear.ordinary,t.currency,true)}</strong></div><div class="decision-metric"><span>Impatriati</span><strong>${money(t.taxResults.tenYear.impatriati,t.currency,true)}</strong></div><div class="decision-metric"><span>Art. 24-bis</span><strong>${money(t.taxResults.tenYear['art24bis-uk-included'],t.currency,true)}</strong></div></div></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">SENSITIVITY</p><h2>The optimal regime changes with the income mix</h2></div><p>Columns vary qualifying Italian work income. Rows vary additional annual foreign taxable income. All other assumptions remain fixed.</p></div><div class="tax-sensitivity-scroll"><table class="tax-sensitivity"><thead><tr><th>Additional foreign taxable income</th>${sensitivityHead}</tr></thead><tbody>${sensitivityRows}</tbody></table></div><p class="panel-note">Higher qualifying Italian work income tends to favour Impatriati. Higher covered foreign investment or private-market income can make Art. 24-bis more attractive. Re-run the model once the €5m Alternatives portfolio is implemented.</p></section>
+    <section class="panel"><div class="tax-section-head"><div><p class="eyebrow">LEGAL BASIS &amp; OUTSTANDING ACTIONS</p><h2>Assumptions requiring evidence</h2></div><p>Authoritative sources are kept in expandable notes so the main dashboard remains readable.</p></div><div class="tax-actions"><article class="tax-action"><strong>Confirm Impatriati extension</strong><p>Verify the 2021 Sardinia deed, ownership, timing and full historical Art. 16 eligibility.</p></article><article class="tax-action"><strong>Validate cross-border mechanics</strong><p>Confirm ISA classification, FTC cap, IVIE/IVAFE bases, UK allowance and sovereign eligibility.</p></article><article class="tax-action"><strong>Re-run after Alternatives</strong><p>Keep distributions at TBD / €0 until the €5m private-markets portfolio and jurisdictions are defined.</p></article></div><div class="tax-accordion" style="margin-top:22px"><details><summary>Legal basis and official references</summary><div class="tax-accordion-body">${legal}</div></details></div></section>
+    <p class="tax-disclaimer">Illustrative fictional case for portfolio-design and wealth-management demonstration. This model is not a tax return, legal opinion or personalised advice. Residence, sourcing, treaty relief, regime eligibility, instrument classification, loss offsets and foreign-asset taxes require review by qualified Italian and UK advisers.</p>
+  </div>`;
+}
 
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <div class="section-tag" style="justify-content: center;">Contact</div>
-    <h2>Focused on<br /><em>private wealth</em></h2>
-    <p class="contact-sub">
-      Interested in opportunities across wealth management, private client advisory and cross-border planning.
-    </p>
-    <div class="contact-links">
-      <a href="mailto:macchi.matteo2@gmail.com" class="btn-primary">
-        macchi.matteo2@gmail.com
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+function planning(c, related) {
+  return `<div class="section-intro"><p class="eyebrow">STRUCTURE &amp; CONTINUITY</p><h2>Wealth planning</h2><p>Four workstreams organise the family-office analysis. Pillar 1 is implemented; Pillars 2–4 remain intentionally undefined until their fact patterns are developed.</p></div>${planningPillarNav('')}<section class="panel">${sectionTitle('WEALTH PLANNING ARCHITECTURE','Current workstream','Pillar 1 · Tax & Cross-Border')}<p class="panel-note">The current module covers the 2022 UK→Italy relocation, regime selection, income sourcing, the 2026 Brent tax event and the conditional 2027–2031 Impatriati extension. Governance, asset protection and succession will be added as separate workstreams without inventing trust assets or future structures.</p><a class="button" href="#/client/${e(c.id)}/tax">Open Tax &amp; Cross-Border <span aria-hidden="true">→</span></a></section>`;
+}
 
-      <a href="https://www.linkedin.com/in/matteo-macchi02" target="_blank" class="btn-secondary">
-        LinkedIn
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+function research(c, related) {
+  const rows = [...related.research].sort((a,b)=>b.date.localeCompare(a.date));
+  return `<div class="section-intro"><p class="eyebrow">THE INVESTMENT PERSPECTIVE</p><h2>Research &amp; recommendations</h2><p>Case-specific observations and hypothetical proposals, with the reasoning made explicit.</p></div><div class="research-list">${rows.length ? rows.map(r=>`<article class="research-card"><div class="research-date"><time datetime="${e(r.date)}">${e(dateLabel(r.date))}</time><span>${e(r.type)}</span></div><div class="research-body"><div class="research-heading"><h3>${e(r.title)}</h3>${badge(r.status)}</div><p>${e(r.summary)}</p><div class="rationale"><p class="eyebrow">RATIONALE</p><p>${e(r.rationale)}</p></div></div></article>`).join('') : empty('No research notes published.')}</div><p class="method-note">Research entries are authored fictional case notes, not live investment research. Status labels describe the hypothetical process only.</p>`;
+}
 
-      <a href="Matteo_Macchi_CV_Wealth_Management.pdf" target="_blank" class="btn-secondary">
-        View CV
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </div>
-  </section>
+function detail(id, tab) {
+  const c = dataset.clients.find(item=>item.id===id);
+  if (!c || !routes.some(([key])=>key===tab)) return notFound();
+  const related = Object.fromEntries(['positions','closedPositions','liquidity','alternatives','allocations','planning','research'].map(table=>[table,dataset[table].filter(r=>r.clientId===id)]));
+  document.title = `${c.name} — ${routes.find(([key])=>key===tab)[1]} | Virtual Wealth`;
+  const content = {overview,investments,alternatives,tax:taxAndCrossBorderV2,planning,research}[tab](c,related);
+  return `<div class="client-heading"><a class="back-link" href="#/"><span aria-hidden="true">←</span> All client cases</a><div class="client-title-row"><div><p class="eyebrow">${e(c.type)} <span class="meta-divider">/</span> ${e(c.jurisdiction)}</p><h1>${e(c.name)}</h1></div><div class="client-actions">${badge(c.risk_profile)}<a class="ips-link" href="Rossi_Family_Investment_Policy_Statement_v3_1_Final.pdf" target="_blank" rel="noopener">Investment Policy Statement <span aria-hidden="true">↗</span></a></div></div><p class="client-summary">${e(c.summary)}</p><div class="client-metadata"><span>Fictional client case</span><span>Base currency: ${e(c.currency)}</span><span>€20m family balance sheet</span></div></div><nav class="client-tabs" aria-label="Client sections">${tabs.map(([key,label])=>`<a href="#/client/${e(id)}${key==='overview'?'':`/${key}`}" ${(tab===key||(tab==='tax'&&key==='planning'))?'aria-current="page"':''}>${label}</a>`).join('')}</nav><div class="client-content">${content}</div>`;
+}
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Matteo Macchi · London | Verona | Milan</p>
-  </footer>
+function notFound() {
+  document.title = 'Page not found | Virtual Wealth';
+  return '<section class="state"><p class="eyebrow">404 / PAGE NOT FOUND</p><h1>A different perspective.</h1><p>This client or section could not be found.</p><a class="button" href="#/">Return to the collection</a></section>';
+}
 
-  <!-- SCROLL REVEAL -->
-  <script>
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 80);
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+function render(focus = false) {
+  if (!dataset) return;
+  const hash = location.hash === '#main' ? '#/' : (location.hash || '#/');
+  const parts = hash.slice(1).split('/').filter(Boolean);
+  document.title = 'Virtual Wealth | Private Client Portfolio & Planning';
+  if (!parts.length) main.innerHTML = home();
+  else if (parts[0]==='clients' && parts.length===1) { history.replaceState(null,'','#/'); main.innerHTML = home(); }
+  else if (parts[0]==='client' && parts.length>=2 && parts.length<=3) main.innerHTML = detail(parts[1],parts[2] || 'overview');
+  else main.innerHTML = notFound();
+  document.querySelectorAll('[data-nav]').forEach(a=>{
+    const active = a.dataset.nav === 'home' && (!parts.length || parts[0]==='clients');
+    if (active) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+  });
+  if (focus) { main.focus({preventScroll:true}); window.scrollTo({top:0,behavior:'instant'}); }
+}
 
+async function init() {
+  main.innerHTML = '<div class="state" role="status"><span class="loader"></span><h1>Preparing your view</h1><p>Loading the client case collection…</p></div>';
+  try { const result = await loadData(); dataset = result.data; source = result.source; render(); }
+  catch(error) {
+    console.error('Case data could not be loaded:',error);
+    main.innerHTML = '<section class="state" role="alert"><p class="eyebrow">DATA TEMPORARILY UNAVAILABLE</p><h1>We couldn’t load the cases.</h1><p>The published dataset may be unavailable or incorrectly configured. Please try again shortly.</p><button class="button" id="retry" type="button">Try again <span aria-hidden="true">↻</span></button></section>';
+    document.querySelector('#retry').addEventListener('click',init);
+  }
+}
+main.addEventListener('click',event=>{
+  const button = event.target.closest('[data-chart-key][data-chart-mode]');
+  if (!button) return;
+  chartModes[button.dataset.chartKey] = button.dataset.chartMode;
+  render(false);
+});
+window.addEventListener('hashchange',()=>render(true));
+init();
+
+})();
+</script>
 </body>
 </html>
-```
