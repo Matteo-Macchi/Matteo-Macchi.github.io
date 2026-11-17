@@ -868,6 +868,47 @@ th {
 .portfolio-table {
   min-width:1680px
 }
+.asset-class-block+.asset-class-block { margin-top:24px }
+.asset-class-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:13px 16px;
+  border:1px solid var(--line);
+  border-bottom:0;
+  background:#111d26
+}
+.asset-class-head h3 {
+  font-family:var(--sans);
+  font-size:.88rem;
+  font-weight:600
+}
+.asset-class-head span {
+  color:#9eb0be;
+  font-size:.72rem;
+  white-space:nowrap
+}
+.asset-table { min-width:1500px }
+.asset-table.fixed-income-table { min-width:1940px }
+.asset-table td,.asset-table th { padding:15px 12px }
+.asset-table thead th {
+  position:sticky;
+  top:0;
+  z-index:5;
+  box-shadow:0 1px 0 #3b4c59
+}
+.instrument-meta {
+  color:#90a7b9;
+  letter-spacing:.025em;
+  font-size:.7rem
+}
+.instrument-meta span+span::before {
+  content:' / ';
+  color:#60778a
+}
+.currency-fx { white-space:nowrap }
+.currency-fx small { letter-spacing:0 }
 .portfolio-table thead th {
   position:sticky;
   top:0;
@@ -2479,6 +2520,7 @@ const moneyPrecise = (value, currency, min = 2, max = 4) => new Intl.NumberForma
 const percent = value => `${Number(value).toFixed(1).replace(/\.0$/, '')}%`;
 const list = value => String(value || '').split('|').map(s => s.trim()).filter(Boolean);
 const dateLabel = value => /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value)) ? new Intl.DateTimeFormat('en-GB', {day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(value)) : 'Date not supplied';
+const tableDateLabel = value => /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value)) ? new Intl.DateTimeFormat('en-GB', {day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}).format(new Date(value)) : '—';
 const badge = value => `<span class="badge">${escapeHTML(value)}</span>`;
 const empty = label => `<div class="empty"><span aria-hidden="true">—</span><p>${escapeHTML(label)}</p></div>`;
 const sectionTitle = (eyebrow, title, aside = '') => `<div class="section-heading"><div><p class="eyebrow">${escapeHTML(eyebrow)}</p><h2>${escapeHTML(title)}</h2></div>${aside ? `<span class="section-aside">${escapeHTML(aside)}</span>` : ''}</div>`;
@@ -2726,13 +2768,61 @@ function investments(c, related) {
     const subtotal = members.reduce((sum,row)=>sum+row.marketValue,0);
     return `<tr class="position-group"><th colspan="7" scope="rowgroup">${e(group)}</th><th class="group-total" colspan="4">${money(subtotal,c.currency)} · ${percent(subtotal/denominator*100)}</th></tr>${members.map(r=>{const quantity=optionalNumber(r.quantity);const oneMonth=r.performance1M ?? r.performance_1m ?? r.return_1m;const ytd=r.performanceYTD ?? r.performance_ytd ?? r.return_ytd;const since=r.performanceSincePurchase ?? r.performance_since_purchase ?? r.total_return;const directBond=optionalNumber(r.coupon)!==null;const priceDate=String(r.priceTimestamp||valuationDate).slice(0,10);const stale=directBond&&(r.stale===true||r.isStale===true||/manual verification/i.test(String(r.priceSource||'')));const facts=directBond?[`Coupon ${percent(r.coupon)}`,optionalNumber(r.currentYTM)===null?'YTM unavailable':`YTM ${percent(r.currentYTM)}`,optionalNumber(r.duration)===null?'Duration unavailable':`Duration ${Number(r.duration).toFixed(2)}y`,optionalNumber(r.accruedInterest)===null?'Accrued interest unavailable':`Accrued ${money(r.accruedInterest,c.currency)}`,optionalNumber(r.dirtyPrice)===null?'Dirty price unavailable':`Dirty price ${r.dirtyPrice}`,stale?`STALE — last verified ${dateLabel(priceDate)}`:null,r.priceSource?`Source: ${r.priceSource}`:null].filter(Boolean):[optionalNumber(r.ongoingCost)===null?null:`Ongoing cost ${percent(r.ongoingCost)}`,optionalNumber(r.otherOngoingCost)===null?null:`Additional cost ${percent(r.otherOngoingCost)}`,r.incomeTreatment].filter(Boolean);return `<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker || r.isin)}</small>${directBond&&r.maturity?`<small class="position-maturity">Maturity · ${e(dateLabel(r.maturity))}</small>`:''}<div class="position-facts">${facts.map(f=>`<span>${e(f)}</span>`).join('')}</div>${r.thesis ? `<details class="position-detail"><summary>Investment rationale</summary><p>${e(r.thesis)}</p></details>` : ''}</td><td>${e(dateLabel(r.purchaseDate))}</td><td class="numeric">${quantity === null ? '—' : new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}<small>${quantityLabel(r)}</small></td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency,directBond)}</td><td class="numeric">${priceLabel(r.price,r.priceCurrency||r.currency,directBond)}<small>${stale?'STALE · ':''}${e(dateLabel(priceDate))}</small></td><td class="numeric">${money(r.marketValue,c.currency)}</td><td>${e(r.currency)}</td><td class="numeric">${percent(r.marketValue/denominator*100)}</td><td class="numeric">${performance(stale?null:oneMonth)}</td><td class="numeric">${performance(stale?null:ytd)}</td><td class="numeric">${performance(stale?null:since)}</td></tr>`;}).join('')}`;
   }).join('');
+  const feeRate = value => `${new Intl.NumberFormat('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(value))}%`;
+  const instrumentMeta = row => {
+    const identifiers = [];
+    if (row.ticker && row.ticker !== row.isin) identifiers.push(row.ticker);
+    if (row.isin) identifiers.push(row.isin);
+    else if (row.ticker) identifiers.push(row.ticker);
+    if (/accum/i.test(String(row.incomeTreatment||''))) identifiers.push('Acc.');
+    const cost = optionalNumber(row.ongoingCost);
+    if (cost !== null) {
+      const costLabel = String(row.ticker||'').toUpperCase()==='AVWS'
+        ? 'OCF'
+        : (/\bETF\b/i.test(String(row.asset||'')) ? 'TER' : 'Annual fee');
+      identifiers.push(`${costLabel} ${feeRate(cost)}`);
+    }
+    return identifiers.map(item=>`<span>${e(item)}</span>`).join('');
+  };
+  const instrumentCell = (row,directBond=false) => `<strong>${e(row.asset)}</strong><small class="instrument-meta">${instrumentMeta(row)}</small>${directBond&&row.maturity?`<small class="position-maturity">Maturity · ${e(tableDateLabel(row.maturity))}</small>`:''}`;
+  const currencyFxCell = row => {
+    const tradingCurrency = row.priceCurrency || row.currency || c.currency;
+    const fx = optionalNumber(row.currentFxRateToBase);
+    return `<span>${e(tradingCurrency)}</span>${fx!==null&&tradingCurrency!==c.currency?`<small>FX ${fx.toFixed(4)} → ${e(c.currency)}</small>`:''}`;
+  };
+  const standardPositionRow = row => {
+    const quantity = optionalNumber(row.quantity);
+    const oneMonth = row.performance1M ?? row.performance_1m ?? row.return_1m;
+    const ytd = row.performanceYTD ?? row.performance_ytd ?? row.return_ytd;
+    const since = row.performanceSincePurchase ?? row.performance_since_purchase ?? row.total_return;
+    return `<tr><td>${instrumentCell(row)}</td><td>${e(tableDateLabel(row.purchaseDate))}</td><td class="numeric">${quantity===null?'—':new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}</td><td class="numeric">${priceLabel(row.purchasePrice,row.priceCurrency||row.currency)}</td><td class="numeric">${priceLabel(row.price,row.priceCurrency||row.currency)}</td><td class="numeric">${money(row.marketValue,c.currency)}</td><td class="currency-fx">${currencyFxCell(row)}</td><td class="numeric">${percent(row.marketValue/denominator*100)}</td><td class="numeric">${performance(oneMonth)}</td><td class="numeric">${performance(ytd)}</td><td class="numeric">${performance(since)}</td></tr>`;
+  };
+  const fixedIncomeRow = row => {
+    const quantity = optionalNumber(row.quantity);
+    const directBond = optionalNumber(row.coupon)!==null;
+    const priceDate = String(row.priceTimestamp||valuationDate).slice(0,10);
+    const stale = directBond&&(row.stale===true||row.isStale===true||/manual verification/i.test(String(row.priceSource||'')));
+    const accrued = stale ? null : optionalNumber(row.currentAccruedPer100 ?? row.accruedInterest);
+    const oneMonth = row.performance1M ?? row.performance_1m ?? row.return_1m;
+    const ytd = row.performanceYTD ?? row.performance_ytd ?? row.return_ytd;
+    const since = row.performanceSincePurchase ?? row.performance_since_purchase ?? row.total_return;
+    return `<tr><td>${instrumentCell(row,directBond)}</td><td>${e(tableDateLabel(row.purchaseDate))}</td><td class="numeric">${quantity===null?'—':new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}</td><td class="numeric">${priceLabel(row.purchasePrice,row.priceCurrency||row.currency,directBond)}</td><td class="numeric">${priceLabel(row.price,row.priceCurrency||row.currency,directBond)}${stale?`<small>STALE · ${e(tableDateLabel(priceDate))}</small>`:''}</td><td class="numeric">${accrued===null?'—':priceLabel(accrued,row.priceCurrency||row.currency,directBond)}</td><td class="numeric">${money(row.marketValue,c.currency)}</td><td class="currency-fx">${currencyFxCell(row)}</td><td class="numeric">${optionalNumber(row.currentYTM)===null?'—':percent(row.currentYTM)}</td><td class="numeric">${optionalNumber(row.duration)===null?'—':`${Number(row.duration).toFixed(2)}y`}</td><td class="numeric">${directBond?percent(row.coupon):'—'}</td><td class="numeric">${percent(row.marketValue/denominator*100)}</td><td class="numeric">${performance(stale?null:oneMonth)}</td><td class="numeric">${performance(stale?null:ytd)}</td><td class="numeric">${performance(stale?null:since)}</td></tr>`;
+  };
+  const standardHeaders = '<tr><th scope="col">Instrument</th><th scope="col">Entry date</th><th scope="col" class="numeric">Quantity</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Market value</th><th scope="col">Currency / FX</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since entry</th></tr>';
+  const fixedIncomeHeaders = '<tr><th scope="col">Instrument</th><th scope="col">Entry date</th><th scope="col" class="numeric">Quantity</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Accrued</th><th scope="col" class="numeric">Market value</th><th scope="col">Currency / FX</th><th scope="col" class="numeric">YTM</th><th scope="col" class="numeric">Duration</th><th scope="col" class="numeric">Coupon</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since entry</th></tr>';
+  const groupTables = groups.map(group=>{
+    const members = rows.filter(row=>positionGroup(row)===group);
+    const subtotal = members.reduce((sum,row)=>sum+row.marketValue,0);
+    const fixedIncome = group==='Fixed Income';
+    return `<section class="asset-class-block"><div class="asset-class-head"><h3>${e(group)}</h3><span>${money(subtotal,c.currency)} · ${percent(subtotal/denominator*100)}</span></div><div class="table-scroll" role="region" aria-label="${e(group)} positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table asset-table ${fixedIncome?'fixed-income-table':''}"><thead>${fixedIncome?fixedIncomeHeaders:standardHeaders}</thead><tbody>${members.map(row=>fixedIncome?fixedIncomeRow(row):standardPositionRow(row)).join('')}</tbody></table></div></section>`;
+  }).join('');
   const analytics = `<div class="chart-grid">${allocationComparisonPanel(allocation)}${chartPanel(c.id,'geography','Portfolio geographic exposure',geography)}${chartPanel(c.id,'currency','Economic currency exposure',exposure(analyticsRows,'economicCurrency',denominator))}</div>`;
   const summary = `<div class="portfolio-summary primary-kpis"><div><span>Initial NAV</span><strong>${money(initialCapital,c.currency)}</strong><small>Public-markets model inception capital</small></div><div><span>Current NAV</span><strong>${money(publicTotal,c.currency)}</strong><small>Open market values + residual portfolio cash</small></div><div><span>Total P/L</span><strong>${totalPL>=0?'+':''}${money(totalPL,c.currency)}</strong><small>${money(realizedPL,c.currency)} realised + ${money(unrealizedPL,c.currency)} unrealised</small></div><div><span>Indicative Model Return Since Inception</span><strong>${modelReturn===null?'—':`${modelReturn>=0?'+':''}${percent(modelReturn)}`}</strong><small>Not labelled TWR until a complete NAV and external-flow series exists</small></div></div>`;
   const liquidityTotal = related.liquidity.reduce((sum,row)=>sum+row.marketValue,0);
   const liquidityOverview = `<section class="panel">${sectionTitle('LIQUIDITY INVESTMENTS','Tier 2 · Tier 3',`${money(reserveInvested,c.currency,true)} invested reserve`)}<div class="external-liquidity-note"><strong>Tier 2 and Tier 3 belong to the family liquidity reserve, remain external to the €5m public-markets portfolio and are excluded from public portfolio NAV. Tier 1 operational bank cash is shown only in Overview.</strong></div><div class="tier-grid">${[2,3].map(tier=>{const members=related.liquidity.filter(row=>liquidityTier(row)===tier);const subtotal=members.reduce((sum,row)=>sum+row.marketValue,0);return `<article class="tier-card"><div class="tier-heading"><h3>Tier ${tier}</h3><strong>${money(subtotal,c.currency,true)}</strong></div><ul class="tier-list">${members.map(row=>`<li><span>${e(row.asset)}<small>${e(row.ticker||row.currency)}</small></span><strong>${money(row.marketValue,c.currency)}</strong></li>`).join('')}</ul></article>`;}).join('')}</div></section>`;
   const closedRows = related.closedPositions || [];
   const transactionHistory = closedRows.length ? `<div class="transaction-history"><h3>Closed positions &amp; realised performance</h3><p>Realised proceeds remain inside the model portfolio. The Brent disposal funded the WQTM purchase, so the gain is preserved in portfolio NAV without being counted twice.</p><div class="table-scroll" role="region" aria-label="Closed portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Bought</th><th scope="col">Sold</th><th scope="col" class="numeric">Units</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Sale price</th><th scope="col" class="numeric">Cost basis</th><th scope="col" class="numeric">Sale proceeds</th><th scope="col" class="numeric">Realised P/L</th><th scope="col" class="numeric">Return</th></tr></thead><tbody>${closedRows.map(r=>`<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker || r.isin)}</small><div class="position-facts"><span>${e(r.exitReason || r.status)}</span></div></td><td>${e(dateLabel(r.purchaseDate))}</td><td>${e(dateLabel(r.saleDate))}</td><td class="numeric">${new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(r.quantity)}</td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${priceLabel(r.salePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${money(r.initialCost,c.currency)}</td><td class="numeric">${money(r.saleProceeds,c.currency)}</td><td class="numeric">${r.realizedPL>=0?'+':''}${money(r.realizedPL,c.currency)}</td><td class="numeric">${performance(r.realizedReturn)}</td></tr>`).join('')}</tbody></table></div></div>` : '';
-  const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`Prices as of ${dateLabel(valuationDate)}`)}<p class="panel-note before-table">Exchange-traded prices, FX and instrument 1M/YTD returns are refreshed after market close. Since Entry is the position result from its model entry date and is distinct from instrument YTD. Direct sovereign bonds display their valuation date and must be marked stale when no verified update exists. Open-position cost basis is ${money(openCost,c.currency)}; realised Brent proceeds were reinvested into WQTM.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Liquidity and financial portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Model entry date</th><th scope="col" class="numeric">Units / nominal</th><th scope="col" class="numeric">Model entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Current market value (${e(c.currency)})</th><th scope="col">Trading currency</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M instrument</th><th scope="col" class="numeric">YTD instrument</th><th scope="col" class="numeric">Since Entry position</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><th scope="row" colspan="5">Financial portfolio NAV <small>includes ${money(portfolioCash,c.currency)} residual cash; excludes family liquidity reserve</small></th><td class="numeric">${money(publicTotal,c.currency)}</td><td></td><td class="numeric">100%</td><td colspan="3"></td></tr></tfoot></table></div>` : empty('No financial-market positions published.')}</section>`;
+  const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`Prices as of ${dateLabel(valuationDate)}`)}<p class="panel-note before-table">Prices, FX and 1M/YTD instrument returns are refreshed after market close where automatic data are available. Since Entry is the position return from its entry date. Direct sovereign bonds are marked stale until a verified clean price is supplied.</p>${rows.length ? groupTables : empty('No financial-market positions published.')}<p class="panel-note">Financial portfolio NAV: <strong>${money(publicTotal,c.currency)}</strong> · includes ${money(portfolioCash,c.currency)} residual portfolio cash and excludes the external family liquidity reserve.</p></section>`;
   const geographyNote = usaEquity === null ? '' : ` USA exposure is approximately ${percent(usaPortfolio)} of the financial portfolio and ${percent(usaEquity)} of the equity sleeve.`;
   return `${summary}${liquidityOverview}${portfolio}${analytics}<p class="method-note">Portfolio Geographic Exposure uses the full public-portfolio NAV as denominator: ETF underlying countries where available, sovereign issuer countries, corporate-credit issuer geography, and separate non-country buckets for gold, Bitcoin and residual cash.${geographyNote} Trading currency is not treated as economic currency exposure. Private-market and real assets are excluded.</p>${transactionHistory}`;
 }
