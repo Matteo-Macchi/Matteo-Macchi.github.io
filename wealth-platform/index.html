@@ -799,6 +799,41 @@ button,.button {
   color:#b8c7d2;
   font-size:.78rem
 }
+.cash-overview-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border-block:1px solid var(--line);
+  margin:0 0 26px
+}
+.cash-overview-grid>div { padding:18px 20px; border-right:1px solid var(--line) }
+.cash-overview-grid>div:first-child { padding-left:0 }
+.cash-overview-grid>div:last-child { border-right:0 }
+.cash-overview-grid span { display:block; color:#91a6b7; font-size:.72rem }
+.cash-overview-grid strong { display:block; font-family:var(--serif); font-size:1.75rem; font-weight:400; margin-top:6px }
+.cash-tier { border:1px solid var(--line); margin-top:16px }
+.cash-tier-head {
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:24px;
+  align-items:center;
+  padding:16px 18px;
+  background:#111d26
+}
+.cash-tier-head h3 { font-family:var(--sans); font-size:.9rem; font-weight:600 }
+.cash-tier-head strong { font-size:.84rem }
+.cash-tier-head span { color:#91a6b7; font-size:.72rem }
+.cash-table { min-width:760px }
+.cash-table th,.cash-table td { padding:14px 17px }
+.cash-table th:first-child,.cash-table td:first-child { text-align:left }
+.cash-table td strong,.cash-table td small { display:block }
+.cash-table td small { color:#8298aa; margin-top:3px }
+.investment-overview-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px }
+.investment-overview-card { border:1px solid var(--line); padding:23px }
+.investment-overview-card h3 { font-size:1.55rem; margin-bottom:19px }
+.investment-overview-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:var(--line) }
+.investment-overview-stats>div { background:#111d26; padding:15px }
+.investment-overview-stats span { display:block; color:#91a6b7; font-size:.68rem }
+.investment-overview-stats strong { display:block; margin-top:5px; font-size:.95rem }
 .table-scroll {
   overflow-x:auto;
   width:100%;
@@ -906,6 +941,10 @@ tfoot th,tfoot td {
 }
 @media (max-width:700px) {
   .allocation-comparison-row { grid-template-columns:1fr 1.7fr 52px 52px; gap:8px }
+  .cash-overview-grid,.investment-overview-grid { grid-template-columns:1fr }
+  .cash-overview-grid>div { border-right:0; border-bottom:1px solid var(--line); padding-left:0 }
+  .cash-tier-head { grid-template-columns:1fr auto }
+  .cash-tier-head span { grid-column:1/-1 }
 }
 .chart-grid .bars {
   padding-top:5px
@@ -2548,6 +2587,27 @@ function liquidityPanel(c, rows) {
   return `<section class="panel liquidity-panel">${sectionTitle('LIQUIDITY FRAMEWORK','Cash & liquidity reserve',total ? `${money(total,c.currency,true)} across three liquidity tiers` : 'Structure ready for client data')}<p class="panel-note before-table">Liquidity is classified by time horizon and accessibility. Tier 1 bank interest is modelled gross before tax; Tier 2 and Tier 3 are shown again in the investment table for transparency but are excluded from the €5m financial-portfolio total.</p><div class="liquidity-summary"><div><span>Total liquidity reserve</span><strong>${summaryValue(total)}</strong></div><div><span>12-month requirement</span><strong>${summaryValue(annualNeed)}</strong></div><div><span>Minimum reserve</span><strong>${minimum === null ? '—' : money(minimum,c.currency,true)}</strong><span>${targetMonths}-month requirement</span></div><div><span>Surplus liquidity buffer</span><strong>${surplus === null ? '—' : `${surplus >= 0 ? '+' : '−'}${money(Math.abs(surplus),c.currency,true)}`}</strong></div><div><span>36-month coverage</span><strong>${coverage === null ? '—' : `${(coverage*100).toFixed(1)}%`}</strong><span>${coverage === null ? 'Requirement not yet set' : `${coverage.toFixed(2)}x minimum`}</span></div></div><div class="tier-grid">${tiers.map(tier=>{const [title,description]=tierMeta[tier.number];const tierValue=tierTotal(tier);return `<article class="tier-card"><div class="tier-heading"><h3>Tier ${tier.number} · ${e(title)}</h3><strong>${tier.rows.length ? money(tierValue,c.currency,true) : '—'}</strong></div><p>${e(description)}</p>${tier.rows.length ? `<ul class="tier-list">${tier.rows.map(row=>{const rate=optionalNumber(row.annualRate);const earned=optionalNumber(row.interestEarned);const ytm=optionalNumber(row.currentYTM);const metric=earned!==null?`Gross interest ${money(earned,c.currency)} · ${percent(row.performanceSincePurchase)}`:ytm!==null?`YTM ${percent(ytm)} · duration ${Number(row.duration).toFixed(2)}y`:rate!==null&&rate>0?`Gross rate ${percent(rate)}`:'';return `<li><span>${e(row.asset)}<small>${e(row.ticker || row.currency)}</small>${metric?`<small class="tier-metric">${e(metric)}</small>`:''}</span><strong>${money(row.marketValue,c.currency)}</strong></li>`;}).join('')}</ul>` : '<div class="empty"><span aria-hidden="true">—</span><p>Not yet configured.</p></div>'}</article>`;}).join('')}</div></section>`;
 }
 
+function overviewLiquidityPanel(c, rows) {
+  const total = rows.reduce((sum,row)=>sum+row.marketValue,0);
+  const annualNeed = optionalNumber(c.annual_spending ?? c.annualLiquidityNeed ?? c.annual_liquidity_need);
+  const minimum = optionalNumber(c.liquidity_minimum_36m ?? c.liquidityMinimum36m);
+  const cashWeight = c.net_worth ? total/c.net_worth*100 : null;
+  const tierName = {1:'Operational cash · 0–12 months',2:'Immediate liquidity · 12–24 months',3:'Strategic liquidity · 24–36+ months'};
+  const tierStrategy = {2:'Short-term liquidity strategy',3:'Short-duration government liquidity strategy'};
+  const tiers = [1,2,3].map(number=>{const members=rows.filter(row=>liquidityTier(row)===number);return {number,members,total:members.reduce((sum,row)=>sum+row.marketValue,0)};});
+  const tierMarkup = tiers.map(tier=>{
+    const tierWeight = total ? tier.total/total*100 : 0;
+    const detailRows = tier.number===1 ? tier.members.map(row=>{
+      const rate=optionalNumber(row.annualRate);
+      const earned=optionalNumber(row.interestEarned);
+      const income=earned!==null?`Gross interest ${money(earned,c.currency)}${rate===null?'':` · ${percent(rate)} annual rate`}`:rate!==null&&rate>0?`${percent(rate)} annual rate`:'Non-remunerated operating cash';
+      return `<tr><td>${e(row.currency)}</td><td><strong>${e(row.asset)}</strong><small>${e(row.ticker||row.thesis)}</small></td><td>${e(income)}</td><td class="numeric">${money(row.marketValue,c.currency)}</td><td class="numeric">${percent(tier.total?row.marketValue/tier.total*100:0)}</td></tr>`;
+    }).join('') : (()=>{const row=tier.members[0]||{};const indicative=optionalNumber(row.currentYTM)??optionalNumber(row.annualRate);const yieldLabel=tier.number===2&&indicative===null?'Variable yield linked to €STR + 0.085% before costs':indicative===null?'Indicative yield unavailable':`${percent(indicative)} indicative annual yield`;return `<tr><td>${e(row.currency||c.currency)}</td><td><strong>${e(tierStrategy[tier.number])}</strong><small>${e(tierName[tier.number])}</small></td><td>${e(yieldLabel)}</td><td class="numeric">${money(tier.total,c.currency)}</td><td class="numeric">100%</td></tr>`;})();
+    return `<div class="cash-tier"><div class="cash-tier-head"><h3>Tier ${tier.number} · ${e(tierName[tier.number])}</h3><strong>${money(tier.total,c.currency)}</strong><span>${percent(tierWeight)} of total cash reserve</span></div><div class="table-scroll"><table class="cash-table"><thead><tr><th>Currency</th><th>Position / strategy</th><th>Income / indicative yield</th><th class="numeric">Amount</th><th class="numeric">Weight within tier</th></tr></thead><tbody>${detailRows}</tbody></table></div></div>`;
+  }).join('');
+  return `<section class="panel liquidity-panel">${sectionTitle('CASH OVERVIEW','Family liquidity reserve',`${money(total,c.currency,true)} across three time horizons`)}<div class="cash-overview-grid"><div><span>Total cash &amp; liquidity</span><strong>${money(total,c.currency,true)}</strong></div><div><span>12-month requirement</span><strong>${annualNeed===null?'—':money(annualNeed,c.currency,true)}</strong></div><div><span>Minimum reserve</span><strong>${minimum===null?'—':money(minimum,c.currency,true)}</strong></div><div><span>Cash weight of net worth</span><strong>${cashWeight===null?'—':percent(cashWeight)}</strong></div></div>${tierMarkup}</section>`;
+}
+
 function positionGroup(row) {
   const value = String(row.assetClass || 'Other');
   if (/portfolio liquidity/i.test(value)) return 'Opportunity Reserve';
@@ -2599,14 +2659,14 @@ function overview(c, related) {
     {label:'Capital earmarked for wealth planning',amount:wealthPlanning}
   ].filter(item=>item.amount>0).map(item=>({label:item.label,value:item.amount/c.net_worth*100}));
   const liquidityShare = c.net_worth ? planningLiquidity/c.net_worth*100 : 0;
-  const liquidityMinimum = optionalNumber(c.liquidity_minimum_36m);
-  const liquidityCoverage = liquidityMinimum ? planningLiquidity/liquidityMinimum*100 : null;
+  const realAndPlanning = directRealEstate+wealthPlanning;
+  const publicInitial = optionalNumber(dataset._meta?.capitalAvailable) ?? publicMarkets;
   const publicCurrent = optionalNumber(dataset._meta?.publicCurrentValue) ?? related.positions.reduce((sum,row)=>sum+row.marketValue,0)+(optionalNumber(dataset._meta?.portfolioCash)||0);
-  const annualNeed = optionalNumber(c.annual_spending ?? c.annualLiquidityNeed);
-  const storedMinimum = optionalNumber(c.liquidity_minimum_36m);
-  const storedSurplus = storedMinimum===null ? null : planningLiquidity-storedMinimum;
-  const liquidityPlanning = `${liquidityPanel(c,related.liquidity)}<p class="method-note">The ${money(storedMinimum||0,c.currency)} figure is the stored planning minimum. It does not equal three times annual spending (${annualNeed===null?'not supplied':money(annualNeed*3,c.currency)}), so its underlying assumptions remain to be reconciled. Coverage is shown against the stored minimum, not presented as a standalone performance KPI.</p>`;
-  return `<div class="metric-grid"><div><span>Net Worth</span><strong>${money(c.net_worth,c.currency,true)}</strong></div><div><span>Investable Assets</span><strong>${money(c.investable_assets,c.currency,true)}</strong><small>${money(publicMarkets,c.currency,true)} public markets · ${money(alternatives,c.currency,true)} alternatives</small></div><div><span>Family Liquidity Reserve</span><strong>${money(planningLiquidity,c.currency,true)}</strong><small>${percent(liquidityShare)} of net worth · external to public portfolio</small></div><div><span>Current Public Markets NAV</span><strong>${money(publicCurrent,c.currency,true)}</strong><small>Dynamic market value · public portfolio only</small></div></div><div class="overview-grid"><section class="panel">${sectionTitle('TOTAL WEALTH','Total wealth architecture','Consolidated family balance sheet')}${donut(wealthArchitecture,money(c.netWorth,c.currency,true),'NET WORTH')}<p class="panel-note">Public markets and alternatives together form the ${money(c.investable_assets,c.currency,true)} investable allocation. Liquidity, direct real estate and capital earmarked for wealth planning are shown separately.</p></section><section class="panel objectives">${sectionTitle('THE MANDATE','Key objectives')}<ol>${list(c.objectives).map(item=>`<li>${e(item)}</li>`).join('')}</ol><div class="liquidity"><p class="eyebrow">LIQUIDITY REQUIREMENT</p><p>${e(c.liquidity)}</p>${storedSurplus===null?'':`<p>Buffer above stored planning minimum: ${money(storedSurplus,c.currency)}.</p>`}</div></section></div>${liquidityPlanning}<section class="panel priorities">${sectionTitle('LOOKING AHEAD','Key planning priorities')}<div class="priority-grid">${list(c.priorities).map((p,i)=>`<div><span>${String(i+1).padStart(2,'0')}</span><h3>${e(p)}</h3></div>`).join('')}</div></section>`;
+  const publicReturn = publicInitial ? (publicCurrent-publicInitial)/publicInitial*100 : null;
+  const privateCurrent = related.alternatives.reduce((sum,row)=>sum+row.marketValue,0);
+  const privateDefined = related.alternatives.some(row=>row.status && !/in progress|tbd|to be defined/i.test(row.status));
+  const investmentOverview = `<section class="panel">${sectionTitle('INVESTMENT OVERVIEW','Public & private markets','Separate sleeves · consolidated family view')}<div class="investment-overview-grid"><article class="investment-overview-card"><p class="eyebrow">PUBLIC MARKETS</p><h3>Liquid investment portfolio</h3><div class="investment-overview-stats"><div><span>Initial NAV</span><strong>${money(publicInitial,c.currency)}</strong></div><div><span>Current NAV</span><strong>${money(publicCurrent,c.currency)}</strong></div><div><span>YTD model return</span><strong>${publicReturn===null?'—':`${publicReturn>=0?'+':''}${percent(publicReturn)}`}</strong></div><div><span>Since inception</span><strong>${publicReturn===null?'—':`${publicReturn>=0?'+':''}${percent(publicReturn)}`}</strong></div></div><p class="panel-note">YTD currently equals Since Inception because the model portfolio began during 2026. Future years will use a separate year-start NAV.</p></article><article class="investment-overview-card"><p class="eyebrow">PRIVATE MARKETS &amp; ALTERNATIVES</p><h3>Reserved private-market allocation</h3><div class="investment-overview-stats"><div><span>Initial NAV</span><strong>${money(alternatives,c.currency)}</strong></div><div><span>Current NAV</span><strong>${privateDefined?money(privateCurrent,c.currency):'TBD'}</strong></div><div><span>YTD return</span><strong>${privateDefined?'—':'TBD'}</strong></div><div><span>Since inception</span><strong>${privateDefined?'—':'TBD'}</strong></div></div><p class="panel-note">Performance is not invented while the €5m alternatives portfolio and its valuation history remain undefined.</p></article></div></section>`;
+  return `<div class="metric-grid"><div><span>Net Worth</span><strong>${money(c.net_worth,c.currency,true)}</strong></div><div><span>Cash &amp; Liquidity</span><strong>${money(planningLiquidity,c.currency,true)}</strong><small>${percent(liquidityShare)} of net worth</small></div><div><span>Investment Assets</span><strong>${money(c.investable_assets,c.currency,true)}</strong><small>${money(publicMarkets,c.currency,true)} public markets · ${money(alternatives,c.currency,true)} private markets</small></div><div><span>Other Family Wealth</span><strong>${money(realAndPlanning,c.currency,true)}</strong><small>${money(directRealEstate,c.currency,true)} direct real estate · ${money(wealthPlanning,c.currency,true)} earmarked planning capital</small></div></div><div class="overview-grid"><section class="panel">${sectionTitle('TOTAL WEALTH','Total wealth architecture','Consolidated family balance sheet')}${donut(wealthArchitecture,money(c.netWorth,c.currency,true),'NET WORTH')}<p class="panel-note">Public markets and private markets form the ${money(c.investable_assets,c.currency,true)} investment allocation. Liquidity, direct real estate and capital earmarked for future planning are shown separately.</p></section><section class="panel objectives">${sectionTitle('THE MANDATE','Key objectives')}<ol>${list(c.objectives).map(item=>`<li>${e(item)}</li>`).join('')}</ol><div class="liquidity"><p class="eyebrow">LIQUIDITY REQUIREMENT</p><p>${e(c.liquidity)}</p></div></section></div>${overviewLiquidityPanel(c,related.liquidity)}${investmentOverview}`;
 }
 
 function investments(c, related) {
@@ -2647,7 +2707,7 @@ function investments(c, related) {
   const analytics = `<div class="chart-grid">${allocationComparisonPanel(allocation)}${chartPanel(c.id,'geography','Portfolio geographic exposure',geography)}${chartPanel(c.id,'currency','Economic currency exposure',exposure(analyticsRows,'economicCurrency',denominator))}</div>`;
   const summary = `<div class="portfolio-summary primary-kpis"><div><span>Initial NAV</span><strong>${money(initialCapital,c.currency)}</strong><small>Public-markets model inception capital</small></div><div><span>Current NAV</span><strong>${money(publicTotal,c.currency)}</strong><small>Open market values + residual portfolio cash</small></div><div><span>Total P/L</span><strong>${totalPL>=0?'+':''}${money(totalPL,c.currency)}</strong><small>${money(realizedPL,c.currency)} realised + ${money(unrealizedPL,c.currency)} unrealised</small></div><div><span>Indicative Model Return Since Inception</span><strong>${modelReturn===null?'—':`${modelReturn>=0?'+':''}${percent(modelReturn)}`}</strong><small>Not labelled TWR until a complete NAV and external-flow series exists</small></div></div>`;
   const liquidityTotal = related.liquidity.reduce((sum,row)=>sum+row.marketValue,0);
-  const liquidityOverview = `<section class="panel">${sectionTitle('FAMILY LIQUIDITY','Tier 1 · Tier 2 · Tier 3',money(liquidityTotal,c.currency,true))}<div class="external-liquidity-note"><strong>Family liquidity reserve — external to the €5m public-markets portfolio and excluded from public portfolio NAV.</strong></div><div class="tier-grid">${[1,2,3].map(tier=>{const members=related.liquidity.filter(row=>liquidityTier(row)===tier);const subtotal=members.reduce((sum,row)=>sum+row.marketValue,0);return `<article class="tier-card"><div class="tier-heading"><h3>Tier ${tier}</h3><strong>${money(subtotal,c.currency,true)}</strong></div><ul class="tier-list">${members.map(row=>`<li><span>${e(row.asset)}<small>${e(row.ticker||row.currency)}</small></span><strong>${money(row.marketValue,c.currency)}</strong></li>`).join('')}</ul></article>`;}).join('')}</div></section>`;
+  const liquidityOverview = `<section class="panel">${sectionTitle('LIQUIDITY INVESTMENTS','Tier 2 · Tier 3',`${money(reserveInvested,c.currency,true)} invested reserve`)}<div class="external-liquidity-note"><strong>Tier 2 and Tier 3 belong to the family liquidity reserve, remain external to the €5m public-markets portfolio and are excluded from public portfolio NAV. Tier 1 operational bank cash is shown only in Overview.</strong></div><div class="tier-grid">${[2,3].map(tier=>{const members=related.liquidity.filter(row=>liquidityTier(row)===tier);const subtotal=members.reduce((sum,row)=>sum+row.marketValue,0);return `<article class="tier-card"><div class="tier-heading"><h3>Tier ${tier}</h3><strong>${money(subtotal,c.currency,true)}</strong></div><ul class="tier-list">${members.map(row=>`<li><span>${e(row.asset)}<small>${e(row.ticker||row.currency)}</small></span><strong>${money(row.marketValue,c.currency)}</strong></li>`).join('')}</ul></article>`;}).join('')}</div></section>`;
   const closedRows = related.closedPositions || [];
   const transactionHistory = closedRows.length ? `<div class="transaction-history"><h3>Closed positions &amp; realised performance</h3><p>Realised proceeds remain inside the model portfolio. The Brent disposal funded the WQTM purchase, so the gain is preserved in portfolio NAV without being counted twice.</p><div class="table-scroll" role="region" aria-label="Closed portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Bought</th><th scope="col">Sold</th><th scope="col" class="numeric">Units</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Sale price</th><th scope="col" class="numeric">Cost basis</th><th scope="col" class="numeric">Sale proceeds</th><th scope="col" class="numeric">Realised P/L</th><th scope="col" class="numeric">Return</th></tr></thead><tbody>${closedRows.map(r=>`<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker || r.isin)}</small><div class="position-facts"><span>${e(r.exitReason || r.status)}</span></div></td><td>${e(dateLabel(r.purchaseDate))}</td><td>${e(dateLabel(r.saleDate))}</td><td class="numeric">${new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(r.quantity)}</td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${priceLabel(r.salePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${money(r.initialCost,c.currency)}</td><td class="numeric">${money(r.saleProceeds,c.currency)}</td><td class="numeric">${r.realizedPL>=0?'+':''}${money(r.realizedPL,c.currency)}</td><td class="numeric">${performance(r.realizedReturn)}</td></tr>`).join('')}</tbody></table></div></div>` : '';
   const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`Prices as of ${dateLabel(valuationDate)}`)}<p class="panel-note before-table">Exchange-traded prices, FX and instrument 1M/YTD returns are refreshed after market close. Since Entry is the position result from its model entry date and is distinct from instrument YTD. Direct sovereign bonds display their valuation date and must be marked stale when no verified update exists. Open-position cost basis is ${money(openCost,c.currency)}; realised Brent proceeds were reinvested into WQTM.</p>${rows.length ? `<div class="table-scroll" role="region" aria-label="Liquidity and financial portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Model entry date</th><th scope="col" class="numeric">Units / nominal</th><th scope="col" class="numeric">Model entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Current market value (${e(c.currency)})</th><th scope="col">Trading currency</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M instrument</th><th scope="col" class="numeric">YTD instrument</th><th scope="col" class="numeric">Since Entry position</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><th scope="row" colspan="5">Financial portfolio NAV <small>includes ${money(portfolioCash,c.currency)} residual cash; excludes family liquidity reserve</small></th><td class="numeric">${money(publicTotal,c.currency)}</td><td></td><td class="numeric">100%</td><td colspan="3"></td></tr></tfoot></table></div>` : empty('No financial-market positions published.')}</section>`;
