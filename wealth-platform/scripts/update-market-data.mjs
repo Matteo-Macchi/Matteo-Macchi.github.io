@@ -78,9 +78,11 @@ async function fxHistory(priceCurrency) {
   if (!priceCurrency || priceCurrency === "EUR") {
     return { price: 1, adjusted: 1, oneMonth: { adjusted: 1 }, ytd: { adjusted: 1 }, timestamp: now.toISOString() };
   }
-  if (priceCurrency !== "USD") throw new Error(`No FX feed configured for ${priceCurrency}/EUR`);
+  const fxSymbols = { USD: "EURUSD=X", GBP: "EURGBP=X" };
+  const fxSymbol = fxSymbols[priceCurrency];
+  if (!fxSymbol) throw new Error(`No FX feed configured for ${priceCurrency}/EUR`);
   if (!fxCache.has(priceCurrency)) {
-    fxCache.set(priceCurrency, yahooHistory("EURUSD=X", "USD").then(quote => ({
+    fxCache.set(priceCurrency, yahooHistory(fxSymbol, priceCurrency).then(quote => ({
       ...quote,
       price: 1 / quote.price,
       adjusted: 1 / quote.adjusted,
@@ -144,7 +146,18 @@ async function refreshManualRow(row) {
   row.currentFxRateToBase = fx.price;
   row.marketValue = baseMarketValue(row, row.price, fx.price);
   if (finite(row.initialCost)) row.totalPL = row.marketValue - Number(row.initialCost);
-  if (finite(row.purchasePrice)) row.performanceSincePurchase = basePerformance(row.price, fx.price, row.purchasePrice, Number(row.purchaseFxRateToBase || 1));
+  if (finite(row.initialCost) && Number(row.initialCost) !== 0) {
+    row.performanceSincePurchase = row.totalPL / Number(row.initialCost) * 100;
+  }
+}
+
+async function refreshFxAccount(row) {
+  if (row.updateMode !== "fx-account" || !finite(row.localBalance)) return;
+  const fx = await fxHistory(row.priceCurrency || row.currency);
+  row.currentFxRateToBase = fx.price;
+  row.marketValue = Number(row.localBalance) * fx.price;
+  row.priceTimestamp = fx.timestamp;
+  row.priceSource = `Yahoo Finance ${row.priceCurrency || row.currency}/EUR delayed FX feed`;
 }
 
 function rateForBalance(schedule, date, balance) {
@@ -211,6 +224,7 @@ if (!updated) throw new Error(`No market prices updated. ${warnings.join(" | ")}
 const valuationDate = datedUpdates.sort().at(-1);
 await Promise.all(data.positions.filter(row => row.updateMode === "manual").map(refreshManualRow));
 for (const row of data.liquidity) updateDeposit(row, valuationDate);
+await Promise.all(data.liquidity.filter(row => row.updateMode === "fx-account").map(refreshFxAccount));
 
 for (const client of data.clients) {
   const positions = data.positions.filter(row => row.clientId === client.id);
@@ -247,7 +261,7 @@ data._meta.modelReturnSinceEntry = publicInitialCost ? publicPL / publicInitialC
 data._meta.marketDataCoverage = { automaticUpdated: updated, manualInstruments: manualRows.length };
 data._meta.warnings = [
   "Exchange-traded prices use an indicative delayed public feed and should be checked before real-world use.",
-  manualRows.length ? `Manual clean-price instruments: ${manualRows.join(", ")}.` : null,
+  manualRows.length ? `Verified manual clean-price instruments: ${manualRows.join(", ")}. Bond analytics remain fixed until the next verified snapshot.` : null,
   ...warnings,
 ].filter(Boolean);
 
