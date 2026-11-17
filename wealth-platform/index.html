@@ -827,13 +827,24 @@ button,.button {
 .cash-table th:first-child,.cash-table td:first-child { text-align:left }
 .cash-table td strong,.cash-table td small { display:block }
 .cash-table td small { color:#8298aa; margin-top:3px }
-.investment-overview-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px }
-.investment-overview-card { border:1px solid var(--line); padding:23px }
-.investment-overview-card h3 { font-size:1.55rem; margin-bottom:19px }
-.investment-overview-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:var(--line) }
-.investment-overview-stats>div { background:#111d26; padding:15px }
+.investment-overview-grid { display:grid; gap:14px }
+.investment-market-row { border:1px solid var(--line) }
+.investment-market-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:15px 18px;
+  background:#111d26
+}
+.investment-market-head h3 { font-family:var(--sans); font-size:.92rem; font-weight:600 }
+.investment-market-head span { color:#91a6b7; font-size:.72rem }
+.investment-overview-stats { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)) }
+.investment-overview-stats>div { padding:16px 18px; border-right:1px solid var(--line) }
+.investment-overview-stats>div:last-child { border-right:0 }
 .investment-overview-stats span { display:block; color:#91a6b7; font-size:.68rem }
 .investment-overview-stats strong { display:block; margin-top:5px; font-size:.95rem }
+.investment-market-note { color:#8298aa; font-size:.72rem; line-height:1.6; padding:0 18px 15px }
 .table-scroll {
   overflow-x:auto;
   width:100%;
@@ -941,10 +952,12 @@ tfoot th,tfoot td {
 }
 @media (max-width:700px) {
   .allocation-comparison-row { grid-template-columns:1fr 1.7fr 52px 52px; gap:8px }
-  .cash-overview-grid,.investment-overview-grid { grid-template-columns:1fr }
+  .cash-overview-grid { grid-template-columns:1fr }
   .cash-overview-grid>div { border-right:0; border-bottom:1px solid var(--line); padding-left:0 }
   .cash-tier-head { grid-template-columns:1fr auto }
   .cash-tier-head span { grid-column:1/-1 }
+  .investment-overview-stats { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .investment-overview-stats>div { border-bottom:1px solid var(--line) }
 }
 .chart-grid .bars {
   padding-top:5px
@@ -2603,9 +2616,9 @@ function overviewLiquidityPanel(c, rows) {
       const income=earned!==null?`Gross interest ${money(earned,c.currency)}${rate===null?'':` · ${percent(rate)} annual rate`}`:rate!==null&&rate>0?`${percent(rate)} annual rate`:'Non-remunerated operating cash';
       return `<tr><td>${e(row.currency)}</td><td><strong>${e(row.asset)}</strong><small>${e(row.ticker||row.thesis)}</small></td><td>${e(income)}</td><td class="numeric">${money(row.marketValue,c.currency)}</td><td class="numeric">${percent(tier.total?row.marketValue/tier.total*100:0)}</td></tr>`;
     }).join('') : (()=>{const row=tier.members[0]||{};const indicative=optionalNumber(row.currentYTM)??optionalNumber(row.annualRate);const yieldLabel=tier.number===2&&indicative===null?'Variable yield linked to €STR + 0.085% before costs':indicative===null?'Indicative yield unavailable':`${percent(indicative)} indicative annual yield`;return `<tr><td>${e(row.currency||c.currency)}</td><td><strong>${e(tierStrategy[tier.number])}</strong><small>${e(tierName[tier.number])}</small></td><td>${e(yieldLabel)}</td><td class="numeric">${money(tier.total,c.currency)}</td><td class="numeric">100%</td></tr>`;})();
-    return `<div class="cash-tier"><div class="cash-tier-head"><h3>Tier ${tier.number} · ${e(tierName[tier.number])}</h3><strong>${money(tier.total,c.currency)}</strong><span>${percent(tierWeight)} of total cash reserve</span></div><div class="table-scroll"><table class="cash-table"><thead><tr><th>Currency</th><th>Position / strategy</th><th>Income / indicative yield</th><th class="numeric">Amount</th><th class="numeric">Weight within tier</th></tr></thead><tbody>${detailRows}</tbody></table></div></div>`;
+    return `<div class="cash-tier"><div class="cash-tier-head"><h3>Tier ${tier.number} · ${e(tierName[tier.number])}</h3><strong>${money(tier.total,c.currency)}</strong><span>${percent(tierWeight)} of total cash reserve</span></div><div class="table-scroll"><table class="cash-table"><tbody>${detailRows}</tbody></table></div></div>`;
   }).join('');
-  return `<section class="panel liquidity-panel">${sectionTitle('CASH OVERVIEW','Family liquidity reserve',`${money(total,c.currency,true)} across three time horizons`)}<div class="cash-overview-grid"><div><span>Total cash &amp; liquidity</span><strong>${money(total,c.currency,true)}</strong></div><div><span>12-month requirement</span><strong>${annualNeed===null?'—':money(annualNeed,c.currency,true)}</strong></div><div><span>Minimum reserve</span><strong>${minimum===null?'—':money(minimum,c.currency,true)}</strong></div><div><span>Cash weight of net worth</span><strong>${cashWeight===null?'—':percent(cashWeight)}</strong></div></div>${tierMarkup}</section>`;
+  return `<section class="panel liquidity-panel"><div class="section-heading"><div><h2>Cash overview</h2></div><span class="section-aside">${money(total,c.currency,true)} across three time horizons</span></div><div class="cash-overview-grid"><div><span>Total cash &amp; liquidity</span><strong>${money(total,c.currency,true)}</strong></div><div><span>12-month requirement</span><strong>${annualNeed===null?'—':money(annualNeed,c.currency,true)}</strong></div><div><span>Minimum reserve</span><strong>${minimum===null?'—':money(minimum,c.currency,true)}</strong></div><div><span>Cash weight of net worth</span><strong>${cashWeight===null?'—':percent(cashWeight)}</strong></div></div>${tierMarkup}</section>`;
 }
 
 function positionGroup(row) {
@@ -2662,10 +2675,14 @@ function overview(c, related) {
   const realAndPlanning = directRealEstate+wealthPlanning;
   const publicInitial = optionalNumber(dataset._meta?.capitalAvailable) ?? publicMarkets;
   const publicCurrent = optionalNumber(dataset._meta?.publicCurrentValue) ?? related.positions.reduce((sum,row)=>sum+row.marketValue,0)+(optionalNumber(dataset._meta?.portfolioCash)||0);
+  const publicPL = publicCurrent-publicInitial;
   const publicReturn = publicInitial ? (publicCurrent-publicInitial)/publicInitial*100 : null;
   const privateCurrent = related.alternatives.reduce((sum,row)=>sum+row.marketValue,0);
   const privateDefined = related.alternatives.some(row=>row.status && !/in progress|tbd|to be defined/i.test(row.status));
-  const investmentOverview = `<section class="panel">${sectionTitle('INVESTMENT OVERVIEW','Public & private markets','Separate sleeves · consolidated family view')}<div class="investment-overview-grid"><article class="investment-overview-card"><p class="eyebrow">PUBLIC MARKETS</p><h3>Liquid investment portfolio</h3><div class="investment-overview-stats"><div><span>Initial NAV</span><strong>${money(publicInitial,c.currency)}</strong></div><div><span>Current NAV</span><strong>${money(publicCurrent,c.currency)}</strong></div><div><span>YTD model return</span><strong>${publicReturn===null?'—':`${publicReturn>=0?'+':''}${percent(publicReturn)}`}</strong></div><div><span>Since inception</span><strong>${publicReturn===null?'—':`${publicReturn>=0?'+':''}${percent(publicReturn)}`}</strong></div></div><p class="panel-note">YTD currently equals Since Inception because the model portfolio began during 2026. Future years will use a separate year-start NAV.</p></article><article class="investment-overview-card"><p class="eyebrow">PRIVATE MARKETS &amp; ALTERNATIVES</p><h3>Reserved private-market allocation</h3><div class="investment-overview-stats"><div><span>Initial NAV</span><strong>${money(alternatives,c.currency)}</strong></div><div><span>Current NAV</span><strong>${privateDefined?money(privateCurrent,c.currency):'TBD'}</strong></div><div><span>YTD return</span><strong>${privateDefined?'—':'TBD'}</strong></div><div><span>Since inception</span><strong>${privateDefined?'—':'TBD'}</strong></div></div><p class="panel-note">Performance is not invented while the €5m alternatives portfolio and its valuation history remain undefined.</p></article></div></section>`;
+  const privatePL = privateDefined ? privateCurrent-alternatives : null;
+  const signedMoney = value => `${value>=0?'+':'−'}${money(Math.abs(value),c.currency)}`;
+  const signedPercent = value => value===null ? '—' : `${value>=0?'+':''}${percent(value)}`;
+  const investmentOverview = `<section class="panel">${sectionTitle('INVESTMENT OVERVIEW','Public & private markets','Separate sleeves · consolidated family view')}<div class="investment-overview-grid"><article class="investment-market-row"><div class="investment-market-head"><h3>Public markets</h3><span>Liquid investment portfolio</span></div><div class="investment-overview-stats"><div><span>Initial NAV</span><strong>${money(publicInitial,c.currency)}</strong></div><div><span>Current NAV</span><strong>${money(publicCurrent,c.currency)}</strong></div><div><span>P/L</span><strong>${signedMoney(publicPL)}</strong></div><div><span>YTD</span><strong>${signedPercent(publicReturn)}</strong></div><div><span>Since inception</span><strong>${signedPercent(publicReturn)}</strong></div></div><p class="investment-market-note">YTD currently equals Since Inception because the model portfolio began during 2026. Future years will use the year-start NAV.</p></article><article class="investment-market-row"><div class="investment-market-head"><h3>Private markets &amp; alternatives</h3><span>Allocation under construction</span></div><div class="investment-overview-stats"><div><span>Initial NAV</span><strong>${money(alternatives,c.currency)}</strong></div><div><span>Current NAV</span><strong>${privateDefined?money(privateCurrent,c.currency):'TBD'}</strong></div><div><span>P/L</span><strong>${privatePL===null?'TBD':signedMoney(privatePL)}</strong></div><div><span>YTD</span><strong>${privateDefined?'—':'TBD'}</strong></div><div><span>Since inception</span><strong>${privateDefined?'—':'TBD'}</strong></div></div><p class="investment-market-note">Performance remains TBD until the €5m alternatives portfolio and its valuation history are defined.</p></article></div></section>`;
   return `<div class="metric-grid"><div><span>Net Worth</span><strong>${money(c.net_worth,c.currency,true)}</strong></div><div><span>Cash &amp; Liquidity</span><strong>${money(planningLiquidity,c.currency,true)}</strong><small>${percent(liquidityShare)} of net worth</small></div><div><span>Investment Assets</span><strong>${money(c.investable_assets,c.currency,true)}</strong><small>${money(publicMarkets,c.currency,true)} public markets · ${money(alternatives,c.currency,true)} private markets</small></div><div><span>Other Family Wealth</span><strong>${money(realAndPlanning,c.currency,true)}</strong><small>${money(directRealEstate,c.currency,true)} direct real estate · ${money(wealthPlanning,c.currency,true)} earmarked planning capital</small></div></div><div class="overview-grid"><section class="panel">${sectionTitle('TOTAL WEALTH','Total wealth architecture','Consolidated family balance sheet')}${donut(wealthArchitecture,money(c.netWorth,c.currency,true),'NET WORTH')}<p class="panel-note">Public markets and private markets form the ${money(c.investable_assets,c.currency,true)} investment allocation. Liquidity, direct real estate and capital earmarked for future planning are shown separately.</p></section><section class="panel objectives">${sectionTitle('THE MANDATE','Key objectives')}<ol>${list(c.objectives).map(item=>`<li>${e(item)}</li>`).join('')}</ol><div class="liquidity"><p class="eyebrow">LIQUIDITY REQUIREMENT</p><p>${e(c.liquidity)}</p></div></section></div>${overviewLiquidityPanel(c,related.liquidity)}${investmentOverview}`;
 }
 
