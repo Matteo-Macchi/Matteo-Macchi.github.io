@@ -774,6 +774,77 @@ button,.button {
   line-height:1.45;
   margin-top:8px
 }
+.analytics-section { margin-top:26px }
+.analytics-kpis {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--line);
+  background:var(--line);
+  gap:1px
+}
+.analytics-kpis>div { background:#111d26; padding:18px 20px; min-width:0 }
+.analytics-kpis span,.analytics-kpis small { display:block; color:#8fa5b6; font-size:.69rem; line-height:1.45 }
+.analytics-kpis strong { display:block; font-size:1.08rem; margin:7px 0 5px }
+.analytics-kpis .pending { color:#c6a96b }
+.comparison-status {
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin:16px 0 20px;
+  padding:12px 14px;
+  border-left:3px solid #c6a96b;
+  background:rgba(198,169,107,.07);
+  color:#bdc9d2;
+  font-size:.73rem;
+  line-height:1.55
+}
+.comparison-status.aligned { border-left-color:#7fb3a0; background:rgba(127,179,160,.07) }
+.comparison-bars { display:grid; gap:13px; margin-top:18px }
+.comparison-row {
+  display:grid;
+  grid-template-columns:minmax(150px,1fr) minmax(220px,3fr) 90px;
+  gap:14px;
+  align-items:center
+}
+.comparison-row span { color:#cbd6de; font-size:.76rem }
+.comparison-row small { display:block; color:#7890a2; margin-top:2px }
+.comparison-row strong { text-align:right; font-size:.82rem }
+.comparison-track { height:8px; background:#2e414f; overflow:hidden }
+.comparison-track i { display:block; height:100%; background:var(--accent) }
+.comparison-row.benchmark .comparison-track i { background:#718ca2 }
+.contribution-layout { display:grid; grid-template-columns:minmax(0,1.6fr) minmax(260px,.8fr); gap:28px }
+.contribution-chart { display:grid; gap:13px }
+.contribution-row { display:grid; grid-template-columns:125px minmax(150px,1fr) 100px; gap:13px; align-items:center }
+.contribution-row>span { color:#cbd6de; font-size:.74rem }
+.contribution-row>strong { text-align:right; font-size:.78rem }
+.contribution-track { height:9px; background:#263844; position:relative; overflow:hidden }
+.contribution-track i { display:block; height:100%; background:#78a99a }
+.contribution-row.negative .contribution-track i { background:#b97771 }
+.contribution-side { border-left:1px solid var(--line); padding-left:24px }
+.contribution-side h3 { font-family:var(--sans); font-size:.78rem; margin:0 0 10px }
+.contribution-list { list-style:none; margin:0 0 20px; padding:0 }
+.contribution-list li { display:flex; justify-content:space-between; gap:12px; padding:7px 0; border-bottom:1px solid rgba(70,88,102,.45); font-size:.72rem }
+.contribution-list li span { color:#aabac6 }
+.analytics-disclosure { border:1px solid var(--line); margin-top:26px; background:#101c25 }
+.analytics-disclosure>summary { cursor:pointer; list-style:none; padding:20px 22px; display:flex; justify-content:space-between; gap:18px; align-items:center }
+.analytics-disclosure>summary::-webkit-details-marker { display:none }
+.analytics-disclosure>summary strong { font-family:var(--serif); font-size:1.45rem; font-weight:400 }
+.analytics-disclosure>summary span { color:#8fa5b6; font-size:.72rem }
+.analytics-disclosure[open]>summary { border-bottom:1px solid var(--line) }
+.analytics-body { padding:24px 22px }
+.risk-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px }
+.risk-card { border:1px solid var(--line); padding:19px; min-width:0 }
+.risk-card h3 { font-family:var(--sans); font-size:.82rem; margin:0 0 15px }
+.risk-metrics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:var(--line) }
+.risk-metrics>div { background:#111d26; padding:13px }
+.risk-metrics span { display:block; color:#8fa5b6; font-size:.66rem; line-height:1.4 }
+.risk-metrics strong { display:block; margin-top:5px; font-size:.9rem }
+.risk-list { list-style:none; margin:0; padding:0 }
+.risk-list li { display:grid; grid-template-columns:1fr auto; gap:12px; padding:8px 0; border-bottom:1px solid rgba(70,88,102,.45); font-size:.72rem }
+.risk-list li span { color:#aebdc8 }
+.risk-list li small { color:#7890a2; display:block; margin-top:2px }
+.risk-note { color:#8198a9; font-size:.68rem; line-height:1.55; margin-top:14px }
+.methodology-note { margin-top:22px; border-top:1px solid var(--line); padding-top:18px; color:#8198a9; font-size:.7rem; line-height:1.65 }
 .allocation-comparison { margin-top:8px }
 .allocation-comparison-row {
   display:grid;
@@ -995,6 +1066,9 @@ tfoot th,tfoot td {
 @media (max-width:1050px) {
   .portfolio-summary { grid-template-columns:repeat(2,minmax(0,1fr)) }
   .portfolio-summary.primary-kpis { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .analytics-kpis { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .contribution-layout { grid-template-columns:1fr }
+  .contribution-side { border-left:0; border-top:1px solid var(--line); padding:20px 0 0 }
 }
 @media (max-width:700px) {
   .allocation-comparison-row { grid-template-columns:1fr 1.7fr 52px 52px; gap:8px }
@@ -1004,6 +1078,11 @@ tfoot th,tfoot td {
   .cash-tier-head span { grid-column:1/-1 }
   .investment-overview-stats { grid-template-columns:repeat(2,minmax(0,1fr)) }
   .investment-overview-stats>div { border-bottom:1px solid var(--line) }
+  .analytics-kpis,.risk-grid { grid-template-columns:1fr }
+  .comparison-row { grid-template-columns:1fr 70px }
+  .comparison-row .comparison-track { grid-column:1/-1; grid-row:2 }
+  .contribution-row { grid-template-columns:90px minmax(100px,1fr) 82px; gap:8px }
+  .analytics-disclosure>summary { align-items:flex-start; flex-direction:column }
 }
 .chart-grid .bars {
   padding-top:5px
@@ -2746,7 +2825,14 @@ function investments(c, related) {
   const unrealizedPL = optionalNumber(dataset._meta?.unrealizedPL) ?? rows.reduce((sum,r)=>sum+(optionalNumber(r.totalPL)||0),0);
   const modelReturn = initialCapital ? totalPL/initialCapital*100 : null;
   const valuationDate = dataset._meta?.valuationDate || c.asOf;
-  const analyticsRows = portfolioCash > 0 ? [...rows,{marketValue:portfolioCash,assetClass:'Portfolio Cash',economicCurrency:'EUR',sector:'Residual cash'}] : rows;
+  const benchmark = dataset.benchmarkComparison || null;
+  const benchmarkAligned = Boolean(benchmark?.comparisonAvailable && benchmark?.currentNAVs?.date === valuationDate);
+  const benchmarkValue = optionalNumber(benchmark?.currentValue);
+  const benchmarkPL = optionalNumber(benchmark?.pnl);
+  const benchmarkReturn = optionalNumber(benchmark?.returnSinceInception);
+  const excessPL = benchmarkAligned && benchmarkPL!==null ? totalPL-benchmarkPL : null;
+  const excessReturn = benchmarkAligned && benchmarkReturn!==null && modelReturn!==null ? modelReturn-benchmarkReturn : null;
+  const analyticsRows = portfolioCash > 0 ? [...rows,{marketValue:portfolioCash,assetClass:'Portfolio Cash',economicCurrency:'EUR',currencyExposureBucket:'EUR residual cash',sector:'Residual cash'}] : rows;
   const allocationRows = analyticsRows.map(r=>({...r,assetClass:r.sector==='Residual cash'?'Residual cash':positionGroup(r)==='Equities'?'Equity':positionGroup(r)}));
   const allocation = exposure(allocationRows, 'assetClass', denominator);
   const geography = portfolioLookThroughExposure(rows,portfolioCash,denominator);
@@ -2754,6 +2840,32 @@ function investments(c, related) {
   const equityGeography = lookThroughExposure(rows);
   const usaEquity = equityGeography.find(item=>['USA','United States'].includes(item.label))?.value ?? null;
   const usaPortfolio = geography.filter(item=>['USA','United States'].includes(item.label)).reduce((sum,item)=>sum+item.value,0) || null;
+  const topHoldings = [...rows].sort((a,b)=>b.marketValue-a.marketValue);
+  const topFiveConcentration = topHoldings.slice(0,5).reduce((sum,row)=>sum+row.marketValue,0)/denominator*100;
+  const largestHolding = topHoldings[0] || null;
+  const contributionOrder = ['Equities','Fixed Income','Gold','Digital Assets','Tactical'];
+  const classContributions = contributionOrder.map(label=>({label,value:rows.filter(row=>positionGroup(row)===label).reduce((sum,row)=>sum+(optionalNumber(row.totalPL)||0),0)}));
+  const maxContribution = Math.max(1,...classContributions.map(item=>Math.abs(item.value)),Math.abs(realizedPL));
+  const contributors = [...rows].sort((a,b)=>(optionalNumber(b.totalPL)||0)-(optionalNumber(a.totalPL)||0));
+  const fixedIncomeRows = rows.filter(row=>positionGroup(row)==='Fixed Income');
+  const fixedIncomeValue = fixedIncomeRows.reduce((sum,row)=>sum+row.marketValue,0);
+  const fixedMetricRows = fixedIncomeRows.map(row=>({...row,analyticsDuration:optionalNumber(row.duration)??optionalNumber(row.indicativeDuration),analyticsYTM:optionalNumber(row.currentYTM)??optionalNumber(row.indicativeYTM)})).filter(row=>row.analyticsDuration!==null&&row.analyticsYTM!==null);
+  const fixedMetricValue = fixedMetricRows.reduce((sum,row)=>sum+row.marketValue,0);
+  const weightedDuration = fixedMetricValue ? fixedMetricRows.reduce((sum,row)=>sum+row.marketValue*row.analyticsDuration,0)/fixedMetricValue : null;
+  const weightedYTM = fixedMetricValue ? fixedMetricRows.reduce((sum,row)=>sum+row.marketValue*row.analyticsYTM,0)/fixedMetricValue : null;
+  const sovereignValue = fixedIncomeRows.filter(row=>optionalNumber(row.coupon)!==null).reduce((sum,row)=>sum+row.marketValue,0);
+  const corporateValue = fixedIncomeValue-sovereignValue;
+  const durationBuckets = [
+    {label:'Short · ≤5y',value:fixedMetricRows.filter(row=>row.analyticsDuration<=5).reduce((sum,row)=>sum+row.marketValue,0)},
+    {label:'Intermediate · >5–10y',value:fixedMetricRows.filter(row=>row.analyticsDuration>5&&row.analyticsDuration<=10).reduce((sum,row)=>sum+row.marketValue,0)},
+    {label:'Long · >10y',value:fixedMetricRows.filter(row=>row.analyticsDuration>10).reduce((sum,row)=>sum+row.marketValue,0)}
+  ];
+  const rateSensitivity = weightedDuration===null ? null : weightedDuration*0.01*fixedIncomeValue;
+  const valuationDay = Date.parse(`${valuationDate}T00:00:00Z`);
+  const staleMarketRows = rows.filter(row=>{
+    const stamp = Date.parse(String(row.priceTimestamp||''));
+    return Number.isFinite(stamp) && Number.isFinite(valuationDay) && valuationDay-stamp > 2*86400000;
+  });
   const groupOrder = ['Equities','Fixed Income','Gold','Digital Assets','Tactical','Opportunity Reserve','Commodities'];
   const groups = [...new Set(rows.map(positionGroup))].sort((a,b)=>{
     const ai = groupOrder.indexOf(a), bi = groupOrder.indexOf(b);
@@ -2808,9 +2920,12 @@ function investments(c, related) {
     const since = row.performanceSincePurchase ?? row.performance_since_purchase ?? row.total_return;
     const currentPriceNote = directBond ? `<small>${stale?'STALE · ':''}${e(tableDateLabel(priceDate))}</small>` : '';
     const dirtyPrice = optionalNumber(row.dirtyPrice);
+    const displayedYTM = optionalNumber(row.currentYTM) ?? optionalNumber(row.indicativeYTM);
+    const displayedDuration = optionalNumber(row.duration) ?? optionalNumber(row.indicativeDuration);
     const accruedNote = directBond&&dirtyPrice!==null ? `<small>Dirty ${priceLabel(dirtyPrice,row.priceCurrency||row.currency,true)}</small>` : '';
     const couponNote = directBond ? [row.couponFrequency,row.nextCouponDate?`Next ${tableDateLabel(row.nextCouponDate)}`:null].filter(Boolean).join(' · ') : '';
-    return `<tr><td>${instrumentCell(row,directBond)}</td><td>${e(tableDateLabel(row.purchaseDate))}</td><td class="numeric">${quantity===null?'—':new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}</td><td class="numeric">${priceLabel(row.purchasePrice,row.priceCurrency||row.currency,directBond)}</td><td class="numeric">${priceLabel(row.price,row.priceCurrency||row.currency,directBond)}${currentPriceNote}</td><td class="numeric">${accrued===null?'—':priceLabel(accrued,row.priceCurrency||row.currency,directBond)}${accruedNote}</td><td class="numeric">${money(row.marketValue,c.currency)}</td><td class="currency-fx">${currencyFxCell(row)}</td><td class="numeric">${optionalNumber(row.currentYTM)===null?'—':percent(row.currentYTM)}</td><td class="numeric">${optionalNumber(row.duration)===null?'—':`${Number(row.duration).toFixed(2)}y`}</td><td class="numeric">${directBond?percent(row.coupon):'—'}${couponNote?`<small>${e(couponNote)}</small>`:''}</td><td class="numeric">${percent(row.marketValue/denominator*100)}</td><td class="numeric">${performance(stale?null:oneMonth)}</td><td class="numeric">${performance(stale?null:ytd)}</td><td class="numeric">${performance(stale?null:since)}</td></tr>`;
+    const metricNote = !directBond && (row.indicativeYTM!==undefined || row.indicativeDuration!==undefined) ? '<small>Indicative fund metric</small>' : '';
+    return `<tr><td>${instrumentCell(row,directBond)}</td><td>${e(tableDateLabel(row.purchaseDate))}</td><td class="numeric">${quantity===null?'—':new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(quantity)}</td><td class="numeric">${priceLabel(row.purchasePrice,row.priceCurrency||row.currency,directBond)}</td><td class="numeric">${priceLabel(row.price,row.priceCurrency||row.currency,directBond)}${currentPriceNote}</td><td class="numeric">${accrued===null?'—':priceLabel(accrued,row.priceCurrency||row.currency,directBond)}${accruedNote}</td><td class="numeric">${money(row.marketValue,c.currency)}</td><td class="currency-fx">${currencyFxCell(row)}</td><td class="numeric">${displayedYTM===null?'—':percent(displayedYTM)}${metricNote}</td><td class="numeric">${displayedDuration===null?'—':`${displayedDuration.toFixed(2)}y`}${metricNote}</td><td class="numeric">${directBond?percent(row.coupon):'—'}${couponNote?`<small>${e(couponNote)}</small>`:''}</td><td class="numeric">${percent(row.marketValue/denominator*100)}</td><td class="numeric">${performance(stale?null:oneMonth)}</td><td class="numeric">${performance(stale?null:ytd)}</td><td class="numeric">${performance(stale?null:since)}</td></tr>`;
   };
   const standardHeaders = '<tr><th scope="col">Instrument</th><th scope="col">Entry date</th><th scope="col" class="numeric">Quantity</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Market value</th><th scope="col">Currency / FX</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since entry</th></tr>';
   const fixedIncomeHeaders = '<tr><th scope="col">Instrument</th><th scope="col">Entry date</th><th scope="col" class="numeric">Quantity</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Current price</th><th scope="col" class="numeric">Accrued</th><th scope="col" class="numeric">Market value</th><th scope="col">Currency / FX</th><th scope="col" class="numeric">YTM</th><th scope="col" class="numeric">Duration</th><th scope="col" class="numeric">Coupon</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">1M</th><th scope="col" class="numeric">YTD</th><th scope="col" class="numeric">Since entry</th></tr>';
@@ -2820,15 +2935,24 @@ function investments(c, related) {
     const fixedIncome = group==='Fixed Income';
     return `<section class="asset-class-block"><div class="asset-class-head"><h3>${e(group)}</h3><span>${money(subtotal,c.currency)} · ${percent(subtotal/denominator*100)}</span></div><div class="table-scroll" role="region" aria-label="${e(group)} positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table asset-table ${fixedIncome?'fixed-income-table':''}"><thead>${fixedIncome?fixedIncomeHeaders:standardHeaders}</thead><tbody>${members.map(row=>fixedIncome?fixedIncomeRow(row):standardPositionRow(row)).join('')}</tbody></table></div></section>`;
   }).join('');
-  const analytics = `<div class="chart-grid">${allocationComparisonPanel(allocation)}${chartPanel(c.id,'geography','Portfolio geographic exposure',geography)}${chartPanel(c.id,'currency','Economic currency exposure',exposure(analyticsRows,'economicCurrency',denominator))}</div>`;
+  const analytics = `<div class="chart-grid">${allocationComparisonPanel(allocation)}${chartPanel(c.id,'geography','Portfolio geographic exposure',geography)}${chartPanel(c.id,'currency','Economic currency profile · indicative',exposure(analyticsRows,'currencyExposureBucket',denominator))}</div>`;
   const summary = `<div class="portfolio-summary primary-kpis"><div><span>Initial NAV</span><strong>${money(initialCapital,c.currency)}</strong><small>Public-markets model inception capital</small></div><div><span>Current NAV</span><strong>${money(publicTotal,c.currency)}</strong><small>Open market values + residual portfolio cash</small></div><div><span>Total P/L</span><strong>${totalPL>=0?'+':''}${money(totalPL,c.currency)}</strong><small>${money(realizedPL,c.currency)} realised + ${money(unrealizedPL,c.currency)} unrealised</small></div><div><span>Indicative Model Return Since Inception</span><strong>${modelReturn===null?'—':`${modelReturn>=0?'+':''}${percent(modelReturn)}`}</strong><small>Not labelled TWR until a complete NAV and external-flow series exists</small></div></div>`;
+  const signedMoney = value => value===null ? '—' : `${value>=0?'+':'−'}${money(Math.abs(value),c.currency)}`;
+  const signedPercent = value => value===null ? '—' : `${value>=0?'+':''}${percent(value)}`;
+  const portfolioIndex = modelReturn===null ? 100 : 100+modelReturn;
+  const benchmarkIndex = benchmarkReturn===null ? 100 : 100+benchmarkReturn;
+  const comparisonScale = Math.max(110,portfolioIndex,benchmarkIndex)*1.03;
+  const benchmarkPanel = benchmark ? `<section class="panel analytics-section">${sectionTitle('PERFORMANCE & BENCHMARK','Portfolio versus reference benchmark','60% VWCE · 40% AGGH')}<div class="analytics-kpis"><div><span>Portfolio NAV</span><strong>${money(publicTotal,c.currency)}</strong><small>As of ${e(tableDateLabel(valuationDate))}</small></div><div><span>Portfolio P/L</span><strong>${signedMoney(totalPL)}</strong><small>${signedPercent(modelReturn)} since inception</small></div><div><span>Reference benchmark value</span><strong>${benchmarkValue===null?'—':money(benchmarkValue,c.currency)}</strong><small>As of ${e(tableDateLabel(benchmark.currentNAVs?.date))}</small></div><div><span>Benchmark P/L</span><strong>${signedMoney(benchmarkPL)}</strong><small>${signedPercent(benchmarkReturn)} matched-contribution return</small></div><div><span>Excess P/L</span><strong class="${benchmarkAligned?'':'pending'}">${signedMoney(excessPL)}</strong><small>${benchmarkAligned?'Comparable dates':'Pending aligned valuation date'}</small></div><div><span>Excess return</span><strong class="${benchmarkAligned?'':'pending'}">${signedPercent(excessReturn)}</strong><small>${benchmarkAligned?'Percentage-point difference':'Not calculated across different dates'}</small></div><div><span>Benchmark construction</span><strong>Buy &amp; hold</strong><small>Each capital cohort invested 60/40 on its original date</small></div><div><span>Performance label</span><strong>Indicative model</strong><small>Not TWR and not presented as alpha</small></div></div><div class="comparison-status ${benchmarkAligned?'aligned':''}"><strong>${benchmarkAligned?'Comparable snapshot':'Comparison held back'}</strong><span>${e(benchmark.comparisonNote)}</span></div><div class="comparison-bars"><div class="comparison-row"><span>Rossi portfolio<small>${e(tableDateLabel(valuationDate))}</small></span><div class="comparison-track"><i style="width:${(portfolioIndex/comparisonScale*100).toFixed(2)}%"></i></div><strong>${portfolioIndex.toFixed(2)}</strong></div><div class="comparison-row benchmark"><span>Reference benchmark<small>${e(tableDateLabel(benchmark.currentNAVs?.date))}</small></span><div class="comparison-track"><i style="width:${(benchmarkIndex/comparisonScale*100).toFixed(2)}%"></i></div><strong>${benchmarkIndex.toFixed(2)}</strong></div></div><p class="risk-note">Indexed values start at 100. The bars are not a synthetic historical curve. ${e(benchmark.methodology)}</p></section>` : '';
+  const contributionRows = [...classContributions,{label:'Realised Brent · closed',value:realizedPL}];
+  const contributionPanel = `<section class="panel analytics-section">${sectionTitle('RETURN DRIVERS','Performance contribution','Economic P/L · open and realised separated')}<div class="contribution-layout"><div class="contribution-chart">${contributionRows.map(item=>`<div class="contribution-row ${item.value<0?'negative':''}"><span>${e(item.label)}</span><div class="contribution-track"><i style="width:${(Math.abs(item.value)/maxContribution*100).toFixed(2)}%"></i></div><strong>${signedMoney(item.value)}</strong></div>`).join('')}</div><aside class="contribution-side"><h3>Top contributors</h3><ul class="contribution-list">${contributors.filter(row=>(optionalNumber(row.totalPL)||0)>0).slice(0,3).map(row=>`<li><span>${e(row.ticker)}</span><strong>${signedMoney(row.totalPL)}</strong></li>`).join('')}</ul><h3>Main detractors</h3><ul class="contribution-list">${contributors.filter(row=>(optionalNumber(row.totalPL)||0)<0).slice(-3).reverse().map(row=>`<li><span>${e(row.ticker)}</span><strong>${signedMoney(row.totalPL)}</strong></li>`).join('')}</ul></aside></div><p class="risk-note">Open-position contribution totals ${signedMoney(unrealizedPL)}. The ${signedMoney(realizedPL)} Brent result is shown separately because the proceeds were reinvested into WQTM and must not be added to NAV again.</p></section>`;
   const liquidityTotal = related.liquidity.reduce((sum,row)=>sum+row.marketValue,0);
   const liquidityOverview = `<section class="panel">${sectionTitle('LIQUIDITY INVESTMENTS','Tier 2 · Tier 3',`${money(reserveInvested,c.currency,true)} invested reserve`)}<div class="external-liquidity-note"><strong>Tier 2 and Tier 3 belong to the family liquidity reserve, remain external to the €5m public-markets portfolio and are excluded from public portfolio NAV. Tier 1 operational bank cash is shown only in Overview.</strong></div><div class="tier-grid">${[2,3].map(tier=>{const members=related.liquidity.filter(row=>liquidityTier(row)===tier);const subtotal=members.reduce((sum,row)=>sum+row.marketValue,0);return `<article class="tier-card"><div class="tier-heading"><h3>Tier ${tier}</h3><strong>${money(subtotal,c.currency,true)}</strong></div><ul class="tier-list">${members.map(row=>`<li><span>${e(row.asset)}<small>${e(row.ticker||row.currency)}</small></span><strong>${money(row.marketValue,c.currency)}</strong></li>`).join('')}</ul></article>`;}).join('')}</div></section>`;
   const closedRows = related.closedPositions || [];
   const transactionHistory = closedRows.length ? `<div class="transaction-history"><h3>Closed positions &amp; realised performance</h3><p>Realised proceeds remain inside the model portfolio. The Brent disposal funded the WQTM purchase, so the gain is preserved in portfolio NAV without being counted twice.</p><div class="table-scroll" role="region" aria-label="Closed portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Bought</th><th scope="col">Sold</th><th scope="col" class="numeric">Units</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Sale price</th><th scope="col" class="numeric">Cost basis</th><th scope="col" class="numeric">Sale proceeds</th><th scope="col" class="numeric">Realised P/L</th><th scope="col" class="numeric">Return</th></tr></thead><tbody>${closedRows.map(r=>`<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker || r.isin)}</small><div class="position-facts"><span>${e(r.exitReason || r.status)}</span></div></td><td>${e(dateLabel(r.purchaseDate))}</td><td>${e(dateLabel(r.saleDate))}</td><td class="numeric">${new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(r.quantity)}</td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${priceLabel(r.salePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${money(r.initialCost,c.currency)}</td><td class="numeric">${money(r.saleProceeds,c.currency)}</td><td class="numeric">${r.realizedPL>=0?'+':''}${money(r.realizedPL,c.currency)}</td><td class="numeric">${performance(r.realizedReturn)}</td></tr>`).join('')}</tbody></table></div></div>` : '';
   const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`Prices as of ${dateLabel(valuationDate)}`)}<p class="panel-note before-table">Prices, FX and 1M/YTD instrument returns are refreshed after market close where automatic data are available. Since Entry is the position return from its entry date. For direct sovereign bonds, Current price is the clean price and Market value uses dirty price (clean + accrued). Verified manual bond snapshots show their individual valuation date; unrecorded coupon cashflows are excluded.</p>${rows.length ? groupTables : empty('No financial-market positions published.')}<p class="panel-note">Financial portfolio NAV: <strong>${money(publicTotal,c.currency)}</strong> · includes ${money(portfolioCash,c.currency)} residual portfolio cash and excludes the external family liquidity reserve.</p></section>`;
   const geographyNote = usaEquity === null ? '' : ` USA exposure is approximately ${percent(usaPortfolio)} of the financial portfolio and ${percent(usaEquity)} of the equity sleeve.`;
-  return `${summary}${liquidityOverview}${portfolio}${analytics}<p class="method-note">Portfolio Geographic Exposure uses the full public-portfolio NAV as denominator: ETF underlying countries where available, sovereign issuer countries, corporate-credit issuer geography, and separate non-country buckets for gold, Bitcoin and residual cash.${geographyNote} Trading currency is not treated as economic currency exposure. Private-market and real assets are excluded.</p>${transactionHistory}`;
+  const riskDisclosure = `<details class="analytics-disclosure"><summary><strong>Risk &amp; portfolio analytics</strong><span>Concentration · fixed income · duration sensitivity · data quality</span></summary><div class="analytics-body"><div class="risk-grid"><section class="risk-card"><h3>Portfolio concentration</h3><div class="risk-metrics"><div><span>Top 5 holdings</span><strong>${percent(topFiveConcentration)}</strong></div><div><span>Largest holding</span><strong>${largestHolding?percent(largestHolding.marketValue/denominator*100):'—'}</strong></div></div><ul class="risk-list">${topHoldings.slice(0,5).map(row=>`<li><span>${e(row.asset)}<small>${e(row.ticker)}</small></span><strong>${percent(row.marketValue/denominator*100)}</strong></li>`).join('')}</ul></section><section class="risk-card"><h3>Fixed income analytics</h3><div class="risk-metrics"><div><span>Weighted modified duration</span><strong>${weightedDuration===null?'—':`${weightedDuration.toFixed(2)}y`}</strong></div><div><span>Indicative weighted YTM</span><strong>${weightedYTM===null?'—':percent(weightedYTM)}</strong></div><div><span>Sovereign allocation</span><strong>${percent(fixedIncomeValue?sovereignValue/fixedIncomeValue*100:0)}</strong></div><div><span>Corporate allocation</span><strong>${percent(fixedIncomeValue?corporateValue/fixedIncomeValue*100:0)}</strong></div></div><p class="risk-note">Direct-bond metrics use verified 16–17 November snapshots. VECA and VDCE use indicative fund metrics from the Financial Asset Allocation sheet.</p></section><section class="risk-card"><h3>Duration profile &amp; rate sensitivity</h3><ul class="risk-list">${durationBuckets.map(bucket=>`<li><span>${e(bucket.label)}</span><strong>${percent(fixedIncomeValue?bucket.value/fixedIncomeValue*100:0)}</strong></li>`).join('')}</ul><div class="risk-metrics" style="margin-top:14px"><div><span>Rates +100 bps</span><strong>${rateSensitivity===null?'—':`−${money(rateSensitivity,c.currency)}`}</strong></div><div><span>Rates −100 bps</span><strong>${rateSensitivity===null?'—':`+${money(rateSensitivity,c.currency)}`}</strong></div></div><p class="risk-note">Linear modified-duration approximation applied to the current fixed-income market value. It assumes a parallel curve shift and excludes convexity, spread changes, FX and trading effects.</p></section><section class="risk-card"><h3>Valuation controls</h3><div class="risk-metrics"><div><span>Portfolio valuation date</span><strong>${e(tableDateLabel(valuationDate))}</strong></div><div><span>Prices lagging &gt;2 days</span><strong>${staleMarketRows.length}</strong></div></div><ul class="risk-list">${staleMarketRows.slice(0,6).map(row=>`<li><span>${e(row.ticker)}<small>Last price ${e(tableDateLabel(String(row.priceTimestamp||'').slice(0,10)))}</small></span><strong>CHECK</strong></li>`).join('')||'<li><span>No material valuation lag detected</span><strong>OK</strong></li>'}</ul><p class="risk-note">A lag flag is a data-quality warning, not a zero return. Direct bonds retain their verified clean price, accrued interest and dirty value until a new source snapshot is supplied.</p></section></div><p class="methodology-note"><strong>Methodology.</strong> Fictional personal model portfolio in EUR. Investment dates are the recorded model decision dates. Reference benchmark: 60% VWCE / 40% AGGH using user-supplied Bloomberg EUR NAVs and matched external-capital cohorts. Portfolio prices use delayed public feeds for exchange-traded instruments and verified manual snapshots for direct sovereign bonds. Transaction costs, taxes and advisory fees are excluded; benchmark NAVs include underlying fund expenses. No volatility, Sharpe, Sortino, beta, VaR or maximum drawdown is shown because a complete verified portfolio time series is not available.</p></div></details>`;
+  return `${summary}${benchmarkPanel}${contributionPanel}${liquidityOverview}${portfolio}${analytics}<p class="method-note">Portfolio Geographic Exposure uses current market-value weights and look-through regional mappings from the Geography Exposure audit: USA, Europe, Emerging Markets, Asia ex-Japan, Japan, residual developed/unresolved exposures and non-geographical assets.${geographyNote} The currency view is an indicative economic profile, not a full security-level currency decomposition. Private-market and real assets are excluded.</p>${riskDisclosure}${transactionHistory}`;
 }
 
 function alternatives(c, related) {
