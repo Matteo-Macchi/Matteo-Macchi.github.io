@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "source": "Asset Allocation Rossi — Alternatives - Final Model / Fund Reporting / Cash Flows",
+    "reviewDate": "2026-11-25",
+    "currency": "EUR"
+  },
+  "clientId": "rossi-family",
+  "status": "MODEL_PROPOSAL_NOT_EXECUTED",
+  "modelBudget": 5000000,
+  "actual": {
+    "commitment": 0,
+    "capitalCalled": 0,
+    "distributions": 0,
+    "nav": null,
+    "xirr": null
+  },
+  "assetClassTargets": [
+    { "label": "Private Equity", "amount": 1500000, "weight": 30 },
+    { "label": "Venture Capital", "amount": 1000000, "weight": 20 },
+    { "label": "Private Credit", "amount": 1000000, "weight": 20 },
+    { "label": "Infrastructure", "amount": 750000, "weight": 15 },
+    { "label": "Hedge Funds", "amount": 750000, "weight": 15 }
+  ],
+  "geographicMandates": [
+    { "label": "Global / mixed", "amount": 2300000, "weight": 46 },
+    { "label": "Europe", "amount": 1775000, "weight": 35.5 },
+    { "label": "North America tilt", "amount": 550000, "weight": 11 },
+    { "label": "Asia / Emerging Markets", "amount": 375000, "weight": 7.5 }
+  ],
+  "deploymentWaves": [
+    { "year": "2027", "amount": 3250000, "weight": 65 },
+    { "year": "2028", "amount": 1600000, "weight": 32 },
+    { "year": "2029", "amount": 150000, "weight": 3 }
+  ],
+  "structureMix": [
+    { "label": "Evergreen / ELTIF", "amount": 2500000, "weight": 50 },
+    { "label": "Closed-end access", "amount": 1750000, "weight": 35 },
+    { "label": "UCITS liquid alternatives", "amount": 750000, "weight": 15 }
+  ],
+  "investments": [
+    { "id":"PE01", "assetClass":"Private Equity", "sleeve":"Growth / Buyout core", "fund":"Schroders Capital Semi-Liquid Global Private Equity ELTIF", "manager":"Schroders Capital", "target":500000, "weight":10, "structure":"Evergreen ELTIF", "access":"Subscription", "currency":"EUR", "reference":"LU2487012853", "geography":"Global", "wave":"2027", "status":"Verify share class" },
+    { "id":"PE02", "assetClass":"Private Equity", "sleeve":"Secondaries", "fund":"Hamilton Lane Global Private Secondary Fund", "manager":"Hamilton Lane", "target":250000, "weight":5, "structure":"Evergreen", "access":"Subscription", "currency":"EUR", "reference":"LU3121017423", "geography":"Developed markets / North America tilt", "wave":"2027", "status":"Verify share class" },
+    { "id":"PE03", "assetClass":"Private Equity", "sleeve":"Asia / EM Growth & Buyout", "fund":"Creador VI", "manager":"Creador", "target":375000, "weight":7.5, "structure":"Closed-end", "access":"Indicative secondary", "currency":"USD", "reference":"Not applicable", "geography":"South and Southeast Asia", "wave":"2028", "status":"Access not confirmed" },
+    { "id":"PE04", "assetClass":"Private Equity", "sleeve":"Consumer / Buyout", "fund":"L Catterton Europe V", "manager":"L Catterton", "target":375000, "weight":7.5, "structure":"Closed-end", "access":"Indicative secondary", "currency":"EUR", "reference":"Not applicable", "geography":"Europe", "wave":"2028", "status":"Access not confirmed" },
+    { "id":"VC01", "assetClass":"Venture Capital", "sleeve":"Late-stage VC / Growth", "fund":"Hamilton Lane Global Venture Capital and Growth Fund", "manager":"Hamilton Lane", "target":600000, "weight":12, "structure":"Evergreen", "access":"Subscription", "currency":"EUR / USD class TBD", "reference":"To verify", "geography":"Global", "wave":"2027", "status":"Verify share class" },
+    { "id":"VC02", "assetClass":"Venture Capital", "sleeve":"Early-stage Europe / Israel", "fund":"Accel Europe & Israel Fund IX (2026 strategy)", "manager":"Accel", "target":250000, "weight":5, "structure":"Closed-end", "access":"Primary / secondary subject to availability", "currency":"USD", "reference":"Not applicable", "geography":"Europe / Israel", "wave":"2028", "status":"Vehicle to verify" },
+    { "id":"VC03", "assetClass":"Venture Capital", "sleeve":"Early VC / Series A-B Europe", "fund":"Dawn Capital V", "manager":"Dawn Capital", "target":150000, "weight":3, "structure":"Closed-end", "access":"Indicative secondary", "currency":"USD", "reference":"Not applicable", "geography":"Europe", "wave":"2029", "status":"Access not confirmed" },
+    { "id":"PC01", "assetClass":"Private Credit", "sleeve":"Senior secured direct lending", "fund":"Ares European Strategic Income ELTIF Fund", "manager":"Ares Management", "target":700000, "weight":14, "structure":"Evergreen ELTIF", "access":"Subscription", "currency":"EUR", "reference":"LU3091050016", "geography":"Europe", "wave":"2027", "status":"Verify share class" },
+    { "id":"PC02", "assetClass":"Private Credit", "sleeve":"Special Situations", "fund":"Banor Alternative Assets Special Situations II", "manager":"Banor Alternative Assets", "target":300000, "weight":6, "structure":"Closed-end RAIF", "access":"Indicative secondary", "currency":"EUR", "reference":"Not applicable", "geography":"Europe", "wave":"2028", "status":"Access not confirmed" },
+    { "id":"INF01", "assetClass":"Infrastructure", "sleeve":"Core / Core+", "fund":"Ardian Access Infrastructure ELTIF", "manager":"Ardian", "target":450000, "weight":9, "structure":"Evergreen ELTIF", "access":"Subscription", "currency":"EUR", "reference":"To verify", "geography":"Global / Europe focus to verify", "wave":"2027", "status":"Verify share class" },
+    { "id":"INF02", "assetClass":"Infrastructure", "sleeve":"Digital infrastructure", "fund":"DigitalBridge Partners III", "manager":"DigitalBridge", "target":300000, "weight":6, "structure":"Closed-end", "access":"Indicative secondary", "currency":"USD", "reference":"Not applicable", "geography":"Global / US tilt", "wave":"2028", "status":"Access not confirmed" },
+    { "id":"HF01", "assetClass":"Hedge Funds", "sleeve":"Macro / CTA", "fund":"Man AHL Trend Alternative", "manager":"Man Group", "target":450000, "weight":9, "structure":"UCITS", "access":"Subscription", "currency":"EUR hedged", "reference":"LU0428380124", "geography":"Global liquid derivatives", "wave":"2027", "status":"Confirm class" },
+    { "id":"HF02", "assetClass":"Hedge Funds", "sleeve":"Relative Value / Corporate Arbitrage", "fund":"AQR Corporate Arbitrage UCITS Fund", "manager":"AQR Capital Management", "target":300000, "weight":6, "structure":"UCITS", "access":"Subscription", "currency":"EUR", "reference":"LU2319525940", "geography":"Global", "wave":"2027", "status":"Confirm class" }
+  ]
+}
