@@ -811,6 +811,27 @@ button,.button {
 .risk-note { color:#8198a9; font-size:.68rem; line-height:1.55; margin-top:14px }
 .methodology-note { margin-top:22px; border-top:1px solid var(--line); padding-top:18px; color:#8198a9; font-size:.7rem; line-height:1.65 }
 .allocation-comparison { margin-top:8px }
+.allocation-panel { grid-column:1 / -1 }
+.allocation-donut-pair {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:28px;
+  margin-top:10px
+}
+.allocation-donut-card {
+  min-width:0;
+  padding:20px;
+  border:1px solid var(--line);
+  background:#111d26
+}
+.allocation-donut-card h3 {
+  font-family:var(--sans);
+  font-size:.78rem;
+  font-weight:600;
+  margin-bottom:11px
+}
+.allocation-donut-card .allocation-display { padding-top:0 }
+.allocation-donut-card .donut>div { background:#111d26 }
 .allocation-comparison-row {
   display:grid;
   grid-template-columns:minmax(145px,1.1fr) minmax(220px,3fr) 72px 72px;
@@ -1035,6 +1056,7 @@ tfoot th,tfoot td {
   .benchmark-compact .benchmark-intro { grid-column:1/-1; border-right:0; border-bottom:1px solid var(--line) }
 }
 @media (max-width:700px) {
+  .allocation-donut-pair { grid-template-columns:1fr }
   .allocation-comparison-row { grid-template-columns:1fr 1.7fr 52px 52px; gap:8px }
   .cash-overview-grid { grid-template-columns:1fr }
   .cash-overview-grid>div { border-right:0; border-bottom:1px solid var(--line); padding-left:0 }
@@ -2801,12 +2823,12 @@ function donut(items, center, sublabel) {
   return `<div class="allocation-display"><div class="donut" role="img" aria-label="${escapeHTML(items.map(i => `${i.label}: ${percent(i.value)}`).join('; '))}" style="background:conic-gradient(${slices.join(',')})"><div><strong>${escapeHTML(center)}</strong><span>${escapeHTML(sublabel)}</span></div></div>${bars(items)}</div>`;
 }
 
-function chartPanel(clientId, key, title, items) {
+function chartPanel(clientId, key, title, items, {eyebrow='CURRENT FINANCIAL PORTFOLIO',note=''}={}) {
   const stateKey = `${clientId}:${key}`;
-  const mode = chartModes[stateKey] || 'bars';
-  const controls = `<div class="chart-toggle" aria-label="${e(title)} chart style"><button type="button" data-chart-key="${e(stateKey)}" data-chart-mode="bars" aria-pressed="${mode === 'bars'}">Bars</button><button type="button" data-chart-key="${e(stateKey)}" data-chart-mode="donut" aria-pressed="${mode === 'donut'}">Donut</button></div>`;
+  const mode = chartModes[stateKey] || 'donut';
+  const controls = `<div class="chart-toggle" aria-label="${e(title)} chart style"><button type="button" data-chart-key="${e(stateKey)}" data-chart-mode="donut" aria-pressed="${mode === 'donut'}">Donut</button><button type="button" data-chart-key="${e(stateKey)}" data-chart-mode="bars" aria-pressed="${mode === 'bars'}">Bars</button></div>`;
   const visual = mode === 'donut' ? donut(items,'100%','EXPOSURE') : bars(items);
-  return `<section class="panel"><div class="chart-heading">${sectionTitle('CURRENT FINANCIAL PORTFOLIO',title)}${controls}</div>${visual}</section>`;
+  return `<section class="panel"><div class="chart-heading">${sectionTitle(eyebrow,title)}${controls}</div>${visual}${note?`<p class="panel-note">${e(note)}</p>`:''}</section>`;
 }
 
 function exposure(rows, field, total) {
@@ -2846,7 +2868,7 @@ function portfolioLookThroughExposure(rows, portfolioCash, total) {
   return [...result].map(([label,value])=>({label,value:value/(total||1)*100})).sort((a,b)=>b.value-a.value);
 }
 
-function allocationComparisonPanel(actualItems) {
+function allocationComparisonPanel(clientId, actualItems) {
   const target = [
     {label:'Equity',value:60},
     {label:'Fixed Income',value:31},
@@ -2857,7 +2879,29 @@ function allocationComparisonPanel(actualItems) {
   const actualMap = new Map(actualItems.map(item=>[item.label,item.value]));
   const labels = [...target.map(item=>item.label),...actualItems.map(item=>item.label).filter(label=>!target.some(item=>item.label===label))];
   const targetMap = new Map(target.map(item=>[item.label,item.value]));
-  return `<section class="panel">${sectionTitle('POLICY MONITORING','Current asset allocation','Actual holdings vs 60/40 policy target')}<p class="allocation-legend">Top bar: actual weight · lower bar: strategic target. Holdings are not changed to force alignment.</p><div class="allocation-comparison">${labels.map(label=>{const actual=actualMap.get(label)||0;const policy=targetMap.get(label)||0;return `<div class="allocation-comparison-row"><span>${e(label)}</span><div class="dual-track"><i><span style="width:${Math.min(100,actual)}%"></span></i><i class="target"><span style="width:${Math.min(100,policy)}%"></span></i></div><strong>${percent(actual)}</strong><strong>${percent(policy)}</strong></div>`;}).join('')}</div></section>`;
+  const stateKey = `${clientId}:allocation`;
+  const mode = chartModes[stateKey] || 'donut';
+  const controls = `<div class="chart-toggle" aria-label="Asset allocation chart style"><button type="button" data-chart-key="${e(stateKey)}" data-chart-mode="donut" aria-pressed="${mode==='donut'}">Donut</button><button type="button" data-chart-key="${e(stateKey)}" data-chart-mode="bars" aria-pressed="${mode==='bars'}">Bars</button></div>`;
+  const donutView = `<div class="allocation-donut-pair"><div class="allocation-donut-card"><h3>ACTUAL HOLDINGS</h3>${donut(actualItems,'100%','CURRENT')}</div><div class="allocation-donut-card"><h3>STRATEGIC TARGET</h3>${donut(target,'100%','POLICY')}</div></div>`;
+  const barView = `<p class="allocation-legend">Top bar: actual weight · lower bar: strategic target.</p><div class="allocation-comparison">${labels.map(label=>{const actual=actualMap.get(label)||0;const policy=targetMap.get(label)||0;return `<div class="allocation-comparison-row"><span>${e(label)}</span><div class="dual-track"><i><span style="width:${Math.min(100,actual)}%"></span></i><i class="target"><span style="width:${Math.min(100,policy)}%"></span></i></div><strong>${percent(actual)}</strong><strong>${percent(policy)}</strong></div>`;}).join('')}</div>`;
+  return `<section class="panel allocation-panel"><div class="chart-heading">${sectionTitle('POLICY MONITORING','Current asset allocation','Actual holdings vs 60/40 policy target')}${controls}</div>${mode==='donut'?donutView:barView}<p class="panel-note">ACTUAL is calculated from current market values. TARGET is the Google Sheet policy: 60% Equity, 31% Fixed Income, 7% Gold, 1% Digital Assets and 1% Tactical. Holdings are not changed to force alignment.</p></section>`;
+}
+
+function simplifiedCurrencyExposure(rows,total) {
+  const grouped = new Map();
+  const add = (label,value) => grouped.set(label,(grouped.get(label)||0)+value);
+  rows.forEach(row=>{
+    const bucket=String(row.currencyExposureBucket||'Unclassified');
+    let label=bucket;
+    if (/^USD/i.test(bucket)) label='USD economic exposure';
+    else if (/^EUR fixed income|EUR-hedged USD credit|EUR residual cash/i.test(bucket)) label='EUR / EUR-hedged';
+    else if (/Multi-currency unhedged/i.test(bucket)) label='Multi-currency equity';
+    else if (/Gold/i.test(bucket)) label='Gold · non-currency asset';
+    else if (/Bitcoin/i.test(bucket)) label='Bitcoin · non-currency asset';
+    else if (/thematic/i.test(bucket)) label='Global thematic equity';
+    add(label,row.marketValue);
+  });
+  return [...grouped].map(([label,value])=>({label,value:value/(total||1)*100})).sort((a,b)=>b.value-a.value);
 }
 
 const optionalNumber = value => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
@@ -3016,7 +3060,16 @@ function investments(c, related) {
   const analyticsRows = portfolioCash > 0 ? [...rows,{marketValue:portfolioCash,assetClass:'Portfolio Cash',economicCurrency:'EUR',currencyExposureBucket:'EUR residual cash',sector:'Residual cash'}] : rows;
   const allocationRows = analyticsRows.map(r=>({...r,assetClass:r.sector==='Residual cash'?'Residual cash':positionGroup(r)==='Equities'?'Equity':positionGroup(r)}));
   const allocation = exposure(allocationRows, 'assetClass', denominator);
-  const geography = portfolioLookThroughExposure(rows,portfolioCash,denominator);
+  const geography = [
+    {label:'USA',value:44.04},
+    {label:'Europe',value:29.07},
+    {label:'Non-geographical',value:8.00},
+    {label:'Emerging Markets',value:7.07},
+    {label:'Japan',value:4.97},
+    {label:'Other developed',value:2.67},
+    {label:'Other / unallocated',value:2.50},
+    {label:'Asia-Pacific ex Japan',value:1.68}
+  ];
   const equityTotal = rows.filter(r=>positionGroup(r)==='Equities').reduce((sum,r)=>sum+r.marketValue,0);
   const equityGeography = lookThroughExposure(rows);
   const usaEquity = equityGeography.find(item=>['USA','United States'].includes(item.label))?.value ?? null;
@@ -3112,7 +3165,8 @@ function investments(c, related) {
     const fixedIncome = group==='Fixed Income';
     return `<section class="asset-class-block"><div class="asset-class-head"><h3>${e(group)}</h3><span>${money(subtotal,c.currency)} · ${percent(subtotal/denominator*100)}</span></div><div class="table-scroll" role="region" aria-label="${e(group)} positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table asset-table ${fixedIncome?'fixed-income-table':''}"><thead>${fixedIncome?fixedIncomeHeaders:standardHeaders}</thead><tbody>${members.map(row=>fixedIncome?fixedIncomeRow(row):standardPositionRow(row)).join('')}</tbody></table></div></section>`;
   }).join('');
-  const analytics = `<div class="chart-grid">${allocationComparisonPanel(allocation)}${chartPanel(c.id,'geography','Portfolio geographic exposure',geography)}${chartPanel(c.id,'currency','Economic currency profile · indicative',exposure(analyticsRows,'currencyExposureBucket',denominator))}</div>`;
+  const currencyExposure = simplifiedCurrencyExposure(analyticsRows,denominator);
+  const analytics = `<div class="chart-grid">${allocationComparisonPanel(c.id,allocation)}${chartPanel(c.id,'geography','Portfolio geographic exposure',geography,{eyebrow:'POLICY LOOK-THROUGH',note:'Google Sheet Geography Exposure audit. Policy-weighted exposure; “Other / unallocated” is retained where provider look-through is incomplete.'})}${chartPanel(c.id,'currency','Economic currency exposure · indicative',currencyExposure,{note:'Economic exposure, not listing currency. VDCE is included in EUR / EUR-hedged because its USD corporate-credit share class is hedged to EUR.'})}</div>`;
   const summary = `<div class="portfolio-summary primary-kpis"><div><span>Initial NAV</span><strong>${money(initialCapital,c.currency)}</strong><small>Public-markets model inception capital</small></div><div><span>Current NAV</span><strong>${money(publicTotal,c.currency)}</strong><small>Open market values + residual portfolio cash</small></div><div><span>Total P/L</span><strong>${totalPL>=0?'+':''}${money(totalPL,c.currency)}</strong><small>${money(realizedPL,c.currency)} realised + ${money(unrealizedPL,c.currency)} unrealised</small></div><div><span>Indicative Model Return Since Inception</span><strong>${modelReturn===null?'—':`${modelReturn>=0?'+':''}${percent(modelReturn)}`}</strong><small>Not labelled TWR until a complete NAV and external-flow series exists</small></div></div>`;
   const signedPercent = value => value===null ? '—' : `${value>=0?'+':''}${percent(value)}`;
   const benchmarkPanel = benchmark ? `<section class="benchmark-compact"><div class="benchmark-intro"><span>Return comparison</span><strong>Portfolio vs benchmark</strong><small>Reference: 60% VWCE · 40% AGGH</small></div><div class="benchmark-result"><span>Rossi portfolio</span><strong>${signedPercent(modelReturn)}</strong><small>Since inception · ${inceptionDate?e(tableDateLabel(inceptionDate)):'—'}</small></div><div class="benchmark-result"><span>Reference benchmark</span><strong>${signedPercent(benchmarkReturn)}</strong><small>Same capital deployment dates</small></div><div class="benchmark-compact-note">Indicative comparison using matched capital deployment dates.</div></section>` : '';
@@ -3121,9 +3175,9 @@ function investments(c, related) {
   const closedRows = related.closedPositions || [];
   const transactionHistory = closedRows.length ? `<div class="transaction-history"><h3>Closed positions &amp; realised performance</h3><p>Realised proceeds remain inside the model portfolio. The Brent disposal funded the WQTM purchase, so the gain is preserved in portfolio NAV without being counted twice.</p><div class="table-scroll" role="region" aria-label="Closed portfolio positions. Scroll horizontally for all columns." tabindex="0"><table class="portfolio-table"><thead><tr><th scope="col">Asset / ticker</th><th scope="col">Bought</th><th scope="col">Sold</th><th scope="col" class="numeric">Units</th><th scope="col" class="numeric">Entry price</th><th scope="col" class="numeric">Sale price</th><th scope="col" class="numeric">Cost basis</th><th scope="col" class="numeric">Sale proceeds</th><th scope="col" class="numeric">Realised P/L</th><th scope="col" class="numeric">Return</th></tr></thead><tbody>${closedRows.map(r=>`<tr><td><strong>${e(r.asset)}</strong><small>${e(r.ticker || r.isin)}</small><div class="position-facts"><span>${e(r.exitReason || r.status)}</span></div></td><td>${e(dateLabel(r.purchaseDate))}</td><td>${e(dateLabel(r.saleDate))}</td><td class="numeric">${new Intl.NumberFormat('en-GB',{maximumFractionDigits:4}).format(r.quantity)}</td><td class="numeric">${priceLabel(r.purchasePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${priceLabel(r.salePrice,r.priceCurrency||r.currency)}</td><td class="numeric">${money(r.initialCost,c.currency)}</td><td class="numeric">${money(r.saleProceeds,c.currency)}</td><td class="numeric">${r.realizedPL>=0?'+':''}${money(r.realizedPL,c.currency)}</td><td class="numeric">${performance(r.realizedReturn)}</td></tr>`).join('')}</tbody></table></div></div>` : '';
   const portfolio = `<section class="panel">${sectionTitle('FINANCIAL ASSETS','Investment portfolio',`Prices as of ${dateLabel(valuationDate)}`)}<p class="panel-note before-table">Prices, FX and 1M/YTD instrument returns are refreshed after market close where automatic data are available. Since Entry is the position return from its entry date. For direct sovereign bonds, Current price is the clean price and Market value uses dirty price (clean + accrued). Verified manual bond snapshots show their individual valuation date; unrecorded coupon cashflows are excluded.</p>${rows.length ? groupTables : empty('No financial-market positions published.')}<p class="panel-note">Financial portfolio NAV: <strong>${money(publicTotal,c.currency)}</strong> · includes ${money(portfolioCash,c.currency)} residual portfolio cash and excludes the external family liquidity reserve.</p></section>`;
-  const geographyNote = usaEquity === null ? '' : ` USA exposure is approximately ${percent(usaPortfolio)} of the financial portfolio and ${percent(usaEquity)} of the equity sleeve.`;
+  const geographyNote = usaEquity === null ? '' : ` Policy-weighted USA exposure is ${percent(usaPortfolio)} of the financial portfolio; current equity-sleeve look-through is approximately ${percent(usaEquity)} USA.`;
   const riskDisclosure = `<details class="analytics-disclosure"><summary><strong>Risk &amp; portfolio analytics</strong><span>Concentration · fixed income · duration sensitivity · data quality</span></summary><div class="analytics-body"><div class="risk-grid"><section class="risk-card"><h3>Portfolio concentration</h3><div class="risk-metrics"><div><span>Top 5 holdings</span><strong>${percent(topFiveConcentration)}</strong></div><div><span>Largest holding</span><strong>${largestHolding?percent(largestHolding.marketValue/denominator*100):'—'}</strong></div></div><ul class="risk-list">${topHoldings.slice(0,5).map(row=>`<li><span>${e(row.asset)}<small>${e(row.ticker)}</small></span><strong>${percent(row.marketValue/denominator*100)}</strong></li>`).join('')}</ul></section><section class="risk-card"><h3>Fixed income analytics</h3><div class="risk-metrics"><div><span>Weighted modified duration</span><strong>${weightedDuration===null?'—':`${weightedDuration.toFixed(2)}y`}</strong></div><div><span>Indicative weighted YTM</span><strong>${weightedYTM===null?'—':percent(weightedYTM)}</strong></div><div><span>Sovereign allocation</span><strong>${percent(fixedIncomeValue?sovereignValue/fixedIncomeValue*100:0)}</strong></div><div><span>Corporate allocation</span><strong>${percent(fixedIncomeValue?corporateValue/fixedIncomeValue*100:0)}</strong></div></div><p class="risk-note">Direct-bond metrics use verified 16–17 November snapshots. VECA and VDCE use indicative fund metrics from the Financial Asset Allocation sheet.</p></section><section class="risk-card"><h3>Duration profile &amp; rate sensitivity</h3><ul class="risk-list">${durationBuckets.map(bucket=>`<li><span>${e(bucket.label)}</span><strong>${percent(fixedIncomeValue?bucket.value/fixedIncomeValue*100:0)}</strong></li>`).join('')}</ul><div class="risk-metrics" style="margin-top:14px"><div><span>Rates +100 bps</span><strong>${rateSensitivity===null?'—':`−${money(rateSensitivity,c.currency)}`}</strong></div><div><span>Rates −100 bps</span><strong>${rateSensitivity===null?'—':`+${money(rateSensitivity,c.currency)}`}</strong></div></div><p class="risk-note">Linear modified-duration approximation applied to the current fixed-income market value. It assumes a parallel curve shift and excludes convexity, spread changes, FX and trading effects.</p></section><section class="risk-card"><h3>Valuation controls</h3><div class="risk-metrics"><div><span>Portfolio valuation date</span><strong>${e(tableDateLabel(valuationDate))}</strong></div><div><span>Prices lagging &gt;2 days</span><strong>${staleMarketRows.length}</strong></div></div><ul class="risk-list">${staleMarketRows.slice(0,6).map(row=>`<li><span>${e(row.ticker)}<small>Last price ${e(tableDateLabel(String(row.priceTimestamp||'').slice(0,10)))}</small></span><strong>CHECK</strong></li>`).join('')||'<li><span>No material valuation lag detected</span><strong>OK</strong></li>'}</ul><p class="risk-note">A lag flag is a data-quality warning, not a zero return. Direct bonds retain their verified clean price, accrued interest and dirty value until a new source snapshot is supplied.</p></section></div><p class="methodology-note"><strong>Methodology.</strong> Fictional personal model portfolio in EUR. Investment dates are the recorded model decision dates. Reference benchmark: 60% VWCE / 40% AGGH using user-supplied Bloomberg EUR NAVs and matched external-capital cohorts. Portfolio prices use delayed public feeds for exchange-traded instruments and verified manual snapshots for direct sovereign bonds. Transaction costs, taxes and advisory fees are excluded; benchmark NAVs include underlying fund expenses. No volatility, Sharpe, Sortino, beta, VaR or maximum drawdown is shown because a complete verified portfolio time series is not available.</p></div></details>`;
-  return `${summary}${benchmarkPanel}${liquidityOverview}${portfolio}${analytics}<p class="method-note">Portfolio Geographic Exposure uses current market-value weights and look-through regional mappings from the Geography Exposure audit: USA, Europe, Emerging Markets, Asia ex-Japan, Japan, residual developed/unresolved exposures and non-geographical assets.${geographyNote} The currency view is an indicative economic profile, not a full security-level currency decomposition. Private-market and real assets are excluded.</p>${riskDisclosure}${transactionHistory}`;
+  return `${summary}${benchmarkPanel}${liquidityOverview}${portfolio}${analytics}<p class="method-note">Portfolio Geographic Exposure uses the policy weights and regional mappings published in the Google Sheet Geography Exposure audit: USA, Europe, Emerging Markets, Asia-Pacific ex Japan, Japan, residual developed/unallocated exposures and non-geographical assets.${geographyNote} The currency view is an indicative economic profile, not listing currency or a full security-level currency decomposition. Private-market and real assets are excluded.</p>${riskDisclosure}${transactionHistory}`;
 }
 
 function alternatives(c, related) {
