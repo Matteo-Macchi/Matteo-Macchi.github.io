@@ -778,19 +778,18 @@ button,.button {
 .benchmark-compact {
   margin-top:18px;
   border:1px solid var(--line);
-  padding:20px 26px;
+  padding:0;
   display:grid;
   grid-template-columns:minmax(230px,1.25fr) repeat(2,minmax(180px,.75fr));
-  gap:1px;
-  background:var(--line)
+  background:transparent
 }
-.benchmark-compact>div { background:#111d26; padding:4px 22px; min-width:0 }
-.benchmark-compact>div:first-child { padding-left:0 }
+.benchmark-compact>div { padding:18px 24px; min-width:0; border-right:1px solid var(--line) }
+.benchmark-compact>div:nth-child(3) { border-right:0 }
 .benchmark-compact .benchmark-intro span { display:block; color:#9bc9ea; font-size:.64rem; letter-spacing:.16em; text-transform:uppercase }
 .benchmark-compact .benchmark-intro strong { display:block; font-family:var(--serif); font-size:1.35rem; font-weight:400; margin:7px 0 }
 .benchmark-compact span,.benchmark-compact small { display:block; color:#8fa5b6; font-size:.69rem; line-height:1.45 }
 .benchmark-compact .benchmark-result strong { display:block; font-family:var(--serif); font-size:1.7rem; font-weight:400; margin:4px 0 }
-.benchmark-compact-note { grid-column:1/-1; padding:12px 0 0!important; margin-top:12px; border-top:1px solid var(--line); color:#8198a9; font-size:.67rem; line-height:1.5 }
+.benchmark-compact-note { grid-column:1/-1; padding:10px 24px!important; border-top:1px solid var(--line); border-right:0!important; color:#8198a9; font-size:.67rem; line-height:1.5 }
 .analytics-disclosure { border:1px solid var(--line); margin-top:26px; background:#101c25 }
 .analytics-disclosure>summary { cursor:pointer; list-style:none; padding:20px 22px; display:flex; justify-content:space-between; gap:18px; align-items:center }
 .analytics-disclosure>summary::-webkit-details-marker { display:none }
@@ -1033,7 +1032,7 @@ tfoot th,tfoot td {
   .portfolio-summary { grid-template-columns:repeat(2,minmax(0,1fr)) }
   .portfolio-summary.primary-kpis { grid-template-columns:repeat(2,minmax(0,1fr)) }
   .benchmark-compact { grid-template-columns:1fr 1fr }
-  .benchmark-compact .benchmark-intro { grid-column:1/-1; padding:0 0 14px }
+  .benchmark-compact .benchmark-intro { grid-column:1/-1; border-right:0; border-bottom:1px solid var(--line) }
 }
 @media (max-width:700px) {
   .allocation-comparison-row { grid-template-columns:1fr 1.7fr 52px 52px; gap:8px }
@@ -1044,9 +1043,9 @@ tfoot th,tfoot td {
   .investment-overview-stats { grid-template-columns:repeat(2,minmax(0,1fr)) }
   .investment-overview-stats>div { border-bottom:1px solid var(--line) }
   .risk-grid { grid-template-columns:1fr }
-  .benchmark-compact { grid-template-columns:1fr; padding:18px }
+  .benchmark-compact { grid-template-columns:1fr }
   .benchmark-compact .benchmark-intro { grid-column:auto }
-  .benchmark-compact>div { padding:12px 0; border-bottom:1px solid var(--line) }
+  .benchmark-compact>div { padding:14px 18px; border-right:0; border-bottom:1px solid var(--line) }
   .benchmark-compact-note { grid-column:auto; border-bottom:0!important }
   .analytics-disclosure>summary { align-items:flex-start; flex-direction:column }
 }
@@ -1303,6 +1302,205 @@ tfoot th,tfoot td {
   line-height:1.8;
   margin-top:9px
 }
+.alt-status-banner {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  padding:20px 24px;
+  border:1px solid #466173;
+  background:#172631;
+  margin-bottom:24px
+}
+.alt-status-banner strong {
+  display:block;
+  font-size:.95rem;
+  font-weight:600
+}
+.alt-status-banner p {
+  color:var(--muted);
+  font-size:.8rem;
+  margin-top:3px
+}
+.alt-status-banner span {
+  flex:0 0 auto;
+  color:#bcd2e2;
+  border:1px solid #526c7e;
+  padding:7px 11px;
+  font-size:.68rem;
+  letter-spacing:.1em;
+  text-transform:uppercase
+}
+.alt-kpis {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--line);
+  margin-bottom:24px
+}
+.alt-kpis>div {
+  min-width:0;
+  padding:25px 23px;
+  border-right:1px solid var(--line)
+}
+.alt-kpis>div:last-child { border-right:0 }
+.alt-kpis span,.alt-design-stat span {
+  display:block;
+  color:#9fb1bf;
+  font-size:.73rem
+}
+.alt-kpis strong {
+  display:block;
+  font-family:var(--serif);
+  font-size:2.25rem;
+  line-height:1.2;
+  font-weight:400;
+  margin:10px 0 7px
+}
+.alt-kpis small {
+  display:block;
+  color:#8fa2b1;
+  line-height:1.5
+}
+.alt-dashboard-grid {
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:24px;
+  margin-bottom:24px
+}
+.alt-dashboard-grid>.panel { margin:0 }
+.alt-chart-note {
+  color:#8fa2b1;
+  font-size:.72rem;
+  line-height:1.65;
+  margin-top:18px
+}
+.alt-mini-section+.alt-mini-section {
+  border-top:1px solid var(--line);
+  margin-top:25px;
+  padding-top:23px
+}
+.alt-mini-section h3 {
+  font-family:var(--sans);
+  font-size:.82rem;
+  font-weight:600;
+  margin-bottom:15px
+}
+.alt-wave-row {
+  display:grid;
+  grid-template-columns:55px 1fr 88px;
+  align-items:center;
+  gap:14px;
+  margin-top:13px;
+  font-size:.77rem
+}
+.alt-wave-row>strong { text-align:right }
+.alt-wave-track {
+  height:8px;
+  background:#273844;
+  overflow:hidden
+}
+.alt-wave-track i {
+  display:block;
+  height:100%;
+  background:#9eb9ce
+}
+.alt-design-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border:1px solid var(--line);
+  margin-top:24px
+}
+.alt-design-stat {
+  padding:20px 22px;
+  border-right:1px solid var(--line)
+}
+.alt-design-stat:last-child { border-right:0 }
+.alt-design-stat strong {
+  display:block;
+  font-size:1.05rem;
+  margin:7px 0 3px
+}
+.alt-design-stat small { color:#8fa2b1 }
+.alt-table-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:24px;
+  margin-bottom:18px
+}
+.alt-table-head p {
+  color:#91a5b4;
+  font-size:.76rem;
+  max-width:430px;
+  text-align:right
+}
+.alt-table {
+  width:100%;
+  border-collapse:collapse;
+  min-width:1120px
+}
+.alt-table th {
+  color:#9eb2c1;
+  font-size:.68rem;
+  font-weight:500;
+  text-align:left;
+  padding:12px 13px;
+  border-bottom:1px solid #4a5d6a;
+  position:sticky;
+  top:0;
+  background:#15212c;
+  z-index:1
+}
+.alt-table td {
+  padding:15px 13px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top;
+  font-size:.76rem;
+  color:#c5d0d8
+}
+.alt-table tbody tr:last-child td { border-bottom:0 }
+.alt-table td strong {
+  display:block;
+  color:var(--ink);
+  font-size:.79rem;
+  line-height:1.55
+}
+.alt-table td small {
+  display:block;
+  color:#88a0b2;
+  margin-top:3px;
+  line-height:1.5
+}
+.alt-table .numeric { text-align:right; white-space:nowrap }
+.alt-state {
+  display:inline-block;
+  color:#b8ccda;
+  font-size:.64rem;
+  line-height:1.4;
+  text-transform:uppercase;
+  letter-spacing:.06em
+}
+.alt-accounting {
+  margin-top:24px;
+  border:1px solid var(--line)
+}
+.alt-accounting summary {
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:18px 22px;
+  color:var(--ink)
+}
+.alt-accounting summary span { color:#94a7b6; font-size:.75rem }
+.alt-accounting-body {
+  border-top:1px solid var(--line);
+  padding:20px 22px;
+  color:var(--muted);
+  font-size:.77rem;
+  line-height:1.8
+}
+.alt-accounting-body ul { margin:0; padding-left:19px }
 dl {
   margin:22px 0 0
 }
@@ -2456,6 +2654,10 @@ dl>div+div {
 .tax-action strong { display:block; margin-bottom:5px; font-size:.82rem }
 .tax-action p { color:var(--muted); font-size:.72rem }
 @media(max-width:1100px) {
+  .alt-kpis { grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .alt-kpis>div:nth-child(2) { border-right:0 }
+  .alt-kpis>div:nth-child(-n+2) { border-bottom:1px solid var(--line) }
+  .alt-dashboard-grid { grid-template-columns:1fr }
   .planning-pillar-nav,.tax-regime-grid,.tax-category-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
   .tax-milestones { grid-template-columns:repeat(3,minmax(0,1fr)); row-gap:18px }
   .tax-decision-banner { grid-template-columns:1fr 1fr }
@@ -2464,6 +2666,14 @@ dl>div+div {
   .tax-regime-card>p { min-height:90px }
 }
 @media(max-width:760px) {
+  .alt-status-banner,.alt-table-head { align-items:flex-start; flex-direction:column }
+  .alt-table-head p { text-align:left }
+  .alt-kpis { grid-template-columns:1fr }
+  .alt-kpis>div,.alt-kpis>div:nth-child(2) { border-right:0; border-bottom:1px solid var(--line) }
+  .alt-kpis>div:last-child { border-bottom:0 }
+  .alt-design-grid { grid-template-columns:1fr }
+  .alt-design-stat { border-right:0; border-bottom:1px solid var(--line) }
+  .alt-design-stat:last-child { border-bottom:0 }
   .planning-pillar-nav,.tax-regime-grid,.tax-category-grid,.tax-bridge-grid,.tax-asset-grid,.tax-actions { grid-template-columns:1fr }
   .tax-milestones { grid-template-columns:1fr }
   .tax-milestone,.tax-milestone:not(:first-child) { padding:20px 0; border-right:0; border-bottom:1px solid var(--line) }
@@ -2724,12 +2934,21 @@ function positionGroup(row) {
 
 const e = escapeHTML;
 async function loadData() {
-  const url = new URL('./data/portfolio.json', window.location.href.split('#')[0]);
-  url.searchParams.set('v', Date.now().toString());
-  const response = await fetch(url, { cache: 'no-store' });
-  if (!response.ok) throw new Error(`Portfolio data unavailable (${response.status})`);
-  const payload = await response.json();
-  return { data: validateData(payload), source: `Updated ${payload._meta?.generatedAt || 'recently'}` };
+  const base = window.location.href.split('#')[0];
+  const portfolioUrl = new URL('./data/portfolio.json', base);
+  const alternativesUrl = new URL('./data/alternatives.json', base);
+  const cacheKey = Date.now().toString();
+  portfolioUrl.searchParams.set('v', cacheKey);
+  alternativesUrl.searchParams.set('v', cacheKey);
+  const [portfolioResponse, alternativesResponse] = await Promise.all([
+    fetch(portfolioUrl, { cache: 'no-store' }),
+    fetch(alternativesUrl, { cache: 'no-store' }).catch(()=>null)
+  ]);
+  if (!portfolioResponse.ok) throw new Error(`Portfolio data unavailable (${portfolioResponse.status})`);
+  const payload = await portfolioResponse.json();
+  const data = validateData(payload);
+  data.alternativesModel = alternativesResponse?.ok ? await alternativesResponse.json() : null;
+  return { data, source: `Updated ${payload._meta?.generatedAt || 'recently'}` };
 }
 
 
@@ -2791,6 +3010,7 @@ function investments(c, related) {
   const unrealizedPL = optionalNumber(dataset._meta?.unrealizedPL) ?? rows.reduce((sum,r)=>sum+(optionalNumber(r.totalPL)||0),0);
   const modelReturn = initialCapital ? totalPL/initialCapital*100 : null;
   const valuationDate = dataset._meta?.valuationDate || c.asOf;
+  const inceptionDate = rows.map(row=>row.purchaseDate).filter(Boolean).sort()[0] || null;
   const benchmark = dataset.benchmarkComparison || null;
   const benchmarkReturn = optionalNumber(benchmark?.returnSinceInception);
   const analyticsRows = portfolioCash > 0 ? [...rows,{marketValue:portfolioCash,assetClass:'Portfolio Cash',economicCurrency:'EUR',currencyExposureBucket:'EUR residual cash',sector:'Residual cash'}] : rows;
@@ -2895,7 +3115,7 @@ function investments(c, related) {
   const analytics = `<div class="chart-grid">${allocationComparisonPanel(allocation)}${chartPanel(c.id,'geography','Portfolio geographic exposure',geography)}${chartPanel(c.id,'currency','Economic currency profile · indicative',exposure(analyticsRows,'currencyExposureBucket',denominator))}</div>`;
   const summary = `<div class="portfolio-summary primary-kpis"><div><span>Initial NAV</span><strong>${money(initialCapital,c.currency)}</strong><small>Public-markets model inception capital</small></div><div><span>Current NAV</span><strong>${money(publicTotal,c.currency)}</strong><small>Open market values + residual portfolio cash</small></div><div><span>Total P/L</span><strong>${totalPL>=0?'+':''}${money(totalPL,c.currency)}</strong><small>${money(realizedPL,c.currency)} realised + ${money(unrealizedPL,c.currency)} unrealised</small></div><div><span>Indicative Model Return Since Inception</span><strong>${modelReturn===null?'—':`${modelReturn>=0?'+':''}${percent(modelReturn)}`}</strong><small>Not labelled TWR until a complete NAV and external-flow series exists</small></div></div>`;
   const signedPercent = value => value===null ? '—' : `${value>=0?'+':''}${percent(value)}`;
-  const benchmarkPanel = benchmark ? `<section class="benchmark-compact"><div class="benchmark-intro"><span>Return comparison</span><strong>Portfolio vs benchmark</strong><small>Reference: 60% VWCE · 40% AGGH</small></div><div class="benchmark-result"><span>Rossi portfolio</span><strong>${signedPercent(modelReturn)}</strong><small>Since inception · ${e(tableDateLabel(valuationDate))}</small></div><div class="benchmark-result"><span>Reference benchmark</span><strong>${signedPercent(benchmarkReturn)}</strong><small>Comparable capital dates · ${e(tableDateLabel(benchmark.currentNAVs?.date))}</small></div><div class="benchmark-compact-note">Indicative comparison. Portfolio and benchmark valuation dates currently differ by one day.</div></section>` : '';
+  const benchmarkPanel = benchmark ? `<section class="benchmark-compact"><div class="benchmark-intro"><span>Return comparison</span><strong>Portfolio vs benchmark</strong><small>Reference: 60% VWCE · 40% AGGH</small></div><div class="benchmark-result"><span>Rossi portfolio</span><strong>${signedPercent(modelReturn)}</strong><small>Since inception · ${inceptionDate?e(tableDateLabel(inceptionDate)):'—'}</small></div><div class="benchmark-result"><span>Reference benchmark</span><strong>${signedPercent(benchmarkReturn)}</strong><small>Same capital deployment dates</small></div><div class="benchmark-compact-note">Indicative comparison using matched capital deployment dates.</div></section>` : '';
   const liquidityTotal = related.liquidity.reduce((sum,row)=>sum+row.marketValue,0);
   const liquidityOverview = `<section class="panel">${sectionTitle('LIQUIDITY INVESTMENTS','Tier 2 · Tier 3',`${money(reserveInvested,c.currency,true)} invested reserve`)}<div class="external-liquidity-note"><strong>Tier 2 and Tier 3 belong to the family liquidity reserve, remain external to the €5m public-markets portfolio and are excluded from public portfolio NAV. Tier 1 operational bank cash is shown only in Overview.</strong></div><div class="tier-grid">${[2,3].map(tier=>{const members=related.liquidity.filter(row=>liquidityTier(row)===tier);const subtotal=members.reduce((sum,row)=>sum+row.marketValue,0);return `<article class="tier-card"><div class="tier-heading"><h3>Tier ${tier}</h3><strong>${money(subtotal,c.currency,true)}</strong></div><ul class="tier-list">${members.map(row=>`<li><span>${e(row.asset)}<small>${e(row.ticker||row.currency)}</small></span><strong>${money(row.marketValue,c.currency)}</strong></li>`).join('')}</ul></article>`;}).join('')}</div></section>`;
   const closedRows = related.closedPositions || [];
@@ -2907,9 +3127,33 @@ function investments(c, related) {
 }
 
 function alternatives(c, related) {
-  const categories = ['Real estate','Private equity','Private credit','Infrastructure','Other alternatives'];
-  const extra = related.alternatives.map(r=>r.category).filter(x=>!categories.includes(x));
-  return `<div class="section-intro"><p class="eyebrow">BEYOND PUBLIC MARKETS</p><h2>Alternative investments</h2><p>Longer-term capital, considered alongside liquidity and concentration.</p></div><div class="alternative-grid">${[...new Set([...categories,...extra])].map((category,index)=>{const rows = related.alternatives.filter(r=>r.category===category);return `<section class="panel alternative-card"><div class="alternative-heading"><span class="case-number">${String(index+1).padStart(2,'0')}</span><h3>${e(category)}</h3></div>${rows.length ? rows.map(r=>`<div class="alternative-holding"><div class="holding-heading"><h4>${e(r.name)}</h4>${badge(r.status)}</div><strong class="alternative-value">${money(r.marketValue,c.currency,true)} <small>${percent(r.marketValue/c.investableAssets*100)} of portfolio</small></strong><p>${e(r.thesis)}</p><dl><div><dt>Liquidity</dt><dd>${e(r.liquidity)}</dd></div><div><dt>Geography / denomination</dt><dd>${e(r.geography)} / ${e(r.currency)}</dd></div></dl></div>`).join('') : empty('No allocation in this case.')}</section>`;}).join('')}</div><p class="method-note">All vehicles are fictional. Values are illustrative and expressed in ${e(c.currency)}. Capital calls, valuation uncertainty, leverage and limited exit options require assessment before any real-world allocation.</p>`;
+  const model = dataset.alternativesModel;
+  if (!model || model.clientId !== c.id) return `<div class="section-intro"><p class="eyebrow">BEYOND PUBLIC MARKETS</p><h2>Alternative investments</h2><p>Longer-term capital, considered alongside liquidity and concentration.</p></div>${empty('The Alternatives model file has not been published yet.')}`;
+  const actual = model.actual || {};
+  const investments = Array.isArray(model.investments) ? model.investments : [];
+  const actualNav = optionalNumber(actual.nav);
+  const actualCommitment = optionalNumber(actual.commitment) || 0;
+  const capitalCalled = optionalNumber(actual.capitalCalled) || 0;
+  const executedCount = investments.filter(row=>/executed/i.test(String(row.investmentStatus||''))&&!/not.executed/i.test(String(row.investmentStatus||''))).length;
+  const amountBars = items => `<div class="bars">${items.map(item=>`<div class="bar-row"><div><span><i style="background:${colourFor(item.label)}"></i>${e(item.label)}</span><strong>${percent(item.weight)}</strong></div><div class="bar-track"><span style="width:${Math.max(0,Math.min(100,item.weight))}%;background:${colourFor(item.label)}"></span></div></div>`).join('')}</div>`;
+  const waveRows = (model.deploymentWaves||[]).map(row=>`<div class="alt-wave-row"><span>${e(row.year)}</span><div class="alt-wave-track"><i style="width:${Number(row.weight)}%"></i></div><strong>${money(row.amount,c.currency,true)}</strong></div>`).join('');
+  const classTargets = model.assetClassTargets || [];
+  const geoTargets = model.geographicMandates || [];
+  const structures = model.structureMix || [];
+  const managerTotals = new Map();
+  investments.forEach(row=>managerTotals.set(row.manager,(managerTotals.get(row.manager)||0)+Number(row.target||0)));
+  const largestManager = [...managerTotals.entries()].sort((a,b)=>b[1]-a[1])[0] || ['—',0];
+  const largestLine = [...investments].sort((a,b)=>Number(b.target)-Number(a.target))[0];
+  const closedEnd = structures.find(row=>/closed-end/i.test(row.label));
+  const tableRows = investments.map(row=>`<tr><td><strong>${e(row.fund)}</strong><small>${e(row.manager)} · ${e(row.id)}</small></td><td><strong>${e(row.assetClass)}</strong><small>${e(row.sleeve)}</small></td><td>${e(row.structure)}<small>${e(row.access)}</small></td><td>${e(row.geography)}</td><td>${e(row.currency)}<small>${e(row.reference)}</small></td><td>${e(row.wave)}</td><td class="numeric"><strong>${money(row.target,c.currency)}</strong><small>${percent(row.weight)}</small></td><td><span class="alt-state">${e(row.status)}</span></td></tr>`).join('');
+  return `<div class="section-intro"><p class="eyebrow">BEYOND PUBLIC MARKETS</p><h2>Alternatives portfolio</h2><p>Strategic model, deployment plan and due-diligence status for the family’s €5m alternatives mandate.</p></div>
+  <div class="alt-status-banner"><div><strong>Proposed target allocation — not current holdings</strong><p>No subscription, capital call, distribution or independently verified NAV has been recorded.</p></div><span>Model proposal</span></div>
+  <div class="alt-kpis"><div><span>Model budget</span><strong>${money(model.modelBudget,c.currency,true)}</strong><small>100% assigned across five sleeves</small></div><div><span>Selected lines</span><strong>${investments.length}</strong><small>${executedCount} executed · ${investments.length-executedCount} proposed</small></div><div><span>Actual commitment</span><strong>${money(actualCommitment,c.currency)}</strong><small>${capitalCalled?`${money(capitalCalled,c.currency)} called`:'No subscriptions executed'}</small></div><div><span>Actual NAV</span><strong>${actualNav===null?'—':money(actualNav,c.currency)}</strong><small>${actualNav===null?'Available after verified valuations':'Verified reporting value'}</small></div></div>
+  <div class="alt-dashboard-grid"><section class="panel">${sectionTitle('STRATEGIC ALLOCATION','Target by asset class','€5m proposed model')}${donut(classTargets.map(row=>({label:row.label,value:row.weight})),'€5m','MODEL BUDGET')}<p class="alt-chart-note">Weights are proposed targets from the Final Model sheet. They are not invested amounts or current market values.</p></section><section class="panel">${sectionTitle('IMPLEMENTATION','Deployment plan','Indicative sequencing')}<div class="alt-mini-section"><h3>Deployment wave</h3>${waveRows}</div><div class="alt-mini-section"><h3>Vehicle structure</h3>${amountBars(structures)}</div><p class="alt-chart-note">Deployment years are planning assumptions. Closed-end access remains conditional on an available primary or secondary transaction.</p></section></div>
+  <section class="panel">${sectionTitle('GEOGRAPHIC MANDATE','Indicative geographic orientation','Mandate labels · not underlying look-through')}${amountBars(geoTargets)}<p class="alt-chart-note">This view classifies each proposed line by its stated mandate. It is not a portfolio-company look-through; “Global / mixed” remains separate until manager data are available.</p><div class="alt-design-grid"><div class="alt-design-stat"><span>Largest proposed line</span><strong>${largestLine?`${e(largestLine.manager)} · ${percent(largestLine.weight)}`:'—'}</strong><small>${largestLine?money(largestLine.target,c.currency):'—'}</small></div><div class="alt-design-stat"><span>Largest manager exposure</span><strong>${e(largestManager[0])} · ${percent(largestManager[1]/model.modelBudget*100)}</strong><small>${money(largestManager[1],c.currency)}</small></div><div class="alt-design-stat"><span>Indicative closed-end access</span><strong>${closedEnd?percent(closedEnd.weight):'—'}</strong><small>${closedEnd?money(closedEnd.amount,c.currency):'—'} · execution not confirmed</small></div></div></section>
+  <section class="panel"><div class="alt-table-head"><div><p class="eyebrow">PROPOSED INVESTMENT LINES</p><h2>Fund selection model</h2></div><p>Target amounts only. Share class, eligibility, minimum ticket, pricing and access must be verified before execution.</p></div><div class="table-scroll" role="region" aria-label="Proposed alternatives investment lines. Scroll horizontally for all columns." tabindex="0"><table class="alt-table"><thead><tr><th>Fund / manager</th><th>Asset class / sleeve</th><th>Structure / access</th><th>Geography</th><th>Currency / reference</th><th>Wave</th><th class="numeric">Target</th><th>Due diligence</th></tr></thead><tbody>${tableRows}</tbody></table></div></section>
+  <details class="alt-accounting"><summary><strong>Future fund reporting metrics</strong><span>Commitment · called capital · distributions · NAV · DPI · RVPI · TVPI · XIRR</span></summary><div class="alt-accounting-body"><ul><li>Commitment and capital calls will be populated only from executed subscriptions and dated cash movements.</li><li>DPI, RVPI and TVPI apply to private-fund accounting; they will not be shown for UCITS liquid alternatives.</li><li>XIRR will remain blank until complete dated cash flows and a reliable valuation date exist.</li><li>Target allocation will remain separate from actual holdings, NAV and performance.</li></ul></div></details>
+  <p class="method-note">Source: Asset Allocation Rossi — Alternatives Final Model, Fund Reporting and Cash Flows, reviewed ${e(tableDateLabel(model._meta?.reviewDate||''))}. Reporting currency EUR. Geographic figures describe investment mandates rather than verified underlying exposures. This is a fictional model portfolio and not an execution instruction.</p>`;
 }
 
 function taxStatus(value, labels) {
